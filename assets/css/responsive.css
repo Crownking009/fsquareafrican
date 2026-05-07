@@ -945,6 +945,7 @@
     display: none !important;
   }
   .navbar-option-cart.mobile-block,
+  .navbar-option-wishlist.mobile-block,
   .navbar-option-order.mobile-block {
     display: block !important;
   }

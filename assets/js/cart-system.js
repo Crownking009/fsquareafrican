@@ -31,8 +31,16 @@ jQuery(function ($) {
         $(document).on("click", ".productCart", function (e) {
             e.preventDefault();
             renderCartModal();
-            $(".cart-modal-wrapper").addClass("active");
-            $(".cart-modal").addClass("active");
+            openCartModal();
+        });
+        $(document).on("click", ".cart-modal-close", function (e) {
+            e.preventDefault();
+            closeCartModal();
+        });
+        $(document).on("click", ".cart-modal-wrapper", function (e) {
+            if ($(e.target).is(".cart-modal-wrapper")) {
+                closeCartModal();
+            }
         });
         $(document).on("click", ".cart-modal-delete a", handleModalDelete);
         $(document).on("click", ".cart-remove-item", handleCartPageDelete);
@@ -52,6 +60,21 @@ jQuery(function ($) {
                 renderAll();
             }
         });
+        $(document).on("keydown", function (event) {
+            if (event.key === "Escape") {
+                closeCartModal();
+            }
+        });
+    }
+
+    function openCartModal() {
+        $(".cart-modal-wrapper").addClass("active");
+        $(".cart-modal").addClass("active");
+    }
+
+    function closeCartModal() {
+        $(".cart-modal-wrapper").removeClass("active");
+        $(".cart-modal").removeClass("active");
     }
 
     function loadState() {
@@ -296,14 +319,38 @@ jQuery(function ($) {
         modalBody.html([
             '<h2 class="color-white">My Order</h2>',
             state.items.map(buildModalItemMarkup).join(""),
-            '<div class="cart-modal-total">',
-            "<p>Total</p>",
-            "<h3>" + escapeHtml(formatCurrency(totals.total)) + "</h3>",
-            "</div>",
+            buildCartModalTotalsMarkup(totals),
             '<div class="cart-modal-button">',
             '<a href="cart.html" class="btn btn-yellow full-width">View Shopping Cart</a>',
             "</div>"
         ].join(""));
+    }
+
+    function buildCartModalTotalsMarkup(totals) {
+        var lines = ['<div class="cart-modal-summary">'];
+
+        if (totals.deliveryFee > 0) {
+            lines.push(
+                '<div class="cart-modal-summary-line">',
+                "<p>Items Price</p>",
+                "<p>" + escapeHtml(formatCurrency(totals.subtotal)) + "</p>",
+                "</div>",
+                '<div class="cart-modal-summary-line">',
+                "<p>Delivery Fee</p>",
+                "<p>" + escapeHtml(formatCurrency(totals.deliveryFee)) + "</p>",
+                "</div>"
+            );
+        }
+
+        lines.push(
+            '<div class="cart-modal-total">',
+            "<p>Total</p>",
+            "<h3>" + escapeHtml(formatCurrency(totals.total)) + "</h3>",
+            "</div>",
+            "</div>"
+        );
+
+        return lines.join("");
     }
 
     function buildModalItemMarkup(item) {

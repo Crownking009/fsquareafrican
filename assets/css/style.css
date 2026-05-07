@@ -5584,12 +5584,20 @@ textarea.form-control {
   visibility: visible;
 }
 
+.receipe-cart a.wishlist-trigger-active {
+  color: #fff;
+}
+
 .receipe-cart.receipe-cart-main {
   background-color: #E7272D;
 }
 
 .receipe-cart.receipe-cart-main a {
   color: #fff;
+}
+
+.receipe-cart.receipe-cart-main a.wishlist-trigger-active {
+  color: #FFCC00;
 }
 
 .receipe-grid-item {
@@ -7556,6 +7564,16 @@ textarea.form-control {
           transition-delay: 0.2s !important;
 }
 
+.product-card-button .btn.wishlist-trigger-active {
+  background-color: #fff;
+  color: #E7272D;
+}
+
+.product-card-button .btn.wishlist-trigger-active:hover {
+  background-color: #fff;
+  color: #E7272D;
+}
+
 .menu-main-details-for .product-card {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -7893,6 +7911,10 @@ textarea.form-control {
   color: #E7272D;
 }
 
+.product-add-wishlist a.wishlist-trigger-active {
+  color: #FFCC00;
+}
+
 .product-add-wishlist a i {
   margin-right: 10px;
   font-size: 20px;
@@ -8205,6 +8227,14 @@ textarea.form-control {
 
 .cart-table .cart-empty-state a {
   color: #FFCC00;
+}
+
+.cart-table .wishlist-product-link {
+  color: inherit;
+}
+
+.cart-table .wishlist-product-link:hover {
+  color: #E7272D;
 }
 
 .product-table-info {
@@ -8724,6 +8754,27 @@ textarea.form-control {
   margin-bottom: 20px;
 }
 
+.cart-modal-summary {
+  margin-top: 30px;
+}
+
+.cart-modal-summary-line {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.cart-modal-summary-line p {
+  font-size: 16px;
+  color: #fff;
+  line-height: 1.4;
+  margin-bottom: 0;
+}
+
 .cart-modal-total {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -8731,8 +8782,10 @@ textarea.form-control {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  margin-top: 30px;
+  margin-top: 18px;
   margin-bottom: 15px;
+  padding-top: 15px;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .cart-modal-total h3 {
