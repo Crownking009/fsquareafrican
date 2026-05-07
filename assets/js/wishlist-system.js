@@ -163,10 +163,24 @@ jQuery(function ($) {
     }
 
     function renderAll() {
+        ensureFloatingWhatsAppButton();
         hydrateMobileNavAccountLink();
         updateWishlistBadges();
         updateWishlistTriggers();
         renderWishlistPage();
+    }
+
+    function ensureFloatingWhatsAppButton() {
+        if ($(".floating-whatsapp").length) {
+            return;
+        }
+
+        $("body").append([
+            '<a href="https://wa.me/2349048239391" class="floating-whatsapp" target="_blank" rel="noopener" aria-label="Chat us now on WhatsApp">',
+            '<span class="floating-whatsapp-icon"><i class="icofont-brand-whatsapp"></i></span>',
+            '<span class="floating-whatsapp-text">Chat Us Now</span>',
+            "</a>"
+        ].join(""));
     }
 
     function hydrateMobileNavAccountLink() {

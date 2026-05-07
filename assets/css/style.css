@@ -9073,8 +9073,8 @@ textarea.form-control {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  gap: 10px;
-  padding: 14px 18px;
+  gap: 8px;
+  padding: 11px 14px;
   border-radius: 999px;
   background-color: #25D366;
   color: #fff;
@@ -9095,11 +9095,11 @@ textarea.form-control {
 
 .floating-whatsapp-icon i,
 .floating-whatsapp-icon i:before {
-  font-size: 24px;
+  font-size: 20px;
 }
 
 .floating-whatsapp-text {
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 600;
   line-height: 1;
 }

@@ -1548,15 +1548,15 @@
   .floating-whatsapp {
     right: 15px;
     bottom: 85px;
-    padding: 12px 16px;
-    gap: 8px;
+    padding: 10px 12px;
+    gap: 6px;
   }
   .floating-whatsapp-icon i,
   .floating-whatsapp-icon i:before {
-    font-size: 22px;
+    font-size: 18px;
   }
   .floating-whatsapp-text {
-    font-size: 14px;
+    font-size: 12px;
   }
   .scroll-top-inner span i {
     font-size: 20px;
