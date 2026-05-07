@@ -424,58 +424,15 @@
                                 <th>Total</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td class="cancel"><a href="#"><i class='flaticon-cancel'></i></a></td>
-                                <td>
-                                    <div class="product-table-info">
-                                        <div class="product-table-thumb">
-                                            <img src="assets/images/product-1.png" alt="product">
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="td-product-name">Crispy Chicken Burger</td>
-                                <td>FA-001-001</td>
-                                <td>&#8358;4.50</td>
-                                <td>
-                                    <div class="cart-quantity">
-                                        <button class="qu-btn dec">-</button>
-                                        <input type="text" class="qu-input" value="2">
-                                        <button class="qu-btn inc">+</button>
-                                    </div>
-                                </td>
-                                <td class="td-total-price">&#8358;9.00</td>
-                            </tr>
-                            <tr>
-                                <td class="cancel"><a href="#"><i class='flaticon-cancel'></i></a></td>
-                                <td>
-                                    <div class="product-table-info">
-                                        <div class="product-table-thumb">
-                                            <img src="assets/images/product-4.png" alt="product">
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="td-product-name">Red Sause Pizza</td>
-                                <td>FA-001-002</td>
-                                <td>&#8358;8.00</td>
-                                <td>
-                                    <div class="cart-quantity">
-                                        <button class="qu-btn dec">-</button>
-                                        <input type="text" class="qu-input" value="1">
-                                        <button class="qu-btn inc">+</button>
-                                    </div>
-                                </td>
-                                <td class="td-total-price">&#8358;8.00</td>
-                            </tr>
-                        </tbody>
+                        <tbody id="cart-table-body"></tbody>
                     </table>
                 </div>
                 <div class="row justify-content-between align-items-center mt-30">
                     <div class="col-sm-12 col-md-7 col-lg-5">
                         <div class="cart-coupon cart-info-item">
-                            <form>
+                            <form id="cart-coupon-form">
                                 <div class="form-group">
-                                    <input type="email" class="form-control" placeholder="Enter Coupon Code">
+                                    <input type="text" class="form-control" id="cart-coupon-input" placeholder="Enter Coupon Code">
                                     <button class="btn">Apply Coupon</button>
                                   </div>
                             </form>
@@ -483,7 +440,7 @@
                     </div>
                     <div class="col-sm-12 col-md-4 col-lg-3">
                         <div class="cart-update cart-info-item">
-                            <a href="#" class="btn full-width">
+                            <a href="#" class="btn full-width" id="cart-update-button">
                                 Update Cart
                             </a>
                         </div>
@@ -496,38 +453,68 @@
                             <div class="cart-total-box">
                                 <div class="cart-total-item">
                                     <h4>Sub Total</h4>
-                                    <p>&#8358; 45</p>
+                                    <p id="cart-subtotal">₦0.00</p>
                                 </div>
                                 <div class="cart-total-item">
-                                    <h4>Shipping</h4>
+                                    <h4>Order Option</h4>
                                     <div class="cart-total-checkarea">
                                         <div class="cart-checkarea-item">
                                             <div class="cart-check-box">
-                                                <input type="radio" name="ship" id="cart1">
-                                                <label for="cart1">Flat Rate</label>
+                                                <input type="radio" name="order-type" id="cart-order-takeaway" value="takeaway">
+                                                <label for="cart-order-takeaway">Take Away</label>
                                             </div>
                                         </div>
                                         <div class="cart-checkarea-item">
                                             <div class="cart-check-box">
-                                                <input type="radio" name="ship" id="cart2">
-                                                <label for="cart2">Express Delivery</label>
+                                                <input type="radio" name="order-type" id="cart-order-dinein" value="dinein">
+                                                <label for="cart-order-dinein">Dine In</label>
                                             </div>
-                                            <p>&#8358; 15</p>
                                         </div>
                                         <div class="cart-checkarea-item">
                                             <div class="cart-check-box">
-                                                <input type="radio" name="ship" id="cart3">
-                                                <label for="cart3">In-Stock Pick up</label>
+                                                <input type="radio" name="order-type" id="cart-order-delivery" value="delivery">
+                                                <label for="cart-order-delivery">Delivery</label>
+                                            </div>
+                                            <p>₦3,000</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="cart-total-item" id="cart-delivery-fields" hidden>
+                                    <div class="w-100">
+                                        <div class="row">
+                                            <div class="col-12 mb-20">
+                                                <div class="input-group">
+                                                    <textarea class="form-control" id="delivery-address" rows="4" placeholder="Delivery Address"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-6 mb-20">
+                                                <div class="input-group">
+                                                    <input class="form-control" id="delivery-phone" type="tel" placeholder="Phone Number">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-6 mb-20">
+                                                <div class="input-group">
+                                                    <input class="form-control" id="delivery-location" type="text" placeholder="Location / Landmark">
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                <div class="cart-total-item" id="cart-discount-row" hidden>
+                                    <h4>Discount</h4>
+                                    <p id="cart-discount">₦0.00</p>
+                                </div>
+                                <div class="cart-total-item">
+                                    <h4>Delivery Fee</h4>
+                                    <p id="cart-delivery-fee">₦0.00</p>
+                                </div>
                                 <div class="cart-total-item cart-total-bold">
                                     <h4 class="color-white">Total</h4>
-                                    <p>&#8358; 45</p>
+                                    <p id="cart-total">₦0.00</p>
                                 </div>
                             </div>
-                            <a href="checkout.html" class="btn">Proceed To Checkout</a>
+                            <p class="color-white mt-20 mb-20" id="cart-status-note">Select your order option to continue.</p>
+                            <a href="#" class="btn disabled" id="cart-checkout-button" aria-disabled="true">Proceed To Checkout</a>
                         </div>
                     </div>
                 </div>
@@ -710,12 +697,10 @@
                         <h3>&#8358;8.0</h3>
                     </div>
                     <div class="cart-modal-button">
-                        <a href="checkout.html" class="btn full-width">Proceed To Checkout</a>
                         <a href="cart.html" class="btn btn-yellow full-width">View Shopping Cart</a>
                     </div>
                     <!-- The commented content in below is currently used "display: none". If no data is in the modal, just add "active" class with it and hide rest of the data. -->
                     <!-- <div class="modal-no-data">
-                        <img src="assets/images/empty-shopping-basket.png" alt="empty">
                         <h3>No Data Available</h3>
                     </div> -->
                 </div>
@@ -768,6 +753,7 @@
         <script src="assets/js/jquery.meanmenu.min.js"></script>
         <!-- main js -->
         <script src="assets/js/script.js"></script>
+        <script src="assets/js/cart-system.js"></script>
     </body>
 
 </html>

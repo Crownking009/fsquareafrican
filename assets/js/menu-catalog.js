@@ -160,12 +160,16 @@ jQuery(function ($) {
             category: category,
             price: safeNumber(safeProduct.price),
             comparePrice: safeNumber(safeProduct.comparePrice),
+            stock: Math.max(0, Math.round(safeNumber(safeProduct.stock))),
+            sku: String(safeProduct.sku || "").trim(),
             status: normalizeStatus(safeProduct.status),
             featured: Boolean(safeProduct.featured),
             description: String(safeProduct.description || "").trim(),
             image: String(safeProduct.image || "").trim() || "assets/images/product-1.png",
             alt: String(safeProduct.alt || name).trim() || name,
             updatedAt: safeProduct.updatedAt || safeProduct.createdAt || "",
+            servingMode: normalizeServingMode(safeProduct.servingMode, category),
+            servingOptions: normalizeServingOptions(safeProduct.servingOptions, safeProduct.servingMode, category),
             tags: normalizeTags(safeProduct.tags)
         };
     }
@@ -185,6 +189,85 @@ jQuery(function ($) {
         return String(tags || "").split(",").map(function (tag) {
             return tag.trim();
         }).filter(Boolean);
+    }
+
+    function normalizeServingMode(mode, category) {
+        var requestedMode = String(mode || "").trim().toLowerCase();
+        var inferredMode = inferServingMode(category);
+        var allowedModes = [
+            "single",
+            "portion",
+            "half-full-portion",
+            "plate",
+            "bowl",
+            "piece",
+            "pack",
+            "cup",
+            "bottle",
+            "tray",
+            "small-medium-large",
+            "small-large",
+            "regular-large",
+            "custom"
+        ];
+
+        return allowedModes.indexOf(requestedMode) !== -1 ? requestedMode : inferredMode;
+    }
+
+    function inferServingMode(category) {
+        var safeCategory = String(category || "").trim().toLowerCase();
+        var categoryMap = {
+            pizza: "small-medium-large",
+            burger: "single",
+            sandwich: "single",
+            shake: "small-medium-large",
+            "ice cream": "cup",
+            dessert: "portion",
+            swallows: "portion",
+            soups: "portion",
+            "rice dishes": "portion",
+            "small chops": "pack",
+            proteins: "piece",
+            "pepper soups": "bowl",
+            beans: "portion",
+            porridges: "bowl",
+            "snacks and pastries": "piece",
+            "local beverages": "bottle",
+            "sides and extra": "portion"
+        };
+
+        return categoryMap[safeCategory] || "single";
+    }
+
+    function normalizeServingOptions(options, mode, category) {
+        var normalizedMode = normalizeServingMode(mode, category);
+        var list = Array.isArray(options) ? options : String(options || "").split(",");
+        var normalized = list.map(function (option) {
+            return String(option || "").replace(/\s+/g, " ").trim();
+        }).filter(Boolean);
+
+        if (normalized.length) {
+            return normalized;
+        }
+
+        var defaults = {
+            single: ["Standard Order"],
+            portion: ["Portion"],
+            "half-full-portion": ["Half Portion", "Full Portion"],
+            plate: ["Plate"],
+            bowl: ["Bowl"],
+            piece: ["1 Piece"],
+            pack: ["Pack"],
+            cup: ["Cup"],
+            bottle: ["Bottle"],
+            tray: ["Tray"],
+            "small-medium-large": ["Small", "Medium", "Large"],
+            "small-large": ["Small", "Large"],
+            "regular-large": ["Regular", "Large"],
+            custom: ["Custom Order"]
+        };
+
+        return defaults[normalizedMode] || ["Standard Order"];
     }
 
     function normalizeCategoryName(category) {
@@ -297,28 +380,31 @@ jQuery(function ($) {
 
     function buildProductCardMarkup(product) {
         var isSoldOut = product.status === "sold-out";
+        var detailsUrl = buildProductDetailsUrl(product);
         var primaryAction = isSoldOut
             ? '<a href="javascript:void(0)" class="btn" aria-disabled="true" tabindex="-1">Sold Out</a>'
-            : '<a href="cart.html" class="btn btn-yellow">Add To Cart</a>';
+            : '<a href="cart.html" class="btn btn-yellow add-to-cart-trigger" data-cart-product-id="' + escapeAttribute(product.id) + '" data-cart-name="' + escapeAttribute(product.name) + '" data-cart-sku="' + escapeAttribute(product.sku || product.id) + '" data-cart-price="' + escapeAttribute(String(product.price)) + '" data-cart-image="' + escapeAttribute(product.image) + '" data-cart-alt="' + escapeAttribute(product.alt || product.name) + '" data-cart-stock="' + escapeAttribute(String(product.stock)) + '" data-cart-option="' + escapeAttribute((product.servingOptions[0] || "Standard Order")) + '" data-cart-serving-mode="' + escapeAttribute(product.servingMode || "single") + '" data-cart-details-url="' + escapeAttribute(detailsUrl) + '">Add To Cart</a>';
 
         return [
             '<div class="col-6 col-md-6 col-lg-4" data-menu-category="', escapeAttribute(slugify(product.category)), '">',
             '<div class="product-card product-card-dark h-100">',
+            '<a class="product-card-surface" href="', escapeAttribute(detailsUrl), '" data-product-id="', escapeAttribute(product.id), '">',
             '<div class="product-card-thumb">',
             '<div class="product-card-thumb-inner" style="aspect-ratio:1 / 1; padding:20px; display:grid; place-items:center;">',
             '<img src="', escapeAttribute(product.image), '" alt="', escapeAttribute(product.alt || product.name), '" style="width:100%; height:100%; object-fit:cover; border-radius:10px;">',
-            '<div class="product-card-button">',
-            primaryAction,
-            '<a href="wishlist.html" class="btn">Wishlist</a>',
-            "</div>",
             "</div>",
             "</div>",
             '<div class="product-card-content">',
-            '<h3><a href="shop-details.html">', escapeHtml(product.name), "</a></h3>",
+            "<h3>", escapeHtml(product.name), "</h3>",
             "<p>", escapeHtml(product.description || "Freshly prepared and ready to order."), "</p>",
             '<h4 class="product-price">', escapeHtml(formatCurrency(product.price)),
             product.comparePrice > 0 ? " <del>" + escapeHtml(formatCurrency(product.comparePrice)) + "</del>" : "",
             "</h4>",
+            "</div>",
+            "</a>",
+            '<div class="product-card-button">',
+            primaryAction,
+            '<a href="wishlist.html" class="btn">Wishlist</a>',
             "</div>",
             "</div>",
             "</div>"
@@ -653,6 +739,10 @@ jQuery(function ($) {
                 product.updatedAt
             ].join("|");
         }).join("||");
+    }
+
+    function buildProductDetailsUrl(product) {
+        return "shop-details.html?product=" + encodeURIComponent(product.id || "");
     }
 
     function escapeHtml(value) {

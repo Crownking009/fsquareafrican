@@ -414,7 +414,7 @@
                     <div class="col-sm-12 col-md-12 col-lg-5 pb-30">
                         <div class="product-details-item">
                             <div class="product-details-slider">
-                                <div class="product-details-for popup-gallery">
+                                <div class="product-details-for popup-gallery" id="product-gallery-for">
                                     <div class="product-for-item">
                                         <a href="assets/images/product-1.png"><img src="assets/images/product-1.png" alt="product"></a>
                                     </div>
@@ -425,7 +425,7 @@
                                         <a href="assets/images/product-1.png"><img src="assets/images/product-1.png" alt="product"></a>
                                     </div>
                                 </div>
-                                <div class="product-details-nav">
+                                <div class="product-details-nav" id="product-gallery-nav">
                                     <div class="product-nav-item">
                                         <div class="product-nav-item-inner">
                                             <img src="assets/images/product-1.png" alt="product">
@@ -448,30 +448,30 @@
                     <div class="col-sm-12 col-md-12 col-lg-6 pb-30">
                         <div class="product-details-item">
                             <div class="product-details-caption">
-                                <div class="product-status product-status-danger mb-20">
+                                <div class="product-status product-status-danger mb-20" id="product-detail-status">
                                     New
                                 </div>
-                                <h3 class="mb-20 color-white">Crispy Chicken Burger</h3>
-                                <h4 class="mb-20 product-id">Id: FA-001-002</h4>
+                                <h3 class="mb-20 color-white" id="product-detail-name">Crispy Chicken Burger</h3>
+                                <h4 class="mb-20 product-id" id="product-detail-id">Id: FA-001-002</h4>
                                 <div class="review-star mb-20">
-                                    <ul>
+                                    <ul id="product-detail-review-stars">
                                         <li class="full-star"><i class="flaticon-star-1"></i></li>
                                         <li class="full-star"><i class="flaticon-star-1"></i></li>
                                         <li class="full-star"><i class="flaticon-star-1"></i></li>
                                         <li class="full-star"><i class="flaticon-star-1"></i></li>
                                         <li class="full-star"><i class="flaticon-star-2"></i></li>
                                     </ul>
-                                    <p>(4 Reviews)</p>
+                                    <p id="product-detail-review-count">(4 Reviews)</p>
                                 </div>
-                                <div class="product-details-price mb-20">
+                                <div class="product-details-price mb-20" id="product-detail-price">
                                     <h4>&#8358; 4.50</h4>
                                 </div>
                                 <div class="product-details-para mb-20">
-                                    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy hendrerit vitae. Vivamus vel erat tortor. Nulla facili hendr erit vitae. Vivamus vel erat tortor.</p>
+                                    <p id="product-detail-summary">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy hendrerit vitae. Vivamus vel erat tortor. Nulla facili hendr erit vitae. Vivamus vel erat tortor.</p>
                                 </div>
                                 <div class="product-action-info mb-20">
-                                    <h4>Sizes:</h4>
-                                    <ul class="product-size-list">
+                                    <h4 id="product-detail-serving-title">Sizes:</h4>
+                                    <ul class="product-size-list" id="product-detail-serving-options">
                                         <li class="active">Small</li>
                                         <li>Medium</li>
                                         <li>Large</li>
@@ -480,7 +480,7 @@
                                 <div class="product-action-info mb-20">
                                     <div class="d-flex flex-wrap align-items-center
                                     product-quantity">
-                                        <button class="btn btn-icon product-quantity-item">
+                                        <button class="btn btn-icon product-quantity-item" id="product-detail-cart-button">
                                             Add To Cart
                                             <i class="flaticon-shopping-cart-black-shape"></i>
                                         </button>
@@ -493,7 +493,7 @@
                                 </div>
                                 <div class="product-action-info">
                                     <div class="product-add-wishlist">
-                                        <a href="#"><i class="flaticon-heart"></i>Add To Wishlist</a>
+                                        <a href="#" id="product-detail-wishlist-link"><i class="flaticon-heart"></i>Add To Wishlist</a>
                                     </div>
                                 </div>
                             </div>
@@ -503,17 +503,17 @@
                 <div class="product-details-tab below-border">
                     <ul class="product-details-tab-list">
                         <li class="active" data-product-tab-list="1">Description</li>
-                        <li data-product-tab-list="2">Reviews <span>(2)</span></li>
+                        <li data-product-tab-list="2">Reviews <span id="product-detail-review-tab-count">(2)</span></li>
                     </ul>
                     <div class="product-tab-information">
                         <div class="product-tab-information-item active" data-product-details-tab="1">
-                            <div class="product-description mb-30">
+                            <div class="product-description mb-30" id="product-detail-description">
                                 <p>Nam tristique porta ligula, vel viverra sem eleifend nec. Nulla sed purus augue, eu euism od tellus. Nam mattis eros nec mi sag ittis sagittis. Vestibulum suscipit cursus bibendum. Integer at justo eget sem auctor auctor eget vitae arcu. Nam tempor mal esuada portti tor. Nulla quis dignissim ipsum. Aliquam pulvinar iaculis justo, sit amet interdum sem hendrerit vitae. Vivamus vel erat tortor. Nulla facilisi. In nulla quam, lacinia eu aliquam ac, aliquam in nisl.</p>
                                 <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor.</p>
                             </div>
                         </div>
                         <div class="product-tab-information-item" data-product-details-tab="2">
-                            <div class="product-review-list">
+                            <div class="product-review-list" id="product-detail-review-list">
                                 <div class="testimonial-carousel-item bg-main product-review-item">
                                     <p class="carousel-para">The Taste is still in my mouth and I can feel the depth of the taste of the every ingr edients used in the food. I really Love Crenova.</p>
                                     <div class="carousel-info-grid">
@@ -642,7 +642,7 @@
                     <div class="sub-section-title">
                         <h3 class="color-white">Related Items</h3>
                     </div>
-                    <div class="receipe-grid receipe-grid-three">
+                    <div class="receipe-grid receipe-grid-three" id="related-products-grid">
                         <div class="receipe-item receipe-item-black pb-30">
                             <div class="receipe-item-inner">
                                 <div class="receipe-image">
@@ -943,7 +943,6 @@
                     </div>
                     <!-- The commented content in below is currently used "display: none". If no data is in the modal, just add "active" class with it and hide rest of the data. -->
                     <!-- <div class="modal-no-data">
-                        <img src="assets/images/empty-shopping-basket.png" alt="empty">
                         <h3>No Data Available</h3>
                     </div> -->
                 </div>
@@ -996,6 +995,8 @@
         <script src="assets/js/jquery.meanmenu.min.js"></script>
         <!-- main js -->
         <script src="assets/js/script.js"></script>
+        <script src="assets/js/shop-details-catalog.js"></script>
+        <script src="assets/js/cart-system.js"></script>
     </body>
 
 </html>

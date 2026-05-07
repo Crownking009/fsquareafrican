@@ -941,6 +941,13 @@
   .navbar-option-search .dropdown-menu[style] {
     right: -50px !important;
   }
+  .navbar-option-dots {
+    display: none !important;
+  }
+  .navbar-option-cart.mobile-block,
+  .navbar-option-order.mobile-block {
+    display: block !important;
+  }
   .header-bg .tp-bullets {
     -webkit-transform: translate(0, -55px) !important;
             transform: translate(0, -55px) !important;

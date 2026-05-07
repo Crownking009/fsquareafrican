@@ -937,8 +937,9 @@
                                 </div>
                                 <div class="admin-field">
                                     <label for="product-category">Category</label>
-                                    <input class="form-control" id="product-category" type="text" list="product-category-list" placeholder="Select or type a category" required>
-                                    <datalist id="product-category-list"></datalist>
+                                    <select class="form-select" id="product-category" required></select>
+                                    <input class="form-control mt-2" id="product-category-custom" type="text" placeholder="Type a new category name" hidden>
+                                    <p class="admin-microcopy mt-2 mb-0">Pick an existing category or choose "Add New Category".</p>
                                 </div>
                             </div>
 
@@ -971,6 +972,18 @@
 
                             <div class="admin-form-grid">
                                 <div class="admin-field">
+                                    <label for="product-serving-mode">Sold As</label>
+                                    <select class="form-select" id="product-serving-mode"></select>
+                                </div>
+                                <div class="admin-field">
+                                    <label for="product-serving-options">Serving Options</label>
+                                    <input class="form-control" id="product-serving-options" type="text" placeholder="Ex: Half Portion, Full Portion">
+                                    <p class="admin-microcopy mt-2 mb-0" id="product-serving-helper">Choose how this product is sold. You can keep the preset options or type custom ones separated by commas.</p>
+                                </div>
+                            </div>
+
+                            <div class="admin-form-grid">
+                                <div class="admin-field">
                                     <label for="product-sku">SKU</label>
                                     <input class="form-control" id="product-sku" type="text" placeholder="Auto-generated if left empty">
                                 </div>
@@ -983,6 +996,16 @@
                             <div class="admin-field">
                                 <label for="product-description">Description</label>
                                 <textarea class="form-control" id="product-description" placeholder="Write a product description for the catalog card"></textarea>
+                            </div>
+
+                            <div class="admin-image-grid">
+                                <div class="admin-field">
+                                    <label for="product-image-preset">Image Preset</label>
+                                    <select class="form-select" id="product-image-preset">
+                                        <option value="">Custom Image Path or Upload</option>
+                                    </select>
+                                    <p class="admin-microcopy mt-2 mb-0">Use a common project asset quickly, or keep a custom path/data URL below.</p>
+                                </div>
                             </div>
 
                             <div class="admin-image-grid">
@@ -1056,6 +1079,7 @@
                                 </div>
                                 <h3 id="preview-name">New Product</h3>
                                 <p class="admin-label-muted mb-2" id="preview-sku">SKU: AUTO</p>
+                                <p class="admin-label-muted mb-2" id="preview-serving">Sold as: Standard</p>
                                 <p class="mb-3" id="preview-description">Your product description will appear here as you type.</p>
                                 <div class="admin-preview-price" id="preview-price">₦0.00</div>
                             </div>

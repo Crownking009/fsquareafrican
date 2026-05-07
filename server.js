@@ -53,6 +53,22 @@ const CATEGORY_NAME_MAP = {
   "SIDES & EXTRA": "Sides and Extra",
   "SIDES AND EXTRA": "Sides and Extra"
 };
+const SERVING_MODE_OPTIONS = [
+  { value: "single", options: ["Standard Order"] },
+  { value: "portion", options: ["Portion"] },
+  { value: "half-full-portion", options: ["Half Portion", "Full Portion"] },
+  { value: "plate", options: ["Plate"] },
+  { value: "bowl", options: ["Bowl"] },
+  { value: "piece", options: ["1 Piece"] },
+  { value: "pack", options: ["Pack"] },
+  { value: "cup", options: ["Cup"] },
+  { value: "bottle", options: ["Bottle"] },
+  { value: "tray", options: ["Tray"] },
+  { value: "small-medium-large", options: ["Small", "Medium", "Large"] },
+  { value: "small-large", options: ["Small", "Large"] },
+  { value: "regular-large", options: ["Regular", "Large"] },
+  { value: "custom", options: [] }
+];
 
 const server = http.createServer(async (request, response) => {
   try {
@@ -356,6 +372,7 @@ function normalizeProduct(product) {
   const category = normalizeCategoryName(String(safeProduct.category || "Menu").trim());
   const createdAt = safeProduct.createdAt || new Date().toISOString();
   const updatedAt = safeProduct.updatedAt || createdAt;
+  const servingMode = normalizeServingMode(safeProduct.servingMode, category);
 
   return {
     id: String(safeProduct.id || createId()),
@@ -370,6 +387,8 @@ function normalizeProduct(product) {
     description: String(safeProduct.description || "").trim(),
     image: String(safeProduct.image || "").trim(),
     alt: String(safeProduct.alt || name).trim(),
+    servingMode: servingMode,
+    servingOptions: normalizeServingOptions(safeProduct.servingOptions, servingMode, category),
     tags: normalizeTags(safeProduct.tags),
     createdAt: createdAt,
     updatedAt: updatedAt
@@ -408,6 +427,64 @@ function normalizeCategoryName(category) {
     .filter(Boolean)
     .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
     .join(" ") || "Menu";
+}
+
+function getServingModeConfig(mode) {
+  const safeMode = String(mode || "").trim().toLowerCase();
+  return SERVING_MODE_OPTIONS.find((option) => option.value === safeMode) || SERVING_MODE_OPTIONS[0];
+}
+
+function inferServingMode(category) {
+  const safeCategory = String(category || "").trim().toLowerCase();
+  const categoryMap = {
+    pizza: "small-medium-large",
+    burger: "single",
+    sandwich: "single",
+    shake: "small-medium-large",
+    "ice cream": "cup",
+    dessert: "portion",
+    swallows: "portion",
+    soups: "portion",
+    "rice dishes": "portion",
+    "small chops": "pack",
+    proteins: "piece",
+    "pepper soups": "bowl",
+    beans: "portion",
+    porridges: "bowl",
+    "snacks and pastries": "piece",
+    "local beverages": "bottle",
+    "sides and extra": "portion"
+  };
+
+  return categoryMap[safeCategory] || "single";
+}
+
+function normalizeServingMode(mode, category) {
+  const requestedMode = String(mode || "").trim().toLowerCase();
+  const config = getServingModeConfig(requestedMode);
+  if (requestedMode && config.value === requestedMode) {
+    return config.value;
+  }
+  return inferServingMode(category);
+}
+
+function normalizeServingOptions(options, servingMode, category) {
+  const normalizedMode = normalizeServingMode(servingMode, category);
+  const config = getServingModeConfig(normalizedMode);
+  const list = Array.isArray(options) ? options : String(options || "").split(",");
+  const normalized = list
+    .map((option) => String(option || "").replace(/\s+/g, " ").trim())
+    .filter(Boolean);
+
+  if (normalized.length) {
+    return normalized;
+  }
+
+  if (config.options.length) {
+    return config.options.slice();
+  }
+
+  return ["Custom Order"];
 }
 
 function cleanText(value) {
