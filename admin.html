@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="Foodweb Admin Dashboard">
+    <meta name="keywords" content="Foodweb, Admin, Products, Shared Catalog">
+    <meta name="author" content="Foodweb">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <title>Foodweb Admin Dashboard</title>
+    <link rel="icon" href="assets/images/tab.png" type="image/png" sizes="16x16">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" type="text/css" media="all">
+    <link rel="stylesheet" href="assets/css/icofont.min.css" type="text/css" media="all">
+    <link rel="stylesheet" href="assets/css/flaticon.css" type="text/css" media="all">
+    <link rel="stylesheet" href="assets/css/style.css" type="text/css" media="all">
+    <link rel="stylesheet" href="assets/css/responsive.css" type="text/css" media="all">
+    <style>
+        :root {
+            --admin-bg: #0f1218;
+            --admin-surface: rgba(18, 23, 33, 0.9);
+            --admin-surface-strong: #141a25;
+            --admin-border: rgba(255, 255, 255, 0.08);
+            --admin-text: #edf2f7;
+            --admin-muted: #96a0b5;
+            --admin-primary: #e7272d;
+            --admin-primary-soft: rgba(231, 39, 45, 0.18);
+            --admin-accent: #ffb703;
+            --admin-success: #22c55e;
+            --admin-warning: #f59e0b;
+            --admin-danger: #ef4444;
+        }
+
+        body.admin-dashboard-body {
+            margin: 0;
+            min-height: 100vh;
+            color: var(--admin-text);
+            background:
+                radial-gradient(circle at top left, rgba(231, 39, 45, 0.18), transparent 28%),
+                radial-gradient(circle at top right, rgba(255, 183, 3, 0.14), transparent 24%),
+                linear-gradient(180deg, #10141b 0%, #090c12 100%);
+        }
+
+        .admin-dashboard-shell {
+            display: grid;
+            grid-template-columns: 300px minmax(0, 1fr);
+            min-height: 100vh;
+        }
+
+        .admin-sidebar {
+            position: sticky;
+            top: 0;
+            align-self: start;
+            min-height: 100vh;
+            padding: 32px 24px;
+            background: rgba(8, 10, 15, 0.9);
+            border-right: 1px solid var(--admin-border);
+            backdrop-filter: blur(18px);
+        }
+
+        .admin-brand {
+            display: flex;
+            gap: 14px;
+            align-items: center;
+            margin-bottom: 28px;
+        }
+
+        .admin-brand-badge {
+            width: 52px;
+            height: 52px;
+            display: grid;
+            place-items: center;
+            border-radius: 18px;
+            background: linear-gradient(135deg, var(--admin-primary), #ff6b35);
+            box-shadow: 0 18px 35px rgba(231, 39, 45, 0.28);
+            font-size: 24px;
+        }
+
+        .admin-brand-copy p,
+        .admin-top-copy p,
+        .admin-panel-subtitle,
+        .admin-microcopy,
+        .admin-empty p,
+        .admin-activity-time,
+        .admin-storage-meta,
+        .admin-label-muted {
+            color: var(--admin-muted);
+        }
+
+        .admin-brand-copy p,
+        .admin-top-copy p,
+        .admin-panel-subtitle,
+        .admin-microcopy,
+        .admin-empty p,
+        .admin-storage-meta {
+            margin-bottom: 0;
+        }
+
+        .admin-brand-copy h1,
+        .admin-top-copy h2,
+        .admin-panel-title {
+            margin-bottom: 6px;
+            color: var(--admin-text);
+        }
+
+        .admin-brand-copy h1 {
+            font-size: 1.4rem;
+        }
+
+        .admin-sidebar-card,
+        .admin-panel,
+        .admin-stat-card {
+            border: 1px solid var(--admin-border);
+            border-radius: 24px;
+            background: var(--admin-surface);
+            box-shadow: 0 22px 50px rgba(0, 0, 0, 0.24);
+            backdrop-filter: blur(20px);
+        }
+
+        .admin-sidebar-card {
+            padding: 20px;
+            margin-bottom: 18px;
+        }
+
+        .admin-sidebar-nav {
+            display: grid;
+            gap: 10px;
+        }
+
+        .admin-sidebar-link {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            padding: 12px 14px;
+            border-radius: 16px;
+            color: var(--admin-text);
+            background: rgba(255, 255, 255, 0.03);
+            word-break: break-word;
+        }
+
+        .admin-sidebar-link:hover,
+        .admin-sidebar-link:focus {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .admin-chip-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .admin-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.06);
+            color: var(--admin-text);
+            font-size: 0.9rem;
+        }
+
+        .admin-chip .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--admin-accent);
+        }
+
+        .admin-main {
+            padding: 28px;
+        }
+
+        .admin-topbar {
+            display: flex;
+            gap: 18px;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 24px;
+        }
+
+        .admin-eyebrow {
+            margin-bottom: 10px;
+            font-size: 0.82rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--admin-accent);
+        }
+
+        .admin-top-copy h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+        }
+
+        .admin-action-row,
+        .admin-toolbar,
+        .admin-filter-grid,
+        .admin-bulk-grid,
+        .admin-form-grid,
+        .admin-image-grid,
+        .admin-form-actions,
+        .admin-table-actions,
+        .admin-preview-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .admin-action-row {
+            justify-content: flex-end;
+        }
+
+        .admin-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .admin-stat-card {
+            padding: 18px 18px 16px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .admin-stat-card::after {
+            content: "";
+            position: absolute;
+            inset: auto -22px -22px auto;
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: var(--admin-primary-soft);
+        }
+
+        .admin-stat-label {
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            color: var(--admin-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .admin-stat-value {
+            margin-bottom: 6px;
+            font-size: 2rem;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .admin-stat-helper {
+            position: relative;
+            z-index: 1;
+            font-size: 0.92rem;
+            color: var(--admin-muted);
+        }
+
+        .admin-panel {
+            padding: 22px;
+            height: 100%;
+        }
+
+        .admin-panel-head {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .admin-panel-head > * {
+            min-width: 0;
+        }
+
+        .admin-form-grid > .admin-field,
+        .admin-image-grid > .admin-field {
+            flex: 1 1 220px;
+        }
+
+        .admin-field {
+            margin-bottom: 14px;
+        }
+
+        .admin-field label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--admin-text);
+        }
+
+        .admin-field,
+        .admin-top-copy,
+        .admin-brand-copy,
+        .admin-product-card-copy {
+            min-width: 0;
+        }
+
+        .admin-dashboard-body .form-control,
+        .admin-dashboard-body .form-select,
+        .admin-dashboard-body textarea.form-control {
+            min-height: 52px;
+            color: var(--admin-text);
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.09);
+            border-radius: 16px;
+        }
+
+        .admin-dashboard-body textarea.form-control {
+            min-height: 128px;
+            resize: vertical;
+        }
+
+        .admin-dashboard-body .form-control:focus,
+        .admin-dashboard-body .form-select:focus {
+            color: var(--admin-text);
+            border-color: rgba(255, 183, 3, 0.55);
+            background: rgba(255, 255, 255, 0.06);
+            box-shadow: 0 0 0 0.2rem rgba(255, 183, 3, 0.14);
+        }
+
+        .admin-dashboard-body .form-control::placeholder {
+            color: rgba(237, 242, 247, 0.45);
+        }
+
+        .admin-image-preview {
+            position: relative;
+            min-height: 240px;
+            border: 1px dashed rgba(255, 255, 255, 0.15);
+            border-radius: 24px;
+            overflow: hidden;
+            background:
+                linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01)),
+                #0d1118;
+        }
+
+        .admin-image-preview img {
+            width: 100%;
+            height: 100%;
+            min-height: 240px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .admin-image-preview-empty {
+            position: absolute;
+            inset: 0;
+            display: grid;
+            place-items: center;
+            padding: 20px;
+            text-align: center;
+            color: var(--admin-muted);
+        }
+
+        .admin-preview-card {
+            display: grid;
+            grid-template-columns: 120px minmax(0, 1fr);
+            gap: 16px;
+            align-items: center;
+            padding: 18px;
+            border-radius: 22px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .admin-preview-thumb {
+            width: 120px;
+            height: 120px;
+            border-radius: 20px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .admin-preview-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .admin-preview-price {
+            font-size: 1.45rem;
+            font-weight: 700;
+            color: #fff;
+            overflow-wrap: anywhere;
+        }
+
+        .admin-preview-price del {
+            margin-left: 8px;
+            font-size: 0.95rem;
+            color: var(--admin-muted);
+        }
+
+        .admin-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.07);
+            color: #fff;
+        }
+
+        .admin-badge-primary {
+            background: rgba(231, 39, 45, 0.18);
+            color: #ffbdc0;
+        }
+
+        .admin-badge-warning {
+            background: rgba(245, 158, 11, 0.18);
+            color: #ffd588;
+        }
+
+        .admin-badge-success {
+            background: rgba(34, 197, 94, 0.16);
+            color: #98f3bb;
+        }
+
+        .admin-storage {
+            margin-top: 16px;
+            padding: 14px 16px;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .admin-storage .progress {
+            height: 10px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .admin-storage .progress-bar {
+            background: linear-gradient(90deg, var(--admin-primary), var(--admin-accent));
+        }
+
+        .admin-table-wrap {
+            overflow-x: auto;
+            border-radius: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .admin-table {
+            width: 100%;
+            margin-bottom: 0;
+            color: var(--admin-text);
+            vertical-align: middle;
+        }
+
+        .admin-table thead th {
+            font-size: 0.82rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--admin-muted);
+            border-bottom-color: rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.025);
+        }
+
+        .admin-table td {
+            border-color: rgba(255, 255, 255, 0.06);
+        }
+
+        .admin-row-title {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .admin-row-thumb {
+            width: 58px;
+            height: 58px;
+            flex: 0 0 58px;
+            border-radius: 16px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .admin-row-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .admin-row-name {
+            margin-bottom: 4px;
+            font-weight: 700;
+        }
+
+        .admin-row-meta {
+            font-size: 0.86rem;
+            color: var(--admin-muted);
+        }
+
+        .admin-card-list {
+            display: none;
+            gap: 14px;
+            margin-top: 14px;
+        }
+
+        .admin-product-card {
+            padding: 16px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .admin-product-card-head {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            margin-bottom: 14px;
+        }
+
+        .admin-product-card-copy h4 {
+            margin-bottom: 4px;
+            color: var(--admin-text);
+        }
+
+        .admin-breakdown-list,
+        .admin-activity-list {
+            display: grid;
+            gap: 12px;
+        }
+
+        .admin-breakdown-item,
+        .admin-activity-item {
+            padding: 14px 16px;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .admin-breakdown-track {
+            height: 8px;
+            margin-top: 10px;
+            border-radius: 999px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .admin-breakdown-fill {
+            height: 100%;
+            border-radius: 999px;
+            background: linear-gradient(90deg, var(--admin-primary), var(--admin-accent));
+        }
+
+        .admin-empty {
+            padding: 36px 18px;
+            text-align: center;
+            border: 1px dashed rgba(255, 255, 255, 0.12);
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.025);
+        }
+
+        .admin-kicker {
+            color: var(--admin-accent);
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.08em;
+        }
+
+        .admin-note {
+            margin-top: 12px;
+            padding: 14px 16px;
+            border-radius: 18px;
+            background: rgba(255, 183, 3, 0.08);
+            border: 1px solid rgba(255, 183, 3, 0.15);
+            color: #ffe2a3;
+        }
+
+        .admin-toast-region {
+            position: fixed;
+            top: 18px;
+            right: 18px;
+            z-index: 1080;
+            display: grid;
+            gap: 10px;
+            width: min(360px, calc(100vw - 36px));
+        }
+
+        .admin-toast {
+            padding: 14px 16px;
+            border-radius: 18px;
+            color: #fff;
+            background: rgba(13, 17, 24, 0.96);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.24);
+            overflow-wrap: anywhere;
+        }
+
+        .admin-toast-success {
+            border-color: rgba(34, 197, 94, 0.3);
+        }
+
+        .admin-toast-error {
+            border-color: rgba(239, 68, 68, 0.35);
+        }
+
+        .admin-toast-warning {
+            border-color: rgba(245, 158, 11, 0.35);
+        }
+
+        .admin-inline-toggle {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .admin-inline-toggle .form-check-input {
+            width: 3rem;
+            height: 1.6rem;
+        }
+
+        @media (max-width: 1399px) {
+            .admin-stats-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 1199px) {
+            .admin-dashboard-shell {
+                grid-template-columns: 1fr;
+            }
+
+            .admin-sidebar {
+                position: static;
+                min-height: auto;
+                border-right: 0;
+                border-bottom: 1px solid var(--admin-border);
+                padding: 24px 18px;
+            }
+
+            .admin-sidebar-card:last-child {
+                margin-bottom: 0;
+            }
+        }
+
+        @media (max-width: 991px) {
+            .admin-main {
+                padding: 18px;
+            }
+
+            .admin-topbar {
+                flex-direction: column;
+            }
+
+            .admin-topbar,
+            .admin-panel-head,
+            .admin-action-row,
+            .admin-toolbar,
+            .admin-bulk-grid,
+            .admin-form-actions,
+            .admin-table-actions {
+                align-items: stretch;
+            }
+
+            .admin-panel-head {
+                flex-direction: column;
+            }
+
+            .admin-action-row {
+                width: 100%;
+                justify-content: stretch;
+            }
+
+            .admin-action-row > *,
+            .admin-toolbar > *,
+            .admin-form-actions > *,
+            .admin-table-actions > * {
+                flex: 1 1 220px;
+            }
+
+            .admin-bulk-grid > .admin-field,
+            .admin-filter-grid > .admin-field {
+                flex: 1 1 calc(50% - 12px);
+            }
+
+            .admin-stats-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .admin-preview-card {
+                grid-template-columns: 1fr;
+            }
+
+            .admin-preview-thumb {
+                width: 100%;
+                height: 200px;
+            }
+
+            .admin-row-title,
+            .admin-product-card-head {
+                align-items: flex-start;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .admin-sidebar {
+                padding: 18px 14px;
+            }
+
+            .admin-main {
+                padding: 14px;
+            }
+
+            .admin-stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .admin-action-row > *,
+            .admin-toolbar > *,
+            .admin-form-actions > *,
+            .admin-table-actions > *,
+            .admin-bulk-grid > .admin-field,
+            .admin-filter-grid > .admin-field,
+            .admin-form-grid > .admin-field,
+            .admin-image-grid > .admin-field {
+                flex: 1 1 100%;
+                width: 100%;
+            }
+
+            .admin-panel,
+            .admin-sidebar-card,
+            .admin-stat-card {
+                border-radius: 20px;
+            }
+
+            .admin-panel {
+                padding: 18px 14px;
+            }
+
+            .admin-preview-card {
+                padding: 14px;
+            }
+
+            .admin-image-preview,
+            .admin-image-preview img {
+                min-height: 200px;
+            }
+
+            .admin-brand {
+                align-items: flex-start;
+            }
+
+            .admin-brand-badge {
+                width: 46px;
+                height: 46px;
+                font-size: 20px;
+            }
+
+            .admin-top-copy h2 {
+                font-size: 1.7rem;
+            }
+
+            .admin-stat-value {
+                font-size: 1.8rem;
+            }
+
+            .admin-chip,
+            .admin-badge {
+                max-width: 100%;
+                white-space: normal;
+                justify-content: center;
+                text-align: center;
+            }
+
+            .admin-table-wrap {
+                display: none;
+            }
+
+            .admin-card-list {
+                display: grid;
+            }
+        }
+
+        @media (max-width: 575px) {
+            .admin-dashboard-body .form-control,
+            .admin-dashboard-body .form-select,
+            .admin-dashboard-body textarea.form-control {
+                min-height: 48px;
+                font-size: 16px;
+            }
+
+            .admin-brand-copy h1,
+            .admin-panel-title {
+                font-size: 1.1rem;
+            }
+
+            .admin-top-copy h2 {
+                font-size: 1.45rem;
+                line-height: 1.2;
+            }
+
+            .admin-eyebrow {
+                letter-spacing: 0.11em;
+                font-size: 0.72rem;
+            }
+
+            .admin-stat-card,
+            .admin-sidebar-card,
+            .admin-panel,
+            .admin-product-card,
+            .admin-activity-item,
+            .admin-breakdown-item,
+            .admin-preview-card {
+                padding-left: 12px;
+                padding-right: 12px;
+            }
+
+            .admin-row-thumb {
+                width: 52px;
+                height: 52px;
+                flex-basis: 52px;
+            }
+
+            .admin-preview-thumb {
+                height: 180px;
+            }
+
+            .admin-image-preview,
+            .admin-image-preview img {
+                min-height: 180px;
+            }
+
+            .admin-toast-region {
+                top: 12px;
+                right: 12px;
+                width: min(320px, calc(100vw - 24px));
+            }
+        }
+    </style>
+</head>
+<body class="admin-dashboard-body">
+    <div class="admin-dashboard-shell">
+        <aside class="admin-sidebar">
+            <div class="admin-brand">
+                <div class="admin-brand-badge">
+                    <i class="flaticon-shopping-cart-black-shape"></i>
+                </div>
+                <div class="admin-brand-copy">
+                    <p>Foodweb</p>
+                    <h1>Admin Control</h1>
+                    <p>Local product operations and catalog tools.</p>
+                </div>
+            </div>
+
+            <div class="admin-sidebar-card">
+                <div class="admin-sidebar-nav">
+                    <a class="admin-sidebar-link" href="#catalog-form"><i class="icofont-ui-edit"></i> Product Editor</a>
+                    <a class="admin-sidebar-link" href="#catalog-table"><i class="icofont-list"></i> Catalog Table</a>
+                    <a class="admin-sidebar-link" href="#admin-breakdown"><i class="icofont-chart-bar-graph"></i> Insights</a>
+                    <a class="admin-sidebar-link" href="#admin-activity"><i class="icofont-history"></i> Activity</a>
+                    <a class="admin-sidebar-link" href="menu.html"><i class="icofont-burger"></i> Public Menu</a>
+                </div>
+            </div>
+
+            <div class="admin-sidebar-card">
+                <h3 class="admin-panel-title">Included Categories</h3>
+                <p class="admin-panel-subtitle">The dashboard supports the full project menu taxonomy.</p>
+                <div class="admin-chip-list" id="sidebar-category-chips"></div>
+            </div>
+
+            <div class="admin-sidebar-card">
+                <h3 class="admin-panel-title">Admin Toolkit</h3>
+                <div class="admin-chip-list">
+                    <span class="admin-chip"><span class="dot"></span> Upload product images</span>
+                    <span class="admin-chip"><span class="dot"></span> Edit and duplicate items</span>
+                    <span class="admin-chip"><span class="dot"></span> Bulk update catalog</span>
+                    <span class="admin-chip"><span class="dot"></span> Export and import backups</span>
+                    <span class="admin-chip"><span class="dot"></span> Draft autosave</span>
+                    <span class="admin-chip"><span class="dot"></span> Shared catalog health</span>
+                </div>
+            </div>
+        </aside>
+
+        <main class="admin-main">
+            <header class="admin-topbar">
+                <div class="admin-top-copy">
+                    <p class="admin-eyebrow">Foodweb Control Center</p>
+                    <h2>Admin Product Dashboard</h2>
+                    <p>Manage products, stock, featured items, promotions, images, and backups through a shared project catalog.</p>
+                </div>
+                <div class="admin-action-row">
+                    <a class="btn btn-outline-light" href="index.html">View Site</a>
+                    <a class="btn btn-outline-light" href="menu.html">Open Menu</a>
+                    <button class="btn btn-warning" id="load-starter-data" type="button">Reset Starter Catalog</button>
+                </div>
+            </header>
+
+            <section class="admin-stats-grid">
+                <div class="admin-stat-card">
+                    <p class="admin-stat-label">Products</p>
+                    <div class="admin-stat-value" id="stat-products">0</div>
+                    <div class="admin-stat-helper">Total items currently saved in the shared catalog</div>
+                </div>
+                <div class="admin-stat-card">
+                    <p class="admin-stat-label">Featured</p>
+                    <div class="admin-stat-value" id="stat-featured">0</div>
+                    <div class="admin-stat-helper">Items highlighted for promotions</div>
+                </div>
+                <div class="admin-stat-card">
+                    <p class="admin-stat-label">Low Stock</p>
+                    <div class="admin-stat-value" id="stat-low-stock">0</div>
+                    <div class="admin-stat-helper">Products under the stock alert level</div>
+                </div>
+                <div class="admin-stat-card">
+                    <p class="admin-stat-label">Categories</p>
+                    <div class="admin-stat-value" id="stat-categories">0</div>
+                    <div class="admin-stat-helper">Distinct categories in the catalog</div>
+                </div>
+                <div class="admin-stat-card">
+                    <p class="admin-stat-label">Units in Stock</p>
+                    <div class="admin-stat-value" id="stat-stock">0</div>
+                    <div class="admin-stat-helper">Sum of available inventory units</div>
+                </div>
+            </section>
+
+            <div class="row g-4">
+                <div class="col-xl-5">
+                    <section class="admin-panel" id="catalog-form">
+                        <div class="admin-panel-head">
+                            <div>
+                                <h3 class="admin-panel-title">Product Editor</h3>
+                                <p class="admin-panel-subtitle">Add, update, or duplicate products with images saved into the shared catalog file.</p>
+                            </div>
+                            <div class="admin-chip-list">
+                                <span class="admin-badge admin-badge-primary" id="form-mode-badge">Adding New</span>
+                                <span class="admin-badge" id="draft-indicator">Draft saved automatically</span>
+                            </div>
+                        </div>
+
+                        <form id="product-form" novalidate>
+                            <input type="hidden" id="product-id">
+
+                            <div class="admin-form-grid">
+                                <div class="admin-field">
+                                    <label for="product-name">Product Name</label>
+                                    <input class="form-control" id="product-name" type="text" placeholder="Ex: Pepperoni Pizza" required>
+                                </div>
+                                <div class="admin-field">
+                                    <label for="product-category">Category</label>
+                                    <input class="form-control" id="product-category" type="text" list="product-category-list" placeholder="Select or type a category" required>
+                                    <datalist id="product-category-list"></datalist>
+                                </div>
+                            </div>
+
+                            <div class="admin-form-grid">
+                                <div class="admin-field">
+                                    <label for="product-price">Price</label>
+                                    <input class="form-control" id="product-price" type="number" step="0.01" min="0" placeholder="0.00" required>
+                                </div>
+                                <div class="admin-field">
+                                    <label for="product-compare-price">Old Price</label>
+                                    <input class="form-control" id="product-compare-price" type="number" step="0.01" min="0" placeholder="Optional old price">
+                                </div>
+                            </div>
+
+                            <div class="admin-form-grid">
+                                <div class="admin-field">
+                                    <label for="product-stock">Stock Quantity</label>
+                                    <input class="form-control" id="product-stock" type="number" step="1" min="0" placeholder="0" required>
+                                </div>
+                                <div class="admin-field">
+                                    <label for="product-status">Status</label>
+                                    <select class="form-select" id="product-status">
+                                        <option value="active">Active</option>
+                                        <option value="draft">Draft</option>
+                                        <option value="sold-out">Sold Out</option>
+                                        <option value="archived">Archived</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="admin-form-grid">
+                                <div class="admin-field">
+                                    <label for="product-sku">SKU</label>
+                                    <input class="form-control" id="product-sku" type="text" placeholder="Auto-generated if left empty">
+                                </div>
+                                <div class="admin-field">
+                                    <label for="product-tags">Tags</label>
+                                    <input class="form-control" id="product-tags" type="text" placeholder="Comma separated tags">
+                                </div>
+                            </div>
+
+                            <div class="admin-field">
+                                <label for="product-description">Description</label>
+                                <textarea class="form-control" id="product-description" placeholder="Write a product description for the catalog card"></textarea>
+                            </div>
+
+                            <div class="admin-image-grid">
+                                <div class="admin-field">
+                                    <label for="product-image-url">Image Path or Data URL</label>
+                                    <input class="form-control" id="product-image-url" type="text" placeholder="assets/images/product-1.png">
+                                </div>
+                                <div class="admin-field">
+                                    <label for="product-image-alt">Image Alt Text</label>
+                                    <input class="form-control" id="product-image-alt" type="text" placeholder="Accessible description of the image">
+                                </div>
+                            </div>
+
+                            <div class="admin-image-grid">
+                                <div class="admin-field">
+                                    <label for="product-image-file">Upload Image to Shared Catalog</label>
+                                    <input class="form-control" id="product-image-file" type="file" accept="image/*">
+                                    <p class="admin-microcopy mt-2">Uploads are resized before saving to help keep the shared catalog JSON lightweight.</p>
+                                </div>
+                                <div class="admin-field">
+                                    <label>Featured Product</label>
+                                    <div class="admin-inline-toggle">
+                                        <div class="form-check form-switch mb-0">
+                                            <input class="form-check-input" id="product-featured" type="checkbox">
+                                            <label class="form-check-label" for="product-featured">Highlight this item in promo collections</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="admin-image-preview mb-3" id="product-image-preview">
+                                <div class="admin-image-preview-empty" id="product-image-placeholder">
+                                    <div>
+                                        <p class="admin-kicker">Image Preview</p>
+                                        <p>Choose an image file or paste an existing asset path to preview it here.</p>
+                                    </div>
+                                </div>
+                                <img id="product-image-preview-tag" alt="Product preview" hidden>
+                            </div>
+
+                            <div class="admin-form-actions">
+                                <button class="btn btn-danger" id="save-product-btn" type="submit">Save Product</button>
+                                <button class="btn btn-outline-light" id="reset-form-btn" type="button">Clear Form</button>
+                                <button class="btn btn-outline-warning" id="clear-image-btn" type="button">Remove Image</button>
+                                <button class="btn btn-outline-secondary" id="clear-draft-btn" type="button">Clear Draft</button>
+                            </div>
+                        </form>
+
+                        <div class="admin-note">
+                            Product uploads, edits, and deletions are saved through the backend into this project. Export a JSON backup anytime you want an extra copy.
+                        </div>
+                    </section>
+
+                    <section class="admin-panel mt-4">
+                        <div class="admin-panel-head">
+                            <div>
+                                <h3 class="admin-panel-title">Live Product Preview</h3>
+                                <p class="admin-panel-subtitle">See how the current form data reads before you save.</p>
+                            </div>
+                        </div>
+
+                        <div class="admin-preview-card">
+                            <div class="admin-preview-thumb">
+                                <img id="preview-card-image" src="assets/images/product-1.png" alt="Preview card image">
+                            </div>
+                            <div>
+                                <div class="admin-preview-meta mb-2">
+                                    <span class="admin-badge admin-badge-primary" id="preview-category">Category</span>
+                                    <span class="admin-badge admin-badge-warning" id="preview-status">Status</span>
+                                    <span class="admin-badge admin-badge-success" id="preview-featured" hidden>Featured</span>
+                                </div>
+                                <h3 id="preview-name">New Product</h3>
+                                <p class="admin-label-muted mb-2" id="preview-sku">SKU: AUTO</p>
+                                <p class="mb-3" id="preview-description">Your product description will appear here as you type.</p>
+                                <div class="admin-preview-price" id="preview-price">₦0.00</div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="col-xl-7">
+                    <section class="admin-panel" id="catalog-table">
+                        <div class="admin-panel-head">
+                            <div>
+                                <h3 class="admin-panel-title">Catalog Operations</h3>
+                                <p class="admin-panel-subtitle">Search, filter, export, import, and bulk manage your product catalog.</p>
+                            </div>
+                            <div class="admin-toolbar">
+                                <button class="btn btn-outline-light" id="export-products-btn" type="button">Export JSON</button>
+                                <button class="btn btn-outline-light" id="import-products-btn" type="button">Import JSON</button>
+                                <button class="btn btn-outline-danger" id="clear-all-products-btn" type="button">Delete All</button>
+                            </div>
+                        </div>
+
+                        <div class="admin-filter-grid mb-3">
+                            <div class="admin-field flex-grow-1">
+                                <label for="catalog-search">Search</label>
+                                <input class="form-control" id="catalog-search" type="text" placeholder="Search by name, SKU, tag, or category">
+                            </div>
+                            <div class="admin-field">
+                                <label for="catalog-category-filter">Category</label>
+                                <select class="form-select" id="catalog-category-filter">
+                                    <option value="all">All Categories</option>
+                                </select>
+                            </div>
+                            <div class="admin-field">
+                                <label for="catalog-status-filter">Status</label>
+                                <select class="form-select" id="catalog-status-filter">
+                                    <option value="all">All Statuses</option>
+                                    <option value="active">Active</option>
+                                    <option value="draft">Draft</option>
+                                    <option value="sold-out">Sold Out</option>
+                                    <option value="archived">Archived</option>
+                                </select>
+                            </div>
+                            <div class="admin-field">
+                                <label for="catalog-sort">Sort</label>
+                                <select class="form-select" id="catalog-sort">
+                                    <option value="updated-desc">Recently Updated</option>
+                                    <option value="name-asc">Name A-Z</option>
+                                    <option value="price-desc">Price High-Low</option>
+                                    <option value="price-asc">Price Low-High</option>
+                                    <option value="stock-asc">Lowest Stock</option>
+                                    <option value="featured-first">Featured First</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="admin-bulk-grid mb-3">
+                            <div class="admin-field">
+                                <label for="import-mode">Import Mode</label>
+                                <select class="form-select" id="import-mode">
+                                    <option value="merge">Merge Into Existing Catalog</option>
+                                    <option value="replace">Replace Existing Catalog</option>
+                                </select>
+                            </div>
+                            <div class="admin-field flex-grow-1">
+                                <label>Bulk Actions</label>
+                                <div class="admin-toolbar">
+                                    <button class="btn btn-outline-light" id="bulk-feature-btn" type="button" disabled>Feature Selected</button>
+                                    <button class="btn btn-outline-light" id="bulk-activate-btn" type="button" disabled>Activate Selected</button>
+                                    <button class="btn btn-outline-warning" id="bulk-archive-btn" type="button" disabled>Archive Selected</button>
+                                    <button class="btn btn-outline-danger" id="bulk-delete-btn" type="button" disabled>Delete Selected</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="admin-storage">
+                            <div class="d-flex justify-content-between align-items-center gap-3 mb-2">
+                                <strong>Catalog Data Size</strong>
+                                <span class="admin-storage-meta" id="storage-usage-text">0 KB used</span>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar" id="storage-usage-bar" role="progressbar" style="width: 0%"></div>
+                            </div>
+                            <p class="admin-storage-meta mt-2 mb-0" id="selection-summary">No products selected.</p>
+                        </div>
+
+                        <div class="admin-table-wrap mt-3">
+                            <table class="table admin-table" aria-label="Catalog products">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 48px;">
+                                            <input id="select-all-products" type="checkbox" aria-label="Select all products">
+                                        </th>
+                                        <th>Product</th>
+                                        <th>Price</th>
+                                        <th>Stock</th>
+                                        <th>Status</th>
+                                        <th>Updated</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="products-table-body"></tbody>
+                            </table>
+                        </div>
+
+                        <div class="admin-card-list" id="products-card-list"></div>
+
+                        <div class="admin-empty mt-3" id="products-empty-state" hidden>
+                            <p class="admin-kicker">No Matching Products</p>
+                            <h4>Nothing fits the current filters.</h4>
+                            <p>Try widening your search, changing the selected status, or resetting the starter catalog.</p>
+                        </div>
+                    </section>
+
+                    <div class="row g-4 mt-1">
+                        <div class="col-lg-6">
+                            <section class="admin-panel" id="admin-breakdown">
+                                <div class="admin-panel-head">
+                                    <div>
+                                        <h3 class="admin-panel-title">Category Insights</h3>
+                                        <p class="admin-panel-subtitle">See where most of your catalog volume currently sits.</p>
+                                    </div>
+                                </div>
+                                <div class="admin-breakdown-list" id="category-breakdown-list"></div>
+                            </section>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <section class="admin-panel" id="admin-activity">
+                                <div class="admin-panel-head">
+                                    <div>
+                                        <h3 class="admin-panel-title">Recent Activity</h3>
+                                        <p class="admin-panel-subtitle">Track the latest product changes made in this browser.</p>
+                                    </div>
+                                </div>
+                                <div class="admin-activity-list" id="activity-list"></div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <input id="import-file-input" type="file" accept=".json,application/json" hidden>
+    <div class="admin-toast-region" id="toast-region" aria-live="polite" aria-atomic="true"></div>
+
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/admin.js"></script>
+</body>

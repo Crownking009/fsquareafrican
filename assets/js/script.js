@@ -397,15 +397,104 @@ jQuery(function ($) {
     // Range slider
     $( "#range-slider").slider({
         range: true,
-        min: 40,
-        max: 400,
-        values: [40, 400],
+        min: 0,
+        max: 20,
+        values: [0, 20],
         slide: function( event, ui ) {
-            $( "#price-amount" ).val( "$" + ui.values[ 0 ] + " ― $" + ui.values[ 1 ] );
+            $( "#price-amount" ).val( "$" + ui.values[0] + " ― $" + ui.values[1] );
+            filterMenuItems();
         }
     });
-    $( "#price-amount" ).val( "$" + $( "#range-slider" ).slider( "values", 500 ) +
-    " - $" + $( "#range-slider" ).slider( "values", 1 ));
+    $( "#price-amount" ).val( "$" + $( "#range-slider" ).slider( "values", 0 ) +
+    " ― $" + $( "#range-slider" ).slider( "values", 1 ));
+
+    function getMenuCardPrice(card) {
+        var text = card.find(".product-price").first().text();
+        return parseFloat(text.replace(/[^0-9.]/g, "")) || 0;
+    }
+
+    function getMenuCardSearchText(card) {
+        var name = card.find(".product-card-content h3").first().text().trim();
+        var description = card.find(".product-card-content p").first().text().trim();
+        var altText = card.find(".product-card-thumb img").first().attr("alt") || "";
+        return [name, description, altText].join(" ").toLowerCase();
+    }
+
+    function focusFirstMatchingMenuGroup() {
+        var firstVisibleGroup = $(".menu-main-details-item").filter(function() {
+            return $(this).find(".col-6:visible").length > 0;
+        }).first();
+
+        if (!firstVisibleGroup.length) {
+            return;
+        }
+
+        var targetIndex = firstVisibleGroup.index();
+        var menuSlider = $(".menu-main-details-for");
+
+        if (menuSlider.hasClass("slick-initialized")) {
+            menuSlider.slick("slickGoTo", targetIndex);
+        }
+    }
+
+    function filterMenuItems() {
+        var term = $("#menu-search-input").val().toLowerCase().trim();
+        var values = $("#range-slider").slider("values");
+        var min = values[0];
+        var max = values[1];
+
+        $(".menu-main-details-item .col-6").each(function() {
+            var card = $(this);
+            var content = getMenuCardSearchText(card);
+            var price = getMenuCardPrice(card);
+            var matchesText = !term || content.indexOf(term) !== -1;
+            var matchesPrice = price >= min && price <= max;
+            card.toggle(matchesText && matchesPrice);
+        });
+
+        focusFirstMatchingMenuGroup();
+    }
+
+    function sortMenuItems(order) {
+        $(".menu-main-details-item .row").each(function() {
+            var row = $(this);
+            var items = row.children(".col-6").get();
+            items.sort(function(a, b) {
+                var pa = getMenuCardPrice($(a));
+                var pb = getMenuCardPrice($(b));
+                if (order === "lowtohigh") return pa - pb;
+                if (order === "hightolow") return pb - pa;
+                if (order === "nameaz") {
+                    var na = $(a).find('.product-card-content h3').text().trim().toLowerCase();
+                    var nb = $(b).find('.product-card-content h3').text().trim().toLowerCase();
+                    return na.localeCompare(nb);
+                }
+                if (order === "nameza") {
+                    var na = $(a).find('.product-card-content h3').text().trim().toLowerCase();
+                    var nb = $(b).find('.product-card-content h3').text().trim().toLowerCase();
+                    return nb.localeCompare(na);
+                }
+                return ($(a).data("order") || 0) - ($(b).data("order") || 0);
+            });
+            $.each(items, function(_, item) { row.append(item); });
+        });
+    }
+
+    $(".menu-main-details-item .row .col-6").each(function(index) {
+        $(this).attr("data-order", index);
+    });
+
+    $("#menu-search-input").on("input", filterMenuItems);
+    $("#menu-search-form").on("submit", function(e) {
+        e.preventDefault();
+        filterMenuItems();
+    });
+    $("#menu-sort-select").on("change", function() {
+        sortMenuItems($(this).val());
+        filterMenuItems();
+    });
+
+    filterMenuItems();
 
     // Product-details-slider
     $('.product-details-for').slick({

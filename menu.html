@@ -121,7 +121,7 @@
                                         <span class="option-badge">2</span>
                                     </div>
                                     <div class="navbar-option-item navbar-option-order">
-                                        <a href="shops-grid.html" class="btn">
+                                        <a href="menu.html" class="btn">
                                             <i class="flaticon-shopping-cart-black-shape"></i>
                                         </a>
                                     </div>
@@ -224,7 +224,7 @@
                                 <span class="option-badge">2</span>
                             </div>
                             <div class="navbar-option-item navbar-option-order mobile-block">
-                                <a href="shops-grid.html" class="btn">
+                                <a href="menu.html" class="btn">
                                     <i class="flaticon-shopping-cart-black-shape"></i>
                                 </a>
                             </div>
@@ -354,7 +354,7 @@
                                         <span class="option-badge">2</span>
                                     </div>
                                     <div class="navbar-option-item navbar-option-order">
-                                        <a href="shops-grid.html" class="btn text-nowrap">
+                                        <a href="menu.html" class="btn text-nowrap">
                                             Order Online <i class="flaticon-shopping-cart-black-shape"></i>
                                         </a>
                                     </div>
@@ -407,12 +407,56 @@
             </div>
         </div>
         <!-- .end header-bg-page -->
-        <!-- menu-section -->
+                <!-- menu-section -->
         <section class="menu-section bg-black p-tb-100">
             <div class="container position-relative">
                 <div class="section-title">
                     <small>Menu</small>
                     <h2 class="color-white">Just Choose From The Best</h2>
+                </div>
+                <div class="product-list-header mb-4">
+                    <div class="row g-3 align-items-center">
+                        <div class="col-12 col-md-5">
+                            <div class="sidebar-item around-border sidebar-search">
+                                <form id="menu-search-form">
+                                    <div class="form-group mb-0">
+                                        <input type="text" id="menu-search-input" class="form-control" placeholder="Search menu items">
+                                        <button type="submit"><i class="flaticon-loupe"></i></button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <div class="product-list-form">
+                                <form>
+                                    <select id="menu-sort-select" class="form-control" aria-label="Sort menu items">
+                                        <option value="" selected>Sort By</option>
+                                        <option value="default">Default Order</option>
+                                        <option value="lowtohigh">Price: Low To High</option>
+                                        <option value="hightolow">Price: High To Low</option>
+                                        <option value="nameaz">Name: A to Z</option>
+                                        <option value="nameza">Name: Z to A</option>
+                                    </select>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-3">
+                            <div class="sidebar-item mb-0">
+                                <div class="sidebar-title">
+                                    <h3 class="color-white">Price Range</h3>
+                                </div>
+                                <div class="sidebar-content">
+                                    <div class="price-range-content">
+                                        <div class="price-range-bar" id="range-slider"></div>
+                                        <div class="price-range-filter d-flex justify-content-between align-items-center mt-3">
+                                            <h4 class="mb-0">Price:</h4>
+                                            <input type="text" id="price-amount" readonly class="form-control form-control-sm w-auto ms-2">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="menu-main-carousel-area">
                     <div class="menu-main-thumb-nav">
@@ -452,1434 +496,1058 @@
                                 <p>DESSERT</p>
                             </div>
                         </div>
+                        <div class="menu-main-thumb-item menu-main-thumb-black">
+                            <div class="menu-main-thumb-inner">
+                                <img src="assets/images/menu-1.png" alt="Swallows">
+                                <p>SWALLOWS</p>
+                            </div>
+                        </div>
+                        <div class="menu-main-thumb-item menu-main-thumb-black">
+                            <div class="menu-main-thumb-inner">
+                                <img src="assets/images/menu-2.png" alt="Soups">
+                                <p>SOUPS</p>
+                            </div>
+                        </div>
+                        <div class="menu-main-thumb-item menu-main-thumb-black">
+                            <div class="menu-main-thumb-inner">
+                                <img src="assets/images/menu-3.png" alt="Rice Dishes">
+                                <p>RICE<br>DISHES</p>
+                            </div>
+                        </div>
+                        <div class="menu-main-thumb-item menu-main-thumb-black">
+                            <div class="menu-main-thumb-inner">
+                                <img src="assets/images/menu-4.png" alt="Small Chops">
+                                <p>SMALL<br>CHOPS</p>
+                            </div>
+                        </div>
+                        <div class="menu-main-thumb-item menu-main-thumb-black">
+                            <div class="menu-main-thumb-inner">
+                                <img src="assets/images/menu-5.png" alt="Proteins">
+                                <p>PROTEINS</p>
+                            </div>
+                        </div>
+                        <div class="menu-main-thumb-item menu-main-thumb-black">
+                            <div class="menu-main-thumb-inner">
+                                <img src="assets/images/menu-6.png" alt="Pepper Soups">
+                                <p>PEPPER<br>SOUPS</p>
+                            </div>
+                        </div>
+                        <div class="menu-main-thumb-item menu-main-thumb-black">
+                            <div class="menu-main-thumb-inner">
+                                <img src="assets/images/menu-1.png" alt="Beans">
+                                <p>BEANS</p>
+                            </div>
+                        </div>
+                        <div class="menu-main-thumb-item menu-main-thumb-black">
+                            <div class="menu-main-thumb-inner">
+                                <img src="assets/images/menu-2.png" alt="Porridges">
+                                <p>PORRIDGES</p>
+                            </div>
+                        </div>
+                        <div class="menu-main-thumb-item menu-main-thumb-black">
+                            <div class="menu-main-thumb-inner">
+                                <img src="assets/images/menu-3.png" alt="Snacks and Pastries">
+                                <p>SNACKS &amp;<br>PASTRIES</p>
+                            </div>
+                        </div>
+                        <div class="menu-main-thumb-item menu-main-thumb-black">
+                            <div class="menu-main-thumb-inner">
+                                <img src="assets/images/menu-4.png" alt="Local Beverages">
+                                <p>LOCAL<br>BEVERAGES</p>
+                            </div>
+                        </div>
+                        <div class="menu-main-thumb-item menu-main-thumb-black">
+                            <div class="menu-main-thumb-inner">
+                                <img src="assets/images/menu-5.png" alt="Sides and Extra">
+                                <p>SIDES &amp;<br>EXTRA</p>
+                            </div>
+                        </div>
                     </div>
                     <div class="menu-main-details-for">
                         <div class="menu-main-details-item">
-                            <div class="receipe-grid receipe-grid-three">
-                                <div class="receipe-item receipe-item-black pb-30 receipe-grid-item">
-                                    <div class="receipe-item-inner">
-                                        <div class="receipe-image">
-                                            <img src="assets/images/pizza-receipe-1.png" alt="receipe">
-                                        </div>
-                                        <div class="receipe-content">
-                                            <div class="receipe-info">
-                                                <h3><a href="shop-details.html">Pepperoni Pizza</a></h3>
-                                                <h4>&#8358;4.59<del>&#8358;7.59</del></h4>
-                                            </div>
-                                            <div class="receipe-cart">
-                                                <a href="wishlist.html">
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                </a>
+                            <div class="row g-4">
+                                <div class="col-6 col-md-6 col-lg-4" data-category="dessert" data-category="dessert" data-category="dessert" data-category="ice-cream" data-category="ice-cream" data-category="ice-cream" data-category="shake" data-category="shake" data-category="shake" data-category="sandwich" data-category="sandwich" data-category="sandwich" data-category="burger" data-category="burger" data-category="burger" data-category="pizza" data-category="pizza" data-category="pizza">
+                                    <div class="product-card product-card-dark h-100">
+                                        <div class="product-card-thumb">
+                                            <div class="product-card-thumb-inner" style="aspect-ratio:1 / 1; padding:20px; display:grid; place-items:center;">
+                                                <img src="assets/images/pizza-receipe-1.png" alt="Pepperoni Pizza" style="width:100%; height:100%; object-fit:cover; border-radius:10px;">
+                                                <div class="product-card-button">
+                                                    <a href="cart.html" class="btn btn-yellow">Add To Cart</a>
+                                                    <a href="wishlist.html" class="btn">Wishlist</a>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="receipe-item receipe-item-black pb-30 receipe-grid-item">
-                                    <div class="receipe-item-inner">
-                                        <div class="receipe-image">
-                                            <img src="assets/images/pizza-receipe-2.png" alt="receipe">
-                                        </div>
-                                        <div class="receipe-content">
-                                            <div class="receipe-info">
-                                                <h3><a href="shop-details.html">Beefka Pizza</a></h3>
-                                                <h4>&#8358;5.12<del>&#8358;6.59</del></h4>
-                                            </div>
-                                            <div class="receipe-cart">
-                                                 <a href="wishlist.html">
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                </a>
-                                            </div>
+                                        <div class="product-card-content">
+                                            <h3><a href="shop-details.html">Pepperoni Pizza</a></h3>
+                                            <p>Classic pizza with pepperoni, mozzarella and tomato sauce.</p>
+                                            <h4 class="product-price">&#8358; 4.59 <del>&#8358; 7.59</del></h4>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="receipe-item receipe-item-black pb-30 receipe-grid-item">
-                                    <div class="receipe-item-inner">
-                                        <div class="receipe-image">
-                                            <img src="assets/images/pizza-receipe-3.png" alt="receipe">
-                                        </div>
-                                        <div class="receipe-content">
-                                            <div class="receipe-info">
-                                                <h3><a href="shop-details.html">Chicken Pizza</a></h3>
-                                                <h4>&#8358;6.57<del>&#8358;7.12</del></h4>
-                                            </div>
-                                            <div class="receipe-cart">
-                                                 <a href="wishlist.html">
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                </a>
+                                <div class="col-6 col-md-6 col-lg-4" data-category="dessert" data-category="dessert" data-category="dessert" data-category="ice-cream" data-category="ice-cream" data-category="ice-cream" data-category="shake" data-category="shake" data-category="shake" data-category="sandwich" data-category="sandwich" data-category="sandwich" data-category="burger" data-category="burger" data-category="burger" data-category="pizza" data-category="pizza" data-category="pizza">
+                                    <div class="product-card product-card-dark h-100">
+                                        <div class="product-card-thumb">
+                                            <div class="product-card-thumb-inner" style="aspect-ratio:1 / 1; padding:20px; display:grid; place-items:center;">
+                                                <img src="assets/images/pizza-receipe-2.png" alt="Beefka Pizza" style="width:100%; height:100%; object-fit:cover; border-radius:10px;">
+                                                <div class="product-card-button">
+                                                    <a href="cart.html" class="btn btn-yellow">Add To Cart</a>
+                                                    <a href="wishlist.html" class="btn">Wishlist</a>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="receipe-item receipe-item-black pb-30 receipe-grid-item">
-                                    <div class="receipe-item-inner">
-                                        <div class="receipe-image">
-                                            <img src="assets/images/pizza-receipe-4.png" alt="receipe">
-                                        </div>
-                                        <div class="receipe-content">
-                                            <div class="receipe-info">
-                                                <h3><a href="shop-details.html">Avocado Pizza</a></h3>
-                                                <h4>&#8358;5.12<del>&#8358;6.59</del></h4>
-                                            </div>
-                                            <div class="receipe-cart">
-                                                 <a href="wishlist.html">
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                </a>
-                                            </div>
+                                        <div class="product-card-content">
+                                            <h3><a href="shop-details.html">Beefka Pizza</a></h3>
+                                            <p>Rich beef pizza topped with onion, cheese and herbs.</p>
+                                            <h4 class="product-price">&#8358; 5.12 <del>&#8358; 6.59</del></h4>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="receipe-item receipe-item-black pb-30 receipe-grid-item">
-                                    <div class="receipe-item-inner">
-                                        <div class="receipe-image">
-                                            <img src="assets/images/pizza-receipe-5.png" alt="receipe">
-                                        </div>
-                                        <div class="receipe-content">
-                                            <div class="receipe-info">
-                                                <h3><a href="shop-details.html">Vegan Pizza</a></h3>
-                                                <h4>&#8358;7.45<del>&#8358;8.12</del></h4>
-                                            </div>
-                                            <div class="receipe-cart">
-                                                 <a href="wishlist.html">
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                </a>
+                                <div class="col-6 col-md-6 col-lg-4" data-category="dessert" data-category="dessert" data-category="dessert" data-category="ice-cream" data-category="ice-cream" data-category="ice-cream" data-category="shake" data-category="shake" data-category="shake" data-category="sandwich" data-category="sandwich" data-category="sandwich" data-category="burger" data-category="burger" data-category="burger" data-category="pizza" data-category="pizza" data-category="pizza">
+                                    <div class="product-card product-card-dark h-100">
+                                        <div class="product-card-thumb">
+                                            <div class="product-card-thumb-inner" style="aspect-ratio:1 / 1; padding:20px; display:grid; place-items:center;">
+                                                <img src="assets/images/pizza-receipe-3.png" alt="Chicken Pizza" style="width:100%; height:100%; object-fit:cover; border-radius:10px;">
+                                                <div class="product-card-button">
+                                                    <a href="cart.html" class="btn btn-yellow">Add To Cart</a>
+                                                    <a href="wishlist.html" class="btn">Wishlist</a>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="receipe-item receipe-item-black pb-30 receipe-grid-item">
-                                    <div class="receipe-item-inner">
-                                        <div class="receipe-image">
-                                            <img src="assets/images/pizza-receipe-6.png" alt="receipe">
-                                        </div>
-                                        <div class="receipe-content">
-                                            <div class="receipe-info">
-                                                <h3><a href="shop-details.html">Meat Pizza</a></h3>
-                                                <h4>&#8358;8.45<del>&#8358;9.24</del></h4>
-                                            </div>
-                                            <div class="receipe-cart">
-                                                 <a href="wishlist.html">
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                </a>
-                                            </div>
+                                        <div class="product-card-content">
+                                            <h3><a href="shop-details.html">Chicken Pizza</a></h3>
+                                            <p>Grilled chicken pizza with creamy sauce and fresh basil.</p>
+                                            <h4 class="product-price">&#8358; 6.57 <del>&#8358; 7.12</del></h4>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="receipe-item receipe-item-black pb-30 receipe-grid-item">
-                                    <div class="receipe-item-inner">
-                                        <div class="receipe-image">
-                                            <img src="assets/images/pizza-receipe-2.png" alt="receipe">
-                                        </div>
-                                        <div class="receipe-content">
-                                            <div class="receipe-info">
-                                                <h3><a href="shop-details.html">Ball Pizza</a></h3>
-                                                <h4>&#8358;9.45<del>&#8358;10.12</del></h4>
-                                            </div>
-                                            <div class="receipe-cart">
-                                                 <a href="wishlist.html">
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="receipe-item receipe-item-black pb-30 receipe-grid-item">
-                                    <div class="receipe-item-inner">
-                                        <div class="receipe-image">
-                                            <img src="assets/images/pizza-receipe-1.png" alt="receipe">
-                                        </div>
-                                        <div class="receipe-content">
-                                            <div class="receipe-info">
-                                                <h3><a href="shop-details.html">Green Pizza</a></h3>
-                                                <h4>&#8358;8.45<del>&#8358;12.01</del></h4>
-                                            </div>
-                                            <div class="receipe-cart">
-                                                 <a href="wishlist.html">
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="receipe-item receipe-item-black pb-30 receipe-grid-item">
-                                    <div class="receipe-item-inner">
-                                        <div class="receipe-image">
-                                            <img src="assets/images/pizza-receipe-4.png" alt="receipe">
-                                        </div>
-                                        <div class="receipe-content">
-                                            <div class="receipe-info">
-                                                <h3><a href="shop-details.html">Pepperoni Pizza</a></h3>
-                                                <h4>&#8358;4.59<del>&#8358;7.59</del></h4>
-                                            </div>
-                                            <div class="receipe-cart">
-                                                 <a href="wishlist.html">
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="receipe-item receipe-item-black pb-30 receipe-grid-item">
-                                    <div class="receipe-item-inner">
-                                        <div class="receipe-image">
-                                            <img src="assets/images/pizza-receipe-1.png" alt="receipe">
-                                        </div>
-                                        <div class="receipe-content">
-                                            <div class="receipe-info">
-                                                <h3><a href="shop-details.html">Pepperoni Pizza</a></h3>
-                                                <h4>&#8358;4.59<del>&#8358;7.59</del></h4>
-                                            </div>
-                                            <div class="receipe-cart">
-                                                 <a href="wishlist.html">
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="receipe-item receipe-item-black pb-30 receipe-grid-item">
-                                    <div class="receipe-item-inner">
-                                        <div class="receipe-image">
-                                            <img src="assets/images/pizza-receipe-2.png" alt="receipe">
-                                        </div>
-                                        <div class="receipe-content">
-                                            <div class="receipe-info">
-                                                <h3><a href="shop-details.html">Beefka Pizza</a></h3>
-                                                <h4>&#8358;5.12<del>&#8358;6.59</del></h4>
-                                            </div>
-                                            <div class="receipe-cart">
-                                                 <a href="wishlist.html">
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="receipe-item receipe-item-black pb-30 receipe-grid-item">
-                                    <div class="receipe-item-inner">
-                                        <div class="receipe-image">
-                                            <img src="assets/images/pizza-receipe-3.png" alt="receipe">
-                                        </div>
-                                        <div class="receipe-content">
-                                            <div class="receipe-info">
-                                                <h3><a href="shop-details.html">Chicken Pizza</a></h3>
-                                                <h4>&#8358;6.57<del>&#8358;7.12</del></h4>
-                                            </div>
-                                            <div class="receipe-cart">
-                                                 <a href="wishlist.html">
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="text-center">
-                                <a href="pro.html" class="btn load-more-btn">
-                                    <span class="load-more-text">Load More</span>
-                                    <span class="load-more-icon"><i class="icofont-refresh"></i></span>
-                                </a>
                             </div>
                         </div>
                         <div class="menu-main-details-item">
-                            <div class="receipe-grid receipe-grid-three">
-                                <div class="receipe-item receipe-item-black pb-30 receipe-grid-item">
-                                    <div class="receipe-item-inner">
-                                        <div class="receipe-image">
-                                            <img src="assets/images/burger-receipe-1.png" alt="receipe">
-                                        </div>
-                                        <div class="receipe-content">
-                                            <div class="receipe-info">
-                                                <h3><a href="shop-details.html">Pepperoni Burger</a></h3>
-                                                <h4>&#8358;4.59<del>&#8358;7.59</del></h4>
-                                            </div>
-                                            <div class="receipe-cart">
-                                                 <a href="wishlist.html">
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                </a>
+                            <div class="row g-4">
+                                <div class="col-6 col-md-6 col-lg-4" data-category="dessert" data-category="dessert" data-category="dessert" data-category="ice-cream" data-category="ice-cream" data-category="ice-cream" data-category="shake" data-category="shake" data-category="shake" data-category="sandwich" data-category="sandwich" data-category="sandwich" data-category="burger" data-category="burger" data-category="burger" data-category="pizza" data-category="pizza" data-category="pizza">
+                                    <div class="product-card product-card-dark h-100">
+                                        <div class="product-card-thumb">
+                                            <div class="product-card-thumb-inner" style="aspect-ratio:1 / 1; padding:20px; display:grid; place-items:center;">
+                                                <img src="assets/images/burger-receipe-1.png" alt="Pepperoni Burger" style="width:100%; height:100%; object-fit:cover; border-radius:10px;">
+                                                <div class="product-card-button">
+                                                    <a href="cart.html" class="btn btn-yellow">Add To Cart</a>
+                                                    <a href="wishlist.html" class="btn">Wishlist</a>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="receipe-item receipe-item-black pb-30 receipe-grid-item">
-                                    <div class="receipe-item-inner">
-                                        <div class="receipe-image">
-                                            <img src="assets/images/burger-receipe-2.png" alt="receipe">
-                                        </div>
-                                        <div class="receipe-content">
-                                            <div class="receipe-info">
-                                                <h3><a href="shop-details.html">Beefka Burger</a></h3>
-                                                <h4>&#8358;5.12<del>&#8358;6.59</del></h4>
-                                            </div>
-                                            <div class="receipe-cart">
-                                                 <a href="wishlist.html">
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                </a>
-                                            </div>
+                                        <div class="product-card-content">
+                                            <h3><a href="shop-details.html">Pepperoni Burger</a></h3>
+                                            <p>Juicy burger with melted cheese and seasoned pepperoni.</p>
+                                            <h4 class="product-price">&#8358; 4.59 <del>&#8358; 7.59</del></h4>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="receipe-item receipe-item-black pb-30 receipe-grid-item">
-                                    <div class="receipe-item-inner">
-                                        <div class="receipe-image">
-                                            <img src="assets/images/burger-receipe-3.png" alt="receipe">
-                                        </div>
-                                        <div class="receipe-content">
-                                            <div class="receipe-info">
-                                                <h3><a href="shop-details.html">Chicken Burger</a></h3>
-                                                <h4>&#8358;6.57<del>&#8358;7.12</del></h4>
-                                            </div>
-                                            <div class="receipe-cart">
-                                                 <a href="wishlist.html">
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                </a>
+                                <div class="col-6 col-md-6 col-lg-4" data-category="dessert" data-category="dessert" data-category="dessert" data-category="ice-cream" data-category="ice-cream" data-category="ice-cream" data-category="shake" data-category="shake" data-category="shake" data-category="sandwich" data-category="sandwich" data-category="sandwich" data-category="burger" data-category="burger" data-category="burger" data-category="pizza" data-category="pizza" data-category="pizza">
+                                    <div class="product-card product-card-dark h-100">
+                                        <div class="product-card-thumb">
+                                            <div class="product-card-thumb-inner" style="aspect-ratio:1 / 1; padding:20px; display:grid; place-items:center;">
+                                                <img src="assets/images/burger-receipe-2.png" alt="Beefka Burger" style="width:100%; height:100%; object-fit:cover; border-radius:10px;">
+                                                <div class="product-card-button">
+                                                    <a href="cart.html" class="btn btn-yellow">Add To Cart</a>
+                                                    <a href="wishlist.html" class="btn">Wishlist</a>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="receipe-item receipe-item-black pb-30 receipe-grid-item">
-                                    <div class="receipe-item-inner">
-                                        <div class="receipe-image">
-                                            <img src="assets/images/burger-receipe-4.png" alt="receipe">
-                                        </div>
-                                        <div class="receipe-content">
-                                            <div class="receipe-info">
-                                                <h3><a href="shop-details.html">Avocado Burger</a></h3>
-                                                <h4>&#8358;5.12<del>&#8358;6.59</del></h4>
-                                            </div>
-                                            <div class="receipe-cart">
-                                                 <a href="wishlist.html">
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                </a>
-                                            </div>
+                                        <div class="product-card-content">
+                                            <h3><a href="shop-details.html">Beefka Burger</a></h3>
+                                            <p>Grilled beef burger with melted cheese and special sauce.</p>
+                                            <h4 class="product-price">&#8358; 5.12 <del>&#8358; 6.59</del></h4>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="receipe-item receipe-item-black pb-30 receipe-grid-item">
-                                    <div class="receipe-item-inner">
-                                        <div class="receipe-image">
-                                            <img src="assets/images/burger-receipe-5.png" alt="receipe">
-                                        </div>
-                                        <div class="receipe-content">
-                                            <div class="receipe-info">
-                                                <h3><a href="shop-details.html">Vegan Burger</a></h3>
-                                                <h4>&#8358;7.45<del>&#8358;8.12</del></h4>
-                                            </div>
-                                            <div class="receipe-cart">
-                                                 <a href="wishlist.html">
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                </a>
+                                <div class="col-6 col-md-6 col-lg-4" data-category="dessert" data-category="dessert" data-category="dessert" data-category="ice-cream" data-category="ice-cream" data-category="ice-cream" data-category="shake" data-category="shake" data-category="shake" data-category="sandwich" data-category="sandwich" data-category="sandwich" data-category="burger" data-category="burger" data-category="burger" data-category="pizza" data-category="pizza" data-category="pizza">
+                                    <div class="product-card product-card-dark h-100">
+                                        <div class="product-card-thumb">
+                                            <div class="product-card-thumb-inner" style="aspect-ratio:1 / 1; padding:20px; display:grid; place-items:center;">
+                                                <img src="assets/images/burger-receipe-3.png" alt="Ball Burger" style="width:100%; height:100%; object-fit:cover; border-radius:10px;">
+                                                <div class="product-card-button">
+                                                    <a href="cart.html" class="btn btn-yellow">Add To Cart</a>
+                                                    <a href="wishlist.html" class="btn">Wishlist</a>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="receipe-item receipe-item-black pb-30 receipe-grid-item">
-                                    <div class="receipe-item-inner">
-                                        <div class="receipe-image">
-                                            <img src="assets/images/burger-receipe-6.png" alt="receipe">
-                                        </div>
-                                        <div class="receipe-content">
-                                            <div class="receipe-info">
-                                                <h3><a href="shop-details.html">Meat Burger</a></h3>
-                                                <h4>&#8358;8.45<del>&#8358;9.24</del></h4>
-                                            </div>
-                                            <div class="receipe-cart">
-                                                 <a href="wishlist.html">
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                </a>
-                                            </div>
+                                        <div class="product-card-content">
+                                            <h3><a href="shop-details.html">Ball Burger</a></h3>
+                                            <p>Signature burger with fresh greens and zesty sauce.</p>
+                                            <h4 class="product-price">&#8358; 9.45 <del>&#8358; 10.12</del></h4>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="receipe-item receipe-item-black pb-30 receipe-grid-item">
-                                    <div class="receipe-item-inner">
-                                        <div class="receipe-image">
-                                            <img src="assets/images/burger-receipe-7.png" alt="receipe">
-                                        </div>
-                                        <div class="receipe-content">
-                                            <div class="receipe-info">
-                                                <h3><a href="shop-details.html">Ball Burger</a></h3>
-                                                <h4>&#8358;9.45<del>&#8358;10.12</del></h4>
-                                            </div>
-                                            <div class="receipe-cart">
-                                                 <a href="wishlist.html">
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="receipe-item receipe-item-black pb-30 receipe-grid-item">
-                                    <div class="receipe-item-inner">
-                                        <div class="receipe-image">
-                                            <img src="assets/images/burger-receipe-8.png" alt="receipe">
-                                        </div>
-                                        <div class="receipe-content">
-                                            <div class="receipe-info">
-                                                <h3><a href="shop-details.html">Green Burger</a></h3>
-                                                <h4>&#8358;8.45<del>&#8358;12.01</del></h4>
-                                            </div>
-                                            <div class="receipe-cart">
-                                                 <a href="wishlist.html">
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="receipe-item receipe-item-black pb-30 receipe-grid-item">
-                                    <div class="receipe-item-inner">
-                                        <div class="receipe-image">
-                                            <img src="assets/images/burger-receipe-9.png" alt="receipe">
-                                        </div>
-                                        <div class="receipe-content">
-                                            <div class="receipe-info">
-                                                <h3><a href="shop-details.html">Pepperoni Burger</a></h3>
-                                                <h4>&#8358;4.59<del>&#8358;7.59</del></h4>
-                                            </div>
-                                            <div class="receipe-cart">
-                                                 <a href="wishlist.html">
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="receipe-item receipe-item-black pb-30 receipe-grid-item">
-                                    <div class="receipe-item-inner">
-                                        <div class="receipe-image">
-                                            <img src="assets/images/burger-receipe-5.png" alt="receipe">
-                                        </div>
-                                        <div class="receipe-content">
-                                            <div class="receipe-info">
-                                                <h3><a href="shop-details.html">Pepperoni Burger</a></h3>
-                                                <h4>&#8358;4.59<del>&#8358;7.59</del></h4>
-                                            </div>
-                                            <div class="receipe-cart">
-                                                 <a href="wishlist.html">
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="receipe-item receipe-item-black pb-30 receipe-grid-item">
-                                    <div class="receipe-item-inner">
-                                        <div class="receipe-image">
-                                            <img src="assets/images/burger-receipe-2.png" alt="receipe">
-                                        </div>
-                                        <div class="receipe-content">
-                                            <div class="receipe-info">
-                                                <h3><a href="shop-details.html">Beefka Burger</a></h3>
-                                                <h4>&#8358;5.12<del>&#8358;6.59</del></h4>
-                                            </div>
-                                            <div class="receipe-cart">
-                                                 <a href="wishlist.html">
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="receipe-item receipe-item-black pb-30 receipe-grid-item">
-                                    <div class="receipe-item-inner">
-                                        <div class="receipe-image">
-                                            <img src="assets/images/burger-receipe-8.png" alt="receipe">
-                                        </div>
-                                        <div class="receipe-content">
-                                            <div class="receipe-info">
-                                                <h3><a href="shop-details.html">Chicken Burger</a></h3>
-                                                <h4>&#8358;6.57<del>&#8358;7.12</del></h4>
-                                            </div>
-                                            <div class="receipe-cart">
-                                                 <a href="wishlist.html">
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="text-center">
-                                <a href="pro.html" class="btn load-more-btn">
-                                    <span class="load-more-text">Load More</span>
-                                    <span class="load-more-icon"><i class="icofont-refresh"></i></span>
-                                </a>
                             </div>
                         </div>
                         <div class="menu-main-details-item">
-                            <div class="receipe-grid receipe-grid-three">
-                                <div class="receipe-item receipe-item-black pb-30 receipe-grid-item">
-                                    <div class="receipe-item-inner">
-                                        <div class="receipe-image">
-                                            <img src="assets/images/sandwitch-receipe-1.png" alt="receipe">
-                                        </div>
-                                        <div class="receipe-content">
-                                            <div class="receipe-info">
-                                                <h3><a href="shop-details.html">Pepperoni Sandwitch</a></h3>
-                                                <h4>&#8358;4.59<del>&#8358;7.59</del></h4>
-                                            </div>
-                                            <div class="receipe-cart">
-                                                 <a href="wishlist.html">
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                </a>
+                            <div class="row g-4">
+                                <div class="col-6 col-md-6 col-lg-4" data-category="dessert" data-category="dessert" data-category="dessert" data-category="ice-cream" data-category="ice-cream" data-category="ice-cream" data-category="shake" data-category="shake" data-category="shake" data-category="sandwich" data-category="sandwich" data-category="sandwich" data-category="burger" data-category="burger" data-category="burger" data-category="pizza" data-category="pizza" data-category="pizza">
+                                    <div class="product-card product-card-dark h-100">
+                                        <div class="product-card-thumb">
+                                            <div class="product-card-thumb-inner" style="aspect-ratio:1 / 1; padding:20px; display:grid; place-items:center;">
+                                                <img src="assets/images/sandwitch-receipe-1.png" alt="Pepperoni Sandwich" style="width:100%; height:100%; object-fit:cover; border-radius:10px;">
+                                                <div class="product-card-button">
+                                                    <a href="cart.html" class="btn btn-yellow">Add To Cart</a>
+                                                    <a href="wishlist.html" class="btn">Wishlist</a>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="receipe-item receipe-item-black pb-30 receipe-grid-item">
-                                    <div class="receipe-item-inner">
-                                        <div class="receipe-image">
-                                            <img src="assets/images/sandwitch-receipe-2.png" alt="receipe">
-                                        </div>
-                                        <div class="receipe-content">
-                                            <div class="receipe-info">
-                                                <h3><a href="shop-details.html">Beefka Sandwitch</a></h3>
-                                                <h4>&#8358;5.12<del>&#8358;6.59</del></h4>
-                                            </div>
-                                            <div class="receipe-cart">
-                                                 <a href="wishlist.html">
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                </a>
-                                            </div>
+                                        <div class="product-card-content">
+                                            <h3><a href="shop-details.html">Pepperoni Sandwich</a></h3>
+                                            <p>Warm sandwich with spicy pepperoni, gooey cheese and crisp lettuce.</p>
+                                            <h4 class="product-price">&#8358; 4.59 <del>&#8358; 7.59</del></h4>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="receipe-item receipe-item-black pb-30 receipe-grid-item">
-                                    <div class="receipe-item-inner">
-                                        <div class="receipe-image">
-                                            <img src="assets/images/sandwitch-receipe-3.png" alt="receipe">
-                                        </div>
-                                        <div class="receipe-content">
-                                            <div class="receipe-info">
-                                                <h3><a href="shop-details.html">Chicken Sandwitch</a></h3>
-                                                <h4>&#8358;6.57<del>&#8358;7.12</del></h4>
-                                            </div>
-                                            <div class="receipe-cart">
-                                                 <a href="wishlist.html">
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                </a>
+                                <div class="col-6 col-md-6 col-lg-4" data-category="dessert" data-category="dessert" data-category="dessert" data-category="ice-cream" data-category="ice-cream" data-category="ice-cream" data-category="shake" data-category="shake" data-category="shake" data-category="sandwich" data-category="sandwich" data-category="sandwich" data-category="burger" data-category="burger" data-category="burger" data-category="pizza" data-category="pizza" data-category="pizza">
+                                    <div class="product-card product-card-dark h-100">
+                                        <div class="product-card-thumb">
+                                            <div class="product-card-thumb-inner" style="aspect-ratio:1 / 1; padding:20px; display:grid; place-items:center;">
+                                                <img src="assets/images/sandwitch-receipe-2.png" alt="Beefka Sandwich" style="width:100%; height:100%; object-fit:cover; border-radius:10px;">
+                                                <div class="product-card-button">
+                                                    <a href="cart.html" class="btn btn-yellow">Add To Cart</a>
+                                                    <a href="wishlist.html" class="btn">Wishlist</a>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="receipe-item receipe-item-black pb-30 receipe-grid-item">
-                                    <div class="receipe-item-inner">
-                                        <div class="receipe-image">
-                                            <img src="assets/images/sandwitch-receipe-4.png" alt="receipe">
-                                        </div>
-                                        <div class="receipe-content">
-                                            <div class="receipe-info">
-                                                <h3><a href="shop-details.html">Avocado Sandwitch</a></h3>
-                                                <h4>&#8358;5.12<del>&#8358;6.59</del></h4>
-                                            </div>
-                                            <div class="receipe-cart">
-                                                 <a href="wishlist.html">
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                </a>
-                                            </div>
+                                        <div class="product-card-content">
+                                            <h3><a href="shop-details.html">Beefka Sandwich</a></h3>
+                                            <p>Hearty sandwich with premium beef, cheese and smoky sauce.</p>
+                                            <h4 class="product-price">&#8358; 5.12 <del>&#8358; 6.59</del></h4>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="receipe-item receipe-item-black pb-30 receipe-grid-item">
-                                    <div class="receipe-item-inner">
-                                        <div class="receipe-image">
-                                            <img src="assets/images/sandwitch-receipe-5.png" alt="receipe">
-                                        </div>
-                                        <div class="receipe-content">
-                                            <div class="receipe-info">
-                                                <h3><a href="shop-details.html">Vegan Sandwitch</a></h3>
-                                                <h4>&#8358;7.45<del>&#8358;8.12</del></h4>
-                                            </div>
-                                            <div class="receipe-cart">
-                                                 <a href="wishlist.html">
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                </a>
+                                <div class="col-6 col-md-6 col-lg-4" data-category="dessert" data-category="dessert" data-category="dessert" data-category="ice-cream" data-category="ice-cream" data-category="ice-cream" data-category="shake" data-category="shake" data-category="shake" data-category="sandwich" data-category="sandwich" data-category="sandwich" data-category="burger" data-category="burger" data-category="burger" data-category="pizza" data-category="pizza" data-category="pizza">
+                                    <div class="product-card product-card-dark h-100">
+                                        <div class="product-card-thumb">
+                                            <div class="product-card-thumb-inner" style="aspect-ratio:1 / 1; padding:20px; display:grid; place-items:center;">
+                                                <img src="assets/images/sandwitch-receipe-3.png" alt="Chicken Sandwich" style="width:100%; height:100%; object-fit:cover; border-radius:10px;">
+                                                <div class="product-card-button">
+                                                    <a href="cart.html" class="btn btn-yellow">Add To Cart</a>
+                                                    <a href="wishlist.html" class="btn">Wishlist</a>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="receipe-item receipe-item-black pb-30 receipe-grid-item">
-                                    <div class="receipe-item-inner">
-                                        <div class="receipe-image">
-                                            <img src="assets/images/sandwitch-receipe-6.png" alt="receipe">
-                                        </div>
-                                        <div class="receipe-content">
-                                            <div class="receipe-info">
-                                                <h3><a href="shop-details.html">Meat Sandwitch</a></h3>
-                                                <h4>&#8358;8.45<del>&#8358;9.24</del></h4>
-                                            </div>
-                                            <div class="receipe-cart">
-                                                 <a href="wishlist.html">
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                </a>
-                                            </div>
+                                        <div class="product-card-content">
+                                            <h3><a href="shop-details.html">Chicken Sandwich</a></h3>
+                                            <p>Crispy chicken sandwich with sauce, lettuce and tomato.</p>
+                                            <h4 class="product-price">&#8358; 6.57 <del>&#8358; 7.12</del></h4>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="receipe-item receipe-item-black pb-30 receipe-grid-item">
-                                    <div class="receipe-item-inner">
-                                        <div class="receipe-image">
-                                            <img src="assets/images/sandwitch-receipe-7.png" alt="receipe">
-                                        </div>
-                                        <div class="receipe-content">
-                                            <div class="receipe-info">
-                                                <h3><a href="shop-details.html">Ball Sandwitch</a></h3>
-                                                <h4>&#8358;9.45<del>&#8358;10.12</del></h4>
-                                            </div>
-                                            <div class="receipe-cart">
-                                                 <a href="wishlist.html">
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="receipe-item receipe-item-black pb-30 receipe-grid-item">
-                                    <div class="receipe-item-inner">
-                                        <div class="receipe-image">
-                                            <img src="assets/images/sandwitch-receipe-8.png" alt="receipe">
-                                        </div>
-                                        <div class="receipe-content">
-                                            <div class="receipe-info">
-                                                <h3><a href="shop-details.html">Green Sandwitch</a></h3>
-                                                <h4>&#8358;8.45<del>&#8358;12.01</del></h4>
-                                            </div>
-                                            <div class="receipe-cart">
-                                                 <a href="wishlist.html">
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="receipe-item receipe-item-black pb-30 receipe-grid-item">
-                                    <div class="receipe-item-inner">
-                                        <div class="receipe-image">
-                                            <img src="assets/images/sandwitch-receipe-9.png" alt="receipe">
-                                        </div>
-                                        <div class="receipe-content">
-                                            <div class="receipe-info">
-                                                <h3><a href="shop-details.html">Pepperoni Sandwitch</a></h3>
-                                                <h4>&#8358;4.59<del>&#8358;7.59</del></h4>
-                                            </div>
-                                            <div class="receipe-cart">
-                                                 <a href="wishlist.html">
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="receipe-item receipe-item-black pb-30 receipe-grid-item">
-                                    <div class="receipe-item-inner">
-                                        <div class="receipe-image">
-                                            <img src="assets/images/sandwitch-receipe-3.png" alt="receipe">
-                                        </div>
-                                        <div class="receipe-content">
-                                            <div class="receipe-info">
-                                                <h3><a href="shop-details.html">Pepperoni Sandwitch</a></h3>
-                                                <h4>&#8358;4.59<del>&#8358;7.59</del></h4>
-                                            </div>
-                                            <div class="receipe-cart">
-                                                 <a href="wishlist.html">
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="receipe-item receipe-item-black pb-30 receipe-grid-item">
-                                    <div class="receipe-item-inner">
-                                        <div class="receipe-image">
-                                            <img src="assets/images/sandwitch-receipe-6.png" alt="receipe">
-                                        </div>
-                                        <div class="receipe-content">
-                                            <div class="receipe-info">
-                                                <h3><a href="shop-details.html">Beefka Sandwitch</a></h3>
-                                                <h4>&#8358;5.12<del>&#8358;6.59</del></h4>
-                                            </div>
-                                            <div class="receipe-cart">
-                                                 <a href="wishlist.html">
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="receipe-item receipe-item-black pb-30 receipe-grid-item">
-                                    <div class="receipe-item-inner">
-                                        <div class="receipe-image">
-                                            <img src="assets/images/sandwitch-receipe-1.png" alt="receipe">
-                                        </div>
-                                        <div class="receipe-content">
-                                            <div class="receipe-info">
-                                                <h3><a href="shop-details.html">Chicken Sandwitch</a></h3>
-                                                <h4>&#8358;6.57<del>&#8358;7.12</del></h4>
-                                            </div>
-                                            <div class="receipe-cart">
-                                                 <a href="wishlist.html">
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="text-center">
-                                <a href="pro.html" class="btn load-more-btn">
-                                    <span class="load-more-text">Load More</span>
-                                    <span class="load-more-icon"><i class="icofont-refresh"></i></span>
-                                </a>
                             </div>
                         </div>
                         <div class="menu-main-details-item">
-                            <div class="receipe-grid receipe-grid-three">
-                                <div class="receipe-item receipe-item-black pb-30 receipe-grid-item">
-                                    <div class="receipe-item-inner">
-                                        <div class="receipe-image">
-                                            <img src="assets/images/shake-receipe-1.png" alt="receipe">
-                                        </div>
-                                        <div class="receipe-content">
-                                            <div class="receipe-info">
-                                                <h3><a href="shop-details.html">Strawberry Shake</a></h3>
-                                                <h4>&#8358;4.59<del>&#8358;7.59</del></h4>
-                                            </div>
-                                            <div class="receipe-cart">
-                                                 <a href="wishlist.html">
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                </a>
+                            <div class="row g-4">
+                                <div class="col-6 col-md-6 col-lg-4" data-category="dessert" data-category="dessert" data-category="dessert" data-category="ice-cream" data-category="ice-cream" data-category="ice-cream" data-category="shake" data-category="shake" data-category="shake" data-category="sandwich" data-category="sandwich" data-category="sandwich" data-category="burger" data-category="burger" data-category="burger" data-category="pizza" data-category="pizza" data-category="pizza">
+                                    <div class="product-card product-card-dark h-100">
+                                        <div class="product-card-thumb">
+                                            <div class="product-card-thumb-inner" style="aspect-ratio:1 / 1; padding:20px; display:grid; place-items:center;">
+                                                <img src="assets/images/shake-receipe-1.png" alt="Strawberry Shake" style="width:100%; height:100%; object-fit:cover; border-radius:10px;">
+                                                <div class="product-card-button">
+                                                    <a href="cart.html" class="btn btn-yellow">Add To Cart</a>
+                                                    <a href="wishlist.html" class="btn">Wishlist</a>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="receipe-item receipe-item-black pb-30 receipe-grid-item">
-                                    <div class="receipe-item-inner">
-                                        <div class="receipe-image">
-                                            <img src="assets/images/shake-receipe-2.png" alt="receipe">
-                                        </div>
-                                        <div class="receipe-content">
-                                            <div class="receipe-info">
-                                                <h3><a href="shop-details.html">Cream Shake</a></h3>
-                                                <h4>&#8358;5.12<del>&#8358;6.59</del></h4>
-                                            </div>
-                                            <div class="receipe-cart">
-                                                 <a href="wishlist.html">
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                </a>
-                                            </div>
+                                        <div class="product-card-content">
+                                            <h3><a href="shop-details.html">Strawberry Shake</a></h3>
+                                            <p>Fresh strawberry shake blended with creamy ice cream.</p>
+                                            <h4 class="product-price">&#8358; 4.59 <del>&#8358; 7.59</del></h4>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="receipe-item receipe-item-black pb-30 receipe-grid-item">
-                                    <div class="receipe-item-inner">
-                                        <div class="receipe-image">
-                                            <img src="assets/images/shake-receipe-3.png" alt="receipe">
-                                        </div>
-                                        <div class="receipe-content">
-                                            <div class="receipe-info">
-                                                <h3><a href="shop-details.html">Cherry Venilla</a></h3>
-                                                <h4>&#8358;6.57<del>&#8358;7.12</del></h4>
-                                            </div>
-                                            <div class="receipe-cart">
-                                                 <a href="wishlist.html">
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                </a>
+                                <div class="col-6 col-md-6 col-lg-4" data-category="dessert" data-category="dessert" data-category="dessert" data-category="ice-cream" data-category="ice-cream" data-category="ice-cream" data-category="shake" data-category="shake" data-category="shake" data-category="sandwich" data-category="sandwich" data-category="sandwich" data-category="burger" data-category="burger" data-category="burger" data-category="pizza" data-category="pizza" data-category="pizza">
+                                    <div class="product-card product-card-dark h-100">
+                                        <div class="product-card-thumb">
+                                            <div class="product-card-thumb-inner" style="aspect-ratio:1 / 1; padding:20px; display:grid; place-items:center;">
+                                                <img src="assets/images/shake-receipe-2.png" alt="Cream Shake" style="width:100%; height:100%; object-fit:cover; border-radius:10px;">
+                                                <div class="product-card-button">
+                                                    <a href="cart.html" class="btn btn-yellow">Add To Cart</a>
+                                                    <a href="wishlist.html" class="btn">Wishlist</a>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="receipe-item receipe-item-black pb-30 receipe-grid-item">
-                                    <div class="receipe-item-inner">
-                                        <div class="receipe-image">
-                                            <img src="assets/images/shake-receipe-4.png" alt="receipe">
-                                        </div>
-                                        <div class="receipe-content">
-                                            <div class="receipe-info">
-                                                <h3><a href="shop-details.html">Fruty Pebble</a></h3>
-                                                <h4>&#8358;5.12<del>&#8358;6.59</del></h4>
-                                            </div>
-                                            <div class="receipe-cart">
-                                                 <a href="wishlist.html">
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                </a>
-                                            </div>
+                                        <div class="product-card-content">
+                                            <h3><a href="shop-details.html">Cream Shake</a></h3>
+                                            <p>Thick cream shake with rich vanilla and delicious toppings.</p>
+                                            <h4 class="product-price">&#8358; 5.12 <del>&#8358; 6.59</del></h4>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="receipe-item receipe-item-black pb-30 receipe-grid-item">
-                                    <div class="receipe-item-inner">
-                                        <div class="receipe-image">
-                                            <img src="assets/images/shake-receipe-5.png" alt="receipe">
-                                        </div>
-                                        <div class="receipe-content">
-                                            <div class="receipe-info">
-                                                <h3><a href="shop-details.html">Oreo Shake</a></h3>
-                                                <h4>&#8358;7.45<del>&#8358;8.12</del></h4>
-                                            </div>
-                                            <div class="receipe-cart">
-                                                 <a href="wishlist.html">
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                </a>
+                                <div class="col-6 col-md-6 col-lg-4" data-category="dessert" data-category="dessert" data-category="dessert" data-category="ice-cream" data-category="ice-cream" data-category="ice-cream" data-category="shake" data-category="shake" data-category="shake" data-category="sandwich" data-category="sandwich" data-category="sandwich" data-category="burger" data-category="burger" data-category="burger" data-category="pizza" data-category="pizza" data-category="pizza">
+                                    <div class="product-card product-card-dark h-100">
+                                        <div class="product-card-thumb">
+                                            <div class="product-card-thumb-inner" style="aspect-ratio:1 / 1; padding:20px; display:grid; place-items:center;">
+                                                <img src="assets/images/shake-receipe-3.png" alt="Cherry Vanilla Shake" style="width:100%; height:100%; object-fit:cover; border-radius:10px;">
+                                                <div class="product-card-button">
+                                                    <a href="cart.html" class="btn btn-yellow">Add To Cart</a>
+                                                    <a href="wishlist.html" class="btn">Wishlist</a>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="receipe-item receipe-item-black pb-30 receipe-grid-item">
-                                    <div class="receipe-item-inner">
-                                        <div class="receipe-image">
-                                            <img src="assets/images/shake-receipe-6.png" alt="receipe">
-                                        </div>
-                                        <div class="receipe-content">
-                                            <div class="receipe-info">
-                                                <h3><a href="shop-details.html">Banana Shake</a></h3>
-                                                <h4>&#8358;8.45<del>&#8358;9.24</del></h4>
-                                            </div>
-                                            <div class="receipe-cart">
-                                                 <a href="wishlist.html">
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                </a>
-                                            </div>
+                                        <div class="product-card-content">
+                                            <h3><a href="shop-details.html">Cherry Vanilla Shake</a></h3>
+                                            <p>Sweet cherry vanilla shake with creamy indulgence.</p>
+                                            <h4 class="product-price">&#8358; 6.57 <del>&#8358; 7.12</del></h4>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="receipe-item receipe-item-black pb-30 receipe-grid-item">
-                                    <div class="receipe-item-inner">
-                                        <div class="receipe-image">
-                                            <img src="assets/images/shake-receipe-7.png" alt="receipe">
-                                        </div>
-                                        <div class="receipe-content">
-                                            <div class="receipe-info">
-                                                <h3><a href="shop-details.html">Italiano Shake</a></h3>
-                                                <h4>&#8358;9.45<del>&#8358;10.12</del></h4>
-                                            </div>
-                                            <div class="receipe-cart">
-                                                 <a href="wishlist.html">
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="receipe-item receipe-item-black pb-30 receipe-grid-item">
-                                    <div class="receipe-item-inner">
-                                        <div class="receipe-image">
-                                            <img src="assets/images/shake-receipe-8.png" alt="receipe">
-                                        </div>
-                                        <div class="receipe-content">
-                                            <div class="receipe-info">
-                                                <h3><a href="shop-details.html">Green Cream</a></h3>
-                                                <h4>&#8358;8.45<del>&#8358;12.01</del></h4>
-                                            </div>
-                                            <div class="receipe-cart">
-                                                 <a href="wishlist.html">
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="receipe-item receipe-item-black pb-30 receipe-grid-item">
-                                    <div class="receipe-item-inner">
-                                        <div class="receipe-image">
-                                            <img src="assets/images/shake-receipe-9.png" alt="receipe">
-                                        </div>
-                                        <div class="receipe-content">
-                                            <div class="receipe-info">
-                                                <h3><a href="shop-details.html">Cappuccino Shake</a></h3>
-                                                <h4>&#8358;4.59<del>&#8358;7.59</del></h4>
-                                            </div>
-                                            <div class="receipe-cart">
-                                                 <a href="wishlist.html">
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="receipe-item receipe-item-black pb-30 receipe-grid-item">
-                                    <div class="receipe-item-inner">
-                                        <div class="receipe-image">
-                                            <img src="assets/images/shake-receipe-4.png" alt="receipe">
-                                        </div>
-                                        <div class="receipe-content">
-                                            <div class="receipe-info">
-                                                <h3><a href="shop-details.html">Cherry Shake</a></h3>
-                                                <h4>&#8358;4.59<del>&#8358;7.59</del></h4>
-                                            </div>
-                                            <div class="receipe-cart">
-                                                 <a href="wishlist.html">
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="receipe-item receipe-item-black pb-30 receipe-grid-item">
-                                    <div class="receipe-item-inner">
-                                        <div class="receipe-image">
-                                            <img src="assets/images/shake-receipe-1.png" alt="receipe">
-                                        </div>
-                                        <div class="receipe-content">
-                                            <div class="receipe-info">
-                                                <h3><a href="shop-details.html">Strawberry Shake</a></h3>
-                                                <h4>&#8358;5.12<del>&#8358;6.59</del></h4>
-                                            </div>
-                                            <div class="receipe-cart">
-                                                 <a href="wishlist.html">
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="receipe-item receipe-item-black pb-30 receipe-grid-item">
-                                    <div class="receipe-item-inner">
-                                        <div class="receipe-image">
-                                            <img src="assets/images/shake-receipe-7.png" alt="receipe">
-                                        </div>
-                                        <div class="receipe-content">
-                                            <div class="receipe-info">
-                                                <h3><a href="shop-details.html">Cherry Venilla</a></h3>
-                                                <h4>&#8358;6.57<del>&#8358;7.12</del></h4>
-                                            </div>
-                                            <div class="receipe-cart">
-                                                 <a href="wishlist.html">
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="text-center">
-                                <a href="pro.html" class="btn load-more-btn">
-                                    <span class="load-more-text">Load More</span>
-                                    <span class="load-more-icon"><i class="icofont-refresh"></i></span>
-                                </a>
                             </div>
                         </div>
                         <div class="menu-main-details-item">
-                            <div class="receipe-grid receipe-grid-three">
-                                <div class="receipe-item receipe-item-black pb-30 receipe-grid-item">
-                                    <div class="receipe-item-inner">
-                                        <div class="receipe-image">
-                                            <img src="assets/images/icecream-receipe-1.png" alt="receipe">
-                                        </div>
-                                        <div class="receipe-content">
-                                            <div class="receipe-info">
-                                                <h3><a href="shop-details.html">Italiano Icecream</a></h3>
-                                                <h4>&#8358;4.59<del>&#8358;7.59</del></h4>
-                                            </div>
-                                            <div class="receipe-cart">
-                                                 <a href="wishlist.html">
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                </a>
+                            <div class="row g-4">
+                                <div class="col-6 col-md-6 col-lg-4" data-category="dessert" data-category="dessert" data-category="dessert" data-category="ice-cream" data-category="ice-cream" data-category="ice-cream" data-category="shake" data-category="shake" data-category="shake" data-category="sandwich" data-category="sandwich" data-category="sandwich" data-category="burger" data-category="burger" data-category="burger" data-category="pizza" data-category="pizza" data-category="pizza">
+                                    <div class="product-card product-card-dark h-100">
+                                        <div class="product-card-thumb">
+                                            <div class="product-card-thumb-inner" style="aspect-ratio:1 / 1; padding:20px; display:grid; place-items:center;">
+                                                <img src="assets/images/icecream-receipe-1.png" alt="Italiano Icecream" style="width:100%; height:100%; object-fit:cover; border-radius:10px;">
+                                                <div class="product-card-button">
+                                                    <a href="cart.html" class="btn btn-yellow">Add To Cart</a>
+                                                    <a href="wishlist.html" class="btn">Wishlist</a>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="receipe-item receipe-item-black pb-30 receipe-grid-item">
-                                    <div class="receipe-item-inner">
-                                        <div class="receipe-image">
-                                            <img src="assets/images/icecream-receipe-2.png" alt="receipe">
-                                        </div>
-                                        <div class="receipe-content">
-                                            <div class="receipe-info">
-                                                <h3><a href="shop-details.html">Creamy Icecream</a></h3>
-                                                <h4>&#8358;5.12<del>&#8358;6.59</del></h4>
-                                            </div>
-                                            <div class="receipe-cart">
-                                                 <a href="wishlist.html">
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                </a>
-                                            </div>
+                                        <div class="product-card-content">
+                                            <h3><a href="shop-details.html">Italiano Icecream</a></h3>
+                                            <p>Creamy Italian gelato with a rich texture and flavor.</p>
+                                            <h4 class="product-price">&#8358; 4.59 <del>&#8358; 7.59</del></h4>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="receipe-item receipe-item-black pb-30 receipe-grid-item">
-                                    <div class="receipe-item-inner">
-                                        <div class="receipe-image">
-                                            <img src="assets/images/icecream-receipe-3.png" alt="receipe">
-                                        </div>
-                                        <div class="receipe-content">
-                                            <div class="receipe-info">
-                                                <h3><a href="shop-details.html">Chocolate Layer</a></h3>
-                                                <h4>&#8358;6.57<del>&#8358;7.12</del></h4>
-                                            </div>
-                                            <div class="receipe-cart">
-                                                 <a href="wishlist.html">
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                </a>
+                                <div class="col-6 col-md-6 col-lg-4" data-category="dessert" data-category="dessert" data-category="dessert" data-category="ice-cream" data-category="ice-cream" data-category="ice-cream" data-category="shake" data-category="shake" data-category="shake" data-category="sandwich" data-category="sandwich" data-category="sandwich" data-category="burger" data-category="burger" data-category="burger" data-category="pizza" data-category="pizza" data-category="pizza">
+                                    <div class="product-card product-card-dark h-100">
+                                        <div class="product-card-thumb">
+                                            <div class="product-card-thumb-inner" style="aspect-ratio:1 / 1; padding:20px; display:grid; place-items:center;">
+                                                <img src="assets/images/icecream-receipe-2.png" alt="Creamy Icecream" style="width:100%; height:100%; object-fit:cover; border-radius:10px;">
+                                                <div class="product-card-button">
+                                                    <a href="cart.html" class="btn btn-yellow">Add To Cart</a>
+                                                    <a href="wishlist.html" class="btn">Wishlist</a>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="receipe-item receipe-item-black pb-30 receipe-grid-item">
-                                    <div class="receipe-item-inner">
-                                        <div class="receipe-image">
-                                            <img src="assets/images/icecream-receipe-4.png" alt="receipe">
-                                        </div>
-                                        <div class="receipe-content">
-                                            <div class="receipe-info">
-                                                <h3><a href="shop-details.html">Regular Cream</a></h3>
-                                                <h4>&#8358;5.12<del>&#8358;6.59</del></h4>
-                                            </div>
-                                            <div class="receipe-cart">
-                                                 <a href="wishlist.html">
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                </a>
-                                            </div>
+                                        <div class="product-card-content">
+                                            <h3><a href="shop-details.html">Creamy Icecream</a></h3>
+                                            <p>Silky smooth ice cream with layers of creamy sweetness.</p>
+                                            <h4 class="product-price">&#8358; 5.12 <del>&#8358; 6.59</del></h4>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="receipe-item receipe-item-black pb-30 receipe-grid-item">
-                                    <div class="receipe-item-inner">
-                                        <div class="receipe-image">
-                                            <img src="assets/images/icecream-receipe-5.png" alt="receipe">
-                                        </div>
-                                        <div class="receipe-content">
-                                            <div class="receipe-info">
-                                                <h3><a href="shop-details.html">Light Flavour</a></h3>
-                                                <h4>&#8358;7.45<del>&#8358;8.12</del></h4>
-                                            </div>
-                                            <div class="receipe-cart">
-                                                 <a href="wishlist.html">
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                </a>
+                                <div class="col-6 col-md-6 col-lg-4" data-category="dessert" data-category="dessert" data-category="dessert" data-category="ice-cream" data-category="ice-cream" data-category="ice-cream" data-category="shake" data-category="shake" data-category="shake" data-category="sandwich" data-category="sandwich" data-category="sandwich" data-category="burger" data-category="burger" data-category="burger" data-category="pizza" data-category="pizza" data-category="pizza">
+                                    <div class="product-card product-card-dark h-100">
+                                        <div class="product-card-thumb">
+                                            <div class="product-card-thumb-inner" style="aspect-ratio:1 / 1; padding:20px; display:grid; place-items:center;">
+                                                <img src="assets/images/icecream-receipe-3.png" alt="Chocolate Layer" style="width:100%; height:100%; object-fit:cover; border-radius:10px;">
+                                                <div class="product-card-button">
+                                                    <a href="cart.html" class="btn btn-yellow">Add To Cart</a>
+                                                    <a href="wishlist.html" class="btn">Wishlist</a>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="receipe-item receipe-item-black pb-30 receipe-grid-item">
-                                    <div class="receipe-item-inner">
-                                        <div class="receipe-image">
-                                            <img src="assets/images/icecream-receipe-6.png" alt="receipe">
-                                        </div>
-                                        <div class="receipe-content">
-                                            <div class="receipe-info">
-                                                <h3><a href="shop-details.html">French Icecream</a></h3>
-                                                <h4>&#8358;8.45<del>&#8358;9.24</del></h4>
-                                            </div>
-                                            <div class="receipe-cart">
-                                                 <a href="wishlist.html">
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                </a>
-                                            </div>
+                                        <div class="product-card-content">
+                                            <h3><a href="shop-details.html">Chocolate Layer</a></h3>
+                                            <p>Decadent chocolate ice cream layered with whipped cream.</p>
+                                            <h4 class="product-price">&#8358; 6.57 <del>&#8358; 7.12</del></h4>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="receipe-item receipe-item-black pb-30 receipe-grid-item">
-                                    <div class="receipe-item-inner">
-                                        <div class="receipe-image">
-                                            <img src="assets/images/icecream-receipe-7.png" alt="receipe">
-                                        </div>
-                                        <div class="receipe-content">
-                                            <div class="receipe-info">
-                                                <h3><a href="shop-details.html">Creamy Icecream</a></h3>
-                                                <h4>&#8358;9.45<del>&#8358;10.12</del></h4>
-                                            </div>
-                                            <div class="receipe-cart">
-                                                 <a href="wishlist.html">
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="receipe-item receipe-item-black pb-30 receipe-grid-item">
-                                    <div class="receipe-item-inner">
-                                        <div class="receipe-image">
-                                            <img src="assets/images/icecream-receipe-8.png" alt="receipe">
-                                        </div>
-                                        <div class="receipe-content">
-                                            <div class="receipe-info">
-                                                <h3><a href="shop-details.html">Milk Flavour</a></h3>
-                                                <h4>&#8358;8.45<del>&#8358;12.01</del></h4>
-                                            </div>
-                                            <div class="receipe-cart">
-                                                 <a href="wishlist.html">
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="receipe-item receipe-item-black pb-30 receipe-grid-item">
-                                    <div class="receipe-item-inner">
-                                        <div class="receipe-image">
-                                            <img src="assets/images/icecream-receipe-9.png" alt="receipe">
-                                        </div>
-                                        <div class="receipe-content">
-                                            <div class="receipe-info">
-                                                <h3><a href="shop-details.html">Perfect Pear</a></h3>
-                                                <h4>&#8358;4.59<del>&#8358;7.59</del></h4>
-                                            </div>
-                                            <div class="receipe-cart">
-                                                 <a href="wishlist.html">
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="receipe-item receipe-item-black pb-30 receipe-grid-item">
-                                    <div class="receipe-item-inner">
-                                        <div class="receipe-image">
-                                            <img src="assets/images/icecream-receipe-5.png" alt="receipe">
-                                        </div>
-                                        <div class="receipe-content">
-                                            <div class="receipe-info">
-                                                <h3><a href="shop-details.html">Italiano Icecream</a></h3>
-                                                <h4>&#8358;4.59<del>&#8358;7.59</del></h4>
-                                            </div>
-                                            <div class="receipe-cart">
-                                                 <a href="wishlist.html">
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="receipe-item receipe-item-black pb-30 receipe-grid-item">
-                                    <div class="receipe-item-inner">
-                                        <div class="receipe-image">
-                                            <img src="assets/images/icecream-receipe-2.png" alt="receipe">
-                                        </div>
-                                        <div class="receipe-content">
-                                            <div class="receipe-info">
-                                                <h3><a href="shop-details.html">French Icecream</a></h3>
-                                                <h4>&#8358;5.12<del>&#8358;6.59</del></h4>
-                                            </div>
-                                            <div class="receipe-cart">
-                                                 <a href="wishlist.html">
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="receipe-item receipe-item-black pb-30 receipe-grid-item">
-                                    <div class="receipe-item-inner">
-                                        <div class="receipe-image">
-                                            <img src="assets/images/icecream-receipe-6.png" alt="receipe">
-                                        </div>
-                                        <div class="receipe-content">
-                                            <div class="receipe-info">
-                                                <h3><a href="shop-details.html">Light Icecream</a></h3>
-                                                <h4>&#8358;6.57<del>&#8358;7.12</del></h4>
-                                            </div>
-                                            <div class="receipe-cart">
-                                                 <a href="wishlist.html">
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="text-center">
-                                <a href="pro.html" class="btn load-more-btn">
-                                    <span class="load-more-text">Load More</span>
-                                    <span class="load-more-icon"><i class="icofont-refresh"></i></span>
-                                </a>
                             </div>
                         </div>
                         <div class="menu-main-details-item">
-                            <div class="receipe-grid receipe-grid-three">
-                                <div class="receipe-item receipe-item-black pb-30 receipe-grid-item">
-                                    <div class="receipe-item-inner">
-                                        <div class="receipe-image">
-                                            <img src="assets/images/dessert-receipe-1.png" alt="receipe">
-                                        </div>
-                                        <div class="receipe-content">
-                                            <div class="receipe-info">
-                                                <h3><a href="shop-details.html">Frozen</a></h3>
-                                                <h4>&#8358;4.59<del>&#8358;7.59</del></h4>
-                                            </div>
-                                            <div class="receipe-cart">
-                                                 <a href="wishlist.html">
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                </a>
+                            <div class="row g-4">
+                                <div class="col-6 col-md-6 col-lg-4" data-category="dessert" data-category="dessert" data-category="dessert" data-category="ice-cream" data-category="ice-cream" data-category="ice-cream" data-category="shake" data-category="shake" data-category="shake" data-category="sandwich" data-category="sandwich" data-category="sandwich" data-category="burger" data-category="burger" data-category="burger" data-category="pizza" data-category="pizza" data-category="pizza">
+                                    <div class="product-card product-card-dark h-100">
+                                        <div class="product-card-thumb">
+                                            <div class="product-card-thumb-inner" style="aspect-ratio:1 / 1; padding:20px; display:grid; place-items:center;">
+                                                <img src="assets/images/dessert-receipe-1.png" alt="Frozen Dessert" style="width:100%; height:100%; object-fit:cover; border-radius:10px;">
+                                                <div class="product-card-button">
+                                                    <a href="cart.html" class="btn btn-yellow">Add To Cart</a>
+                                                    <a href="wishlist.html" class="btn">Wishlist</a>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="receipe-item receipe-item-black pb-30 receipe-grid-item">
-                                    <div class="receipe-item-inner">
-                                        <div class="receipe-image">
-                                            <img src="assets/images/dessert-receipe-2.png" alt="receipe">
-                                        </div>
-                                        <div class="receipe-content">
-                                            <div class="receipe-info">
-                                                <h3><a href="shop-details.html">Decadent</a></h3>
-                                                <h4>&#8358;5.12<del>&#8358;6.59</del></h4>
-                                            </div>
-                                            <div class="receipe-cart">
-                                                 <a href="wishlist.html">
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                </a>
-                                            </div>
+                                        <div class="product-card-content">
+                                            <h3><a href="shop-details.html">Frozen Dessert</a></h3>
+                                            <p>Refreshing frozen dessert topped with berries and chocolate.</p>
+                                            <h4 class="product-price">&#8358; 4.59 <del>&#8358; 7.59</del></h4>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="receipe-item receipe-item-black pb-30 receipe-grid-item">
-                                    <div class="receipe-item-inner">
-                                        <div class="receipe-image">
-                                            <img src="assets/images/dessert-receipe-3.png" alt="receipe">
-                                        </div>
-                                        <div class="receipe-content">
-                                            <div class="receipe-info">
-                                                <h3><a href="shop-details.html">Zesty</a></h3>
-                                                <h4>&#8358;6.57<del>&#8358;7.12</del></h4>
-                                            </div>
-                                            <div class="receipe-cart">
-                                                 <a href="wishlist.html">
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                </a>
+                                <div class="col-6 col-md-6 col-lg-4" data-category="dessert" data-category="dessert" data-category="dessert" data-category="ice-cream" data-category="ice-cream" data-category="ice-cream" data-category="shake" data-category="shake" data-category="shake" data-category="sandwich" data-category="sandwich" data-category="sandwich" data-category="burger" data-category="burger" data-category="burger" data-category="pizza" data-category="pizza" data-category="pizza">
+                                    <div class="product-card product-card-dark h-100">
+                                        <div class="product-card-thumb">
+                                            <div class="product-card-thumb-inner" style="aspect-ratio:1 / 1; padding:20px; display:grid; place-items:center;">
+                                                <img src="assets/images/dessert-receipe-2.png" alt="Decadent Dessert" style="width:100%; height:100%; object-fit:cover; border-radius:10px;">
+                                                <div class="product-card-button">
+                                                    <a href="cart.html" class="btn btn-yellow">Add To Cart</a>
+                                                    <a href="wishlist.html" class="btn">Wishlist</a>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="receipe-item receipe-item-black pb-30 receipe-grid-item">
-                                    <div class="receipe-item-inner">
-                                        <div class="receipe-image">
-                                            <img src="assets/images/dessert-receipe-4.png" alt="receipe">
-                                        </div>
-                                        <div class="receipe-content">
-                                            <div class="receipe-info">
-                                                <h3><a href="shop-details.html">Luscious</a></h3>
-                                                <h4>&#8358;5.12<del>&#8358;6.59</del></h4>
-                                            </div>
-                                            <div class="receipe-cart">
-                                                 <a href="wishlist.html">
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                </a>
-                                            </div>
+                                        <div class="product-card-content">
+                                            <h3><a href="shop-details.html">Decadent Dessert</a></h3>
+                                            <p>Sweet dessert with rich layers and creamy topping.</p>
+                                            <h4 class="product-price">&#8358; 5.12 <del>&#8358; 6.59</del></h4>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="receipe-item receipe-item-black pb-30 receipe-grid-item">
-                                    <div class="receipe-item-inner">
-                                        <div class="receipe-image">
-                                            <img src="assets/images/dessert-receipe-5.png" alt="receipe">
-                                        </div>
-                                        <div class="receipe-content">
-                                            <div class="receipe-info">
-                                                <h3><a href="shop-details.html">Creamy</a></h3>
-                                                <h4>&#8358;7.45<del>&#8358;8.12</del></h4>
-                                            </div>
-                                            <div class="receipe-cart">
-                                                 <a href="wishlist.html">
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                </a>
+                                <div class="col-6 col-md-6 col-lg-4" data-category="dessert" data-category="dessert" data-category="dessert" data-category="ice-cream" data-category="ice-cream" data-category="ice-cream" data-category="shake" data-category="shake" data-category="shake" data-category="sandwich" data-category="sandwich" data-category="sandwich" data-category="burger" data-category="burger" data-category="burger" data-category="pizza" data-category="pizza" data-category="pizza">
+                                    <div class="product-card product-card-dark h-100">
+                                        <div class="product-card-thumb">
+                                            <div class="product-card-thumb-inner" style="aspect-ratio:1 / 1; padding:20px; display:grid; place-items:center;">
+                                                <img src="assets/images/dessert-receipe-3.png" alt="Zesty Dessert" style="width:100%; height:100%; object-fit:cover; border-radius:10px;">
+                                                <div class="product-card-button">
+                                                    <a href="cart.html" class="btn btn-yellow">Add To Cart</a>
+                                                    <a href="wishlist.html" class="btn">Wishlist</a>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="receipe-item receipe-item-black pb-30 receipe-grid-item">
-                                    <div class="receipe-item-inner">
-                                        <div class="receipe-image">
-                                            <img src="assets/images/dessert-receipe-6.png" alt="receipe">
-                                        </div>
-                                        <div class="receipe-content">
-                                            <div class="receipe-info">
-                                                <h3><a href="shop-details.html">Oreo Mixed</a></h3>
-                                                <h4>&#8358;8.45<del>&#8358;9.24</del></h4>
-                                            </div>
-                                            <div class="receipe-cart">
-                                                 <a href="wishlist.html">
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="receipe-item receipe-item-black pb-30 receipe-grid-item">
-                                    <div class="receipe-item-inner">
-                                        <div class="receipe-image">
-                                            <img src="assets/images/dessert-receipe-7.png" alt="receipe">
-                                        </div>
-                                        <div class="receipe-content">
-                                            <div class="receipe-info">
-                                                <h3><a href="shop-details.html">Zesty</a></h3>
-                                                <h4>&#8358;9.45<del>&#8358;10.12</del></h4>
-                                            </div>
-                                            <div class="receipe-cart">
-                                                 <a href="wishlist.html">
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="receipe-item receipe-item-black pb-30 receipe-grid-item">
-                                    <div class="receipe-item-inner">
-                                        <div class="receipe-image">
-                                            <img src="assets/images/dessert-receipe-8.png" alt="receipe">
-                                        </div>
-                                        <div class="receipe-content">
-                                            <div class="receipe-info">
-                                                <h3><a href="shop-details.html">Luscious</a></h3>
-                                                <h4>&#8358;8.45<del>&#8358;12.01</del></h4>
-                                            </div>
-                                            <div class="receipe-cart">
-                                                 <a href="wishlist.html">
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="receipe-item receipe-item-black pb-30 receipe-grid-item">
-                                    <div class="receipe-item-inner">
-                                        <div class="receipe-image">
-                                            <img src="assets/images/dessert-receipe-9.png" alt="receipe">
-                                        </div>
-                                        <div class="receipe-content">
-                                            <div class="receipe-info">
-                                                <h3><a href="shop-details.html">Creamy</a></h3>
-                                                <h4>&#8358;4.59<del>&#8358;7.59</del></h4>
-                                            </div>
-                                            <div class="receipe-cart">
-                                                 <a href="wishlist.html">
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="receipe-item receipe-item-black pb-30 receipe-grid-item">
-                                    <div class="receipe-item-inner">
-                                        <div class="receipe-image">
-                                            <img src="assets/images/dessert-receipe-3.png" alt="receipe">
-                                        </div>
-                                        <div class="receipe-content">
-                                            <div class="receipe-info">
-                                                <h3><a href="shop-details.html">Oreo Mixed</a></h3>
-                                                <h4>&#8358;4.59<del>&#8358;7.59</del></h4>
-                                            </div>
-                                            <div class="receipe-cart">
-                                                 <a href="wishlist.html">
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="receipe-item receipe-item-black pb-30 receipe-grid-item">
-                                    <div class="receipe-item-inner">
-                                        <div class="receipe-image">
-                                            <img src="assets/images/dessert-receipe-6.png" alt="receipe">
-                                        </div>
-                                        <div class="receipe-content">
-                                            <div class="receipe-info">
-                                                <h3><a href="shop-details.html">Frozen</a></h3>
-                                                <h4>&#8358;5.12<del>&#8358;6.59</del></h4>
-                                            </div>
-                                            <div class="receipe-cart">
-                                                 <a href="wishlist.html">
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="receipe-item receipe-item-black pb-30 receipe-grid-item">
-                                    <div class="receipe-item-inner">
-                                        <div class="receipe-image">
-                                            <img src="assets/images/dessert-receipe-8.png" alt="receipe">
-                                        </div>
-                                        <div class="receipe-content">
-                                            <div class="receipe-info">
-                                                <h3><a href="shop-details.html">Creamy</a></h3>
-                                                <h4>&#8358;6.57<del>&#8358;7.12</del></h4>
-                                            </div>
-                                            <div class="receipe-cart">
-                                                 <a href="wishlist.html">
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                    <i class="flaticon-supermarket-basket"></i>
-                                                </a>
-                                            </div>
+                                        <div class="product-card-content">
+                                            <h3><a href="shop-details.html">Zesty Dessert</a></h3>
+                                            <p>Zesty dessert with citrus notes, cream and crunchy topping.</p>
+                                            <h4 class="product-price">&#8358; 6.57 <del>&#8358; 7.12</del></h4>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="text-center">
-                                <a href="pro.html" class="btn load-more-btn">
-                                    <span class="load-more-text">Load More</span>
-                                    <span class="load-more-icon"><i class="icofont-refresh"></i></span>
-                                </a>
+                        </div>
+                        <div class="menu-main-details-item">
+                            <div class="row g-4">
+                                <div class="col-6 col-md-6 col-lg-4" data-category="swallows">
+                                    <div class="product-card product-card-dark h-100">
+                                        <div class="product-card-thumb">
+                                            <div class="product-card-thumb-inner" style="aspect-ratio:1 / 1; padding:20px; display:grid; place-items:center;">
+                                                <img src="assets/images/product-1.png" alt="Pounded Yam" style="width:100%; height:100%; object-fit:cover; border-radius:10px;">
+                                                <div class="product-card-button">
+                                                    <a href="cart.html" class="btn btn-yellow">Add To Cart</a>
+                                                    <a href="wishlist.html" class="btn">Wishlist</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product-card-content">
+                                            <h3><a href="shop-details.html">Pounded Yam</a></h3>
+                                            <p>Soft swallow served to pair beautifully with rich native soups.</p>
+                                            <h4 class="product-price">&#8358; 6.40 <del>&#8358; 7.20</del></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-6 col-lg-4" data-category="swallows">
+                                    <div class="product-card product-card-dark h-100">
+                                        <div class="product-card-thumb">
+                                            <div class="product-card-thumb-inner" style="aspect-ratio:1 / 1; padding:20px; display:grid; place-items:center;">
+                                                <img src="assets/images/product-2.png" alt="Eba Special" style="width:100%; height:100%; object-fit:cover; border-radius:10px;">
+                                                <div class="product-card-button">
+                                                    <a href="cart.html" class="btn btn-yellow">Add To Cart</a>
+                                                    <a href="wishlist.html" class="btn">Wishlist</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product-card-content">
+                                            <h3><a href="shop-details.html">Eba Special</a></h3>
+                                            <p>Smooth garri swallow with a hearty, home-style finish.</p>
+                                            <h4 class="product-price">&#8358; 5.85 <del>&#8358; 6.50</del></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-6 col-lg-4" data-category="swallows">
+                                    <div class="product-card product-card-dark h-100">
+                                        <div class="product-card-thumb">
+                                            <div class="product-card-thumb-inner" style="aspect-ratio:1 / 1; padding:20px; display:grid; place-items:center;">
+                                                <img src="assets/images/product-3.png" alt="Semo Delight" style="width:100%; height:100%; object-fit:cover; border-radius:10px;">
+                                                <div class="product-card-button">
+                                                    <a href="cart.html" class="btn btn-yellow">Add To Cart</a>
+                                                    <a href="wishlist.html" class="btn">Wishlist</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product-card-content">
+                                            <h3><a href="shop-details.html">Semo Delight</a></h3>
+                                            <p>Classic semo portion prepared for satisfying soup combinations.</p>
+                                            <h4 class="product-price">&#8358; 5.40 <del>&#8358; 6.10</del></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="menu-main-details-item">
+                            <div class="row g-4">
+                                <div class="col-6 col-md-6 col-lg-4" data-category="soups">
+                                    <div class="product-card product-card-dark h-100">
+                                        <div class="product-card-thumb">
+                                            <div class="product-card-thumb-inner" style="aspect-ratio:1 / 1; padding:20px; display:grid; place-items:center;">
+                                                <img src="assets/images/blog-nav-1.jpg" alt="Egusi Soup" style="width:100%; height:100%; object-fit:cover; border-radius:10px;">
+                                                <div class="product-card-button">
+                                                    <a href="cart.html" class="btn btn-yellow">Add To Cart</a>
+                                                    <a href="wishlist.html" class="btn">Wishlist</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product-card-content">
+                                            <h3><a href="shop-details.html">Egusi Soup</a></h3>
+                                            <p>Melon-seed soup simmered with greens and bold traditional flavor.</p>
+                                            <h4 class="product-price">&#8358; 7.10 <del>&#8358; 8.20</del></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-6 col-lg-4" data-category="soups">
+                                    <div class="product-card product-card-dark h-100">
+                                        <div class="product-card-thumb">
+                                            <div class="product-card-thumb-inner" style="aspect-ratio:1 / 1; padding:20px; display:grid; place-items:center;">
+                                                <img src="assets/images/blog-nav-2.jpg" alt="Ogbono Soup" style="width:100%; height:100%; object-fit:cover; border-radius:10px;">
+                                                <div class="product-card-button">
+                                                    <a href="cart.html" class="btn btn-yellow">Add To Cart</a>
+                                                    <a href="wishlist.html" class="btn">Wishlist</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product-card-content">
+                                            <h3><a href="shop-details.html">Ogbono Soup</a></h3>
+                                            <p>Silky draw soup cooked with native spices and tender cuts.</p>
+                                            <h4 class="product-price">&#8358; 7.35 <del>&#8358; 8.15</del></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-6 col-lg-4" data-category="soups">
+                                    <div class="product-card product-card-dark h-100">
+                                        <div class="product-card-thumb">
+                                            <div class="product-card-thumb-inner" style="aspect-ratio:1 / 1; padding:20px; display:grid; place-items:center;">
+                                                <img src="assets/images/blog-nav-3.jpg" alt="Vegetable Soup" style="width:100%; height:100%; object-fit:cover; border-radius:10px;">
+                                                <div class="product-card-button">
+                                                    <a href="cart.html" class="btn btn-yellow">Add To Cart</a>
+                                                    <a href="wishlist.html" class="btn">Wishlist</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product-card-content">
+                                            <h3><a href="shop-details.html">Vegetable Soup</a></h3>
+                                            <p>Leafy, savory soup with a deep stock and fresh texture.</p>
+                                            <h4 class="product-price">&#8358; 6.95 <del>&#8358; 7.90</del></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="menu-main-details-item">
+                            <div class="row g-4">
+                                <div class="col-6 col-md-6 col-lg-4" data-category="rice-dishes">
+                                    <div class="product-card product-card-dark h-100">
+                                        <div class="product-card-thumb">
+                                            <div class="product-card-thumb-inner" style="aspect-ratio:1 / 1; padding:20px; display:grid; place-items:center;">
+                                                <img src="assets/images/product-4.png" alt="Jollof Rice" style="width:100%; height:100%; object-fit:cover; border-radius:10px;">
+                                                <div class="product-card-button">
+                                                    <a href="cart.html" class="btn btn-yellow">Add To Cart</a>
+                                                    <a href="wishlist.html" class="btn">Wishlist</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product-card-content">
+                                            <h3><a href="shop-details.html">Jollof Rice</a></h3>
+                                            <p>Smoky party-style rice cooked in a rich pepper tomato base.</p>
+                                            <h4 class="product-price">&#8358; 6.80 <del>&#8358; 7.60</del></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-6 col-lg-4" data-category="rice-dishes">
+                                    <div class="product-card product-card-dark h-100">
+                                        <div class="product-card-thumb">
+                                            <div class="product-card-thumb-inner" style="aspect-ratio:1 / 1; padding:20px; display:grid; place-items:center;">
+                                                <img src="assets/images/product-5.png" alt="Fried Rice" style="width:100%; height:100%; object-fit:cover; border-radius:10px;">
+                                                <div class="product-card-button">
+                                                    <a href="cart.html" class="btn btn-yellow">Add To Cart</a>
+                                                    <a href="wishlist.html" class="btn">Wishlist</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product-card-content">
+                                            <h3><a href="shop-details.html">Fried Rice</a></h3>
+                                            <p>Colorful rice tossed with vegetables and savory seasoning.</p>
+                                            <h4 class="product-price">&#8358; 7.05 <del>&#8358; 7.95</del></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-6 col-lg-4" data-category="rice-dishes">
+                                    <div class="product-card product-card-dark h-100">
+                                        <div class="product-card-thumb">
+                                            <div class="product-card-thumb-inner" style="aspect-ratio:1 / 1; padding:20px; display:grid; place-items:center;">
+                                                <img src="assets/images/product-6.png" alt="Coconut Rice" style="width:100%; height:100%; object-fit:cover; border-radius:10px;">
+                                                <div class="product-card-button">
+                                                    <a href="cart.html" class="btn btn-yellow">Add To Cart</a>
+                                                    <a href="wishlist.html" class="btn">Wishlist</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product-card-content">
+                                            <h3><a href="shop-details.html">Coconut Rice</a></h3>
+                                            <p>Fragrant rice infused with coconut milk and gentle spices.</p>
+                                            <h4 class="product-price">&#8358; 7.40 <del>&#8358; 8.35</del></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="menu-main-details-item">
+                            <div class="row g-4">
+                                <div class="col-6 col-md-6 col-lg-4" data-category="small-chops">
+                                    <div class="product-card product-card-dark h-100">
+                                        <div class="product-card-thumb">
+                                            <div class="product-card-thumb-inner" style="aspect-ratio:1 / 1; padding:20px; display:grid; place-items:center;">
+                                                <img src="assets/images/combo-2-1.png" alt="Puff Puff Basket" style="width:100%; height:100%; object-fit:cover; border-radius:10px;">
+                                                <div class="product-card-button">
+                                                    <a href="cart.html" class="btn btn-yellow">Add To Cart</a>
+                                                    <a href="wishlist.html" class="btn">Wishlist</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product-card-content">
+                                            <h3><a href="shop-details.html">Puff Puff Basket</a></h3>
+                                            <p>Golden bite-size treats with a light, fluffy center.</p>
+                                            <h4 class="product-price">&#8358; 4.60 <del>&#8358; 5.20</del></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-6 col-lg-4" data-category="small-chops">
+                                    <div class="product-card product-card-dark h-100">
+                                        <div class="product-card-thumb">
+                                            <div class="product-card-thumb-inner" style="aspect-ratio:1 / 1; padding:20px; display:grid; place-items:center;">
+                                                <img src="assets/images/combo-2-2.png" alt="Meat Pie Pack" style="width:100%; height:100%; object-fit:cover; border-radius:10px;">
+                                                <div class="product-card-button">
+                                                    <a href="cart.html" class="btn btn-yellow">Add To Cart</a>
+                                                    <a href="wishlist.html" class="btn">Wishlist</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product-card-content">
+                                            <h3><a href="shop-details.html">Meat Pie Pack</a></h3>
+                                            <p>Buttery pastry filled with seasoned meat and vegetables.</p>
+                                            <h4 class="product-price">&#8358; 5.20 <del>&#8358; 5.90</del></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-6 col-lg-4" data-category="small-chops">
+                                    <div class="product-card product-card-dark h-100">
+                                        <div class="product-card-thumb">
+                                            <div class="product-card-thumb-inner" style="aspect-ratio:1 / 1; padding:20px; display:grid; place-items:center;">
+                                                <img src="assets/images/combo-2-3.png" alt="Spring Roll Mix" style="width:100%; height:100%; object-fit:cover; border-radius:10px;">
+                                                <div class="product-card-button">
+                                                    <a href="cart.html" class="btn btn-yellow">Add To Cart</a>
+                                                    <a href="wishlist.html" class="btn">Wishlist</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product-card-content">
+                                            <h3><a href="shop-details.html">Spring Roll Mix</a></h3>
+                                            <p>Crisp finger foods perfect for sharing and snacking.</p>
+                                            <h4 class="product-price">&#8358; 5.55 <del>&#8358; 6.25</del></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="menu-main-details-item">
+                            <div class="row g-4">
+                                <div class="col-6 col-md-6 col-lg-4" data-category="proteins">
+                                    <div class="product-card product-card-dark h-100">
+                                        <div class="product-card-thumb">
+                                            <div class="product-card-thumb-inner" style="aspect-ratio:1 / 1; padding:20px; display:grid; place-items:center;">
+                                                <img src="assets/images/burger-receipe-1.png" alt="Grilled Chicken" style="width:100%; height:100%; object-fit:cover; border-radius:10px;">
+                                                <div class="product-card-button">
+                                                    <a href="cart.html" class="btn btn-yellow">Add To Cart</a>
+                                                    <a href="wishlist.html" class="btn">Wishlist</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product-card-content">
+                                            <h3><a href="shop-details.html">Grilled Chicken</a></h3>
+                                            <p>Well-seasoned chicken grilled for smoky, juicy flavor.</p>
+                                            <h4 class="product-price">&#8358; 8.10 <del>&#8358; 9.30</del></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-6 col-lg-4" data-category="proteins">
+                                    <div class="product-card product-card-dark h-100">
+                                        <div class="product-card-thumb">
+                                            <div class="product-card-thumb-inner" style="aspect-ratio:1 / 1; padding:20px; display:grid; place-items:center;">
+                                                <img src="assets/images/burger-receipe-2.png" alt="Peppered Beef" style="width:100%; height:100%; object-fit:cover; border-radius:10px;">
+                                                <div class="product-card-button">
+                                                    <a href="cart.html" class="btn btn-yellow">Add To Cart</a>
+                                                    <a href="wishlist.html" class="btn">Wishlist</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product-card-content">
+                                            <h3><a href="shop-details.html">Peppered Beef</a></h3>
+                                            <p>Tender beef tossed in a spicy pepper glaze.</p>
+                                            <h4 class="product-price">&#8358; 8.45 <del>&#8358; 9.55</del></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-6 col-lg-4" data-category="proteins">
+                                    <div class="product-card product-card-dark h-100">
+                                        <div class="product-card-thumb">
+                                            <div class="product-card-thumb-inner" style="aspect-ratio:1 / 1; padding:20px; display:grid; place-items:center;">
+                                                <img src="assets/images/burger-receipe-3.png" alt="Fried Fish" style="width:100%; height:100%; object-fit:cover; border-radius:10px;">
+                                                <div class="product-card-button">
+                                                    <a href="cart.html" class="btn btn-yellow">Add To Cart</a>
+                                                    <a href="wishlist.html" class="btn">Wishlist</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product-card-content">
+                                            <h3><a href="shop-details.html">Fried Fish</a></h3>
+                                            <p>Crisp fish portion served with a savory, seasoned finish.</p>
+                                            <h4 class="product-price">&#8358; 8.75 <del>&#8358; 9.80</del></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="menu-main-details-item">
+                            <div class="row g-4">
+                                <div class="col-6 col-md-6 col-lg-4" data-category="pepper-soups">
+                                    <div class="product-card product-card-dark h-100">
+                                        <div class="product-card-thumb">
+                                            <div class="product-card-thumb-inner" style="aspect-ratio:1 / 1; padding:20px; display:grid; place-items:center;">
+                                                <img src="assets/images/blog-nav-4.jpg" alt="Catfish Pepper Soup" style="width:100%; height:100%; object-fit:cover; border-radius:10px;">
+                                                <div class="product-card-button">
+                                                    <a href="cart.html" class="btn btn-yellow">Add To Cart</a>
+                                                    <a href="wishlist.html" class="btn">Wishlist</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product-card-content">
+                                            <h3><a href="shop-details.html">Catfish Pepper Soup</a></h3>
+                                            <p>Hot, aromatic broth with catfish and signature pepper spice.</p>
+                                            <h4 class="product-price">&#8358; 8.25 <del>&#8358; 9.35</del></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-6 col-lg-4" data-category="pepper-soups">
+                                    <div class="product-card product-card-dark h-100">
+                                        <div class="product-card-thumb">
+                                            <div class="product-card-thumb-inner" style="aspect-ratio:1 / 1; padding:20px; display:grid; place-items:center;">
+                                                <img src="assets/images/product-7.png" alt="Goat Meat Pepper Soup" style="width:100%; height:100%; object-fit:cover; border-radius:10px;">
+                                                <div class="product-card-button">
+                                                    <a href="cart.html" class="btn btn-yellow">Add To Cart</a>
+                                                    <a href="wishlist.html" class="btn">Wishlist</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product-card-content">
+                                            <h3><a href="shop-details.html">Goat Meat Pepper Soup</a></h3>
+                                            <p>Bold broth with tender goat meat and warming native spices.</p>
+                                            <h4 class="product-price">&#8358; 8.60 <del>&#8358; 9.70</del></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-6 col-lg-4" data-category="pepper-soups">
+                                    <div class="product-card product-card-dark h-100">
+                                        <div class="product-card-thumb">
+                                            <div class="product-card-thumb-inner" style="aspect-ratio:1 / 1; padding:20px; display:grid; place-items:center;">
+                                                <img src="assets/images/blog-nav-1.jpg" alt="Chicken Pepper Soup" style="width:100%; height:100%; object-fit:cover; border-radius:10px;">
+                                                <div class="product-card-button">
+                                                    <a href="cart.html" class="btn btn-yellow">Add To Cart</a>
+                                                    <a href="wishlist.html" class="btn">Wishlist</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product-card-content">
+                                            <h3><a href="shop-details.html">Chicken Pepper Soup</a></h3>
+                                            <p>Comforting pepper soup with juicy chicken and fresh herbs.</p>
+                                            <h4 class="product-price">&#8358; 8.15 <del>&#8358; 9.10</del></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="menu-main-details-item">
+                            <div class="row g-4">
+                                <div class="col-6 col-md-6 col-lg-4" data-category="beans">
+                                    <div class="product-card product-card-dark h-100">
+                                        <div class="product-card-thumb">
+                                            <div class="product-card-thumb-inner" style="aspect-ratio:1 / 1; padding:20px; display:grid; place-items:center;">
+                                                <img src="assets/images/product-1.png" alt="Moi Moi" style="width:100%; height:100%; object-fit:cover; border-radius:10px;">
+                                                <div class="product-card-button">
+                                                    <a href="cart.html" class="btn btn-yellow">Add To Cart</a>
+                                                    <a href="wishlist.html" class="btn">Wishlist</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product-card-content">
+                                            <h3><a href="shop-details.html">Moi Moi</a></h3>
+                                            <p>Steamed bean pudding with a soft texture and savory taste.</p>
+                                            <h4 class="product-price">&#8358; 4.95 <del>&#8358; 5.60</del></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-6 col-lg-4" data-category="beans">
+                                    <div class="product-card product-card-dark h-100">
+                                        <div class="product-card-thumb">
+                                            <div class="product-card-thumb-inner" style="aspect-ratio:1 / 1; padding:20px; display:grid; place-items:center;">
+                                                <img src="assets/images/product-5.png" alt="Beans Porridge" style="width:100%; height:100%; object-fit:cover; border-radius:10px;">
+                                                <div class="product-card-button">
+                                                    <a href="cart.html" class="btn btn-yellow">Add To Cart</a>
+                                                    <a href="wishlist.html" class="btn">Wishlist</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product-card-content">
+                                            <h3><a href="shop-details.html">Beans Porridge</a></h3>
+                                            <p>Creamy beans cooked till rich, smooth and deeply satisfying.</p>
+                                            <h4 class="product-price">&#8358; 5.75 <del>&#8358; 6.40</del></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-6 col-lg-4" data-category="beans">
+                                    <div class="product-card product-card-dark h-100">
+                                        <div class="product-card-thumb">
+                                            <div class="product-card-thumb-inner" style="aspect-ratio:1 / 1; padding:20px; display:grid; place-items:center;">
+                                                <img src="assets/images/blog-nav-2.jpg" alt="Gbegiri Bowl" style="width:100%; height:100%; object-fit:cover; border-radius:10px;">
+                                                <div class="product-card-button">
+                                                    <a href="cart.html" class="btn btn-yellow">Add To Cart</a>
+                                                    <a href="wishlist.html" class="btn">Wishlist</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product-card-content">
+                                            <h3><a href="shop-details.html">Gbegiri Bowl</a></h3>
+                                            <p>Smooth bean soup with a delicate, comforting flavor profile.</p>
+                                            <h4 class="product-price">&#8358; 5.45 <del>&#8358; 6.05</del></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="menu-main-details-item">
+                            <div class="row g-4">
+                                <div class="col-6 col-md-6 col-lg-4" data-category="porridges">
+                                    <div class="product-card product-card-dark h-100">
+                                        <div class="product-card-thumb">
+                                            <div class="product-card-thumb-inner" style="aspect-ratio:1 / 1; padding:20px; display:grid; place-items:center;">
+                                                <img src="assets/images/product-2.png" alt="Yam Porridge" style="width:100%; height:100%; object-fit:cover; border-radius:10px;">
+                                                <div class="product-card-button">
+                                                    <a href="cart.html" class="btn btn-yellow">Add To Cart</a>
+                                                    <a href="wishlist.html" class="btn">Wishlist</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product-card-content">
+                                            <h3><a href="shop-details.html">Yam Porridge</a></h3>
+                                            <p>Soft yam cubes folded into a rich pepper and palm-oil sauce.</p>
+                                            <h4 class="product-price">&#8358; 6.30 <del>&#8358; 7.10</del></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-6 col-lg-4" data-category="porridges">
+                                    <div class="product-card product-card-dark h-100">
+                                        <div class="product-card-thumb">
+                                            <div class="product-card-thumb-inner" style="aspect-ratio:1 / 1; padding:20px; display:grid; place-items:center;">
+                                                <img src="assets/images/product-4.png" alt="Corn Porridge" style="width:100%; height:100%; object-fit:cover; border-radius:10px;">
+                                                <div class="product-card-button">
+                                                    <a href="cart.html" class="btn btn-yellow">Add To Cart</a>
+                                                    <a href="wishlist.html" class="btn">Wishlist</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product-card-content">
+                                            <h3><a href="shop-details.html">Corn Porridge</a></h3>
+                                            <p>Warm, creamy pap-style bowl finished with gentle sweetness.</p>
+                                            <h4 class="product-price">&#8358; 5.10 <del>&#8358; 5.85</del></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-6 col-lg-4" data-category="porridges">
+                                    <div class="product-card product-card-dark h-100">
+                                        <div class="product-card-thumb">
+                                            <div class="product-card-thumb-inner" style="aspect-ratio:1 / 1; padding:20px; display:grid; place-items:center;">
+                                                <img src="assets/images/combo-2-4.png" alt="Plantain Porridge" style="width:100%; height:100%; object-fit:cover; border-radius:10px;">
+                                                <div class="product-card-button">
+                                                    <a href="cart.html" class="btn btn-yellow">Add To Cart</a>
+                                                    <a href="wishlist.html" class="btn">Wishlist</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product-card-content">
+                                            <h3><a href="shop-details.html">Plantain Porridge</a></h3>
+                                            <p>Ripe plantain simmered in a savory sauce for a hearty bowl.</p>
+                                            <h4 class="product-price">&#8358; 6.05 <del>&#8358; 6.80</del></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="menu-main-details-item">
+                            <div class="row g-4">
+                                <div class="col-6 col-md-6 col-lg-4" data-category="snacks-and-pastries">
+                                    <div class="product-card product-card-dark h-100">
+                                        <div class="product-card-thumb">
+                                            <div class="product-card-thumb-inner" style="aspect-ratio:1 / 1; padding:20px; display:grid; place-items:center;">
+                                                <img src="assets/images/dessert-receipe-4.png" alt="Sausage Roll" style="width:100%; height:100%; object-fit:cover; border-radius:10px;">
+                                                <div class="product-card-button">
+                                                    <a href="cart.html" class="btn btn-yellow">Add To Cart</a>
+                                                    <a href="wishlist.html" class="btn">Wishlist</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product-card-content">
+                                            <h3><a href="shop-details.html">Sausage Roll</a></h3>
+                                            <p>Flaky pastry wrapped around a juicy, seasoned sausage filling.</p>
+                                            <h4 class="product-price">&#8358; 4.85 <del>&#8358; 5.45</del></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-6 col-lg-4" data-category="snacks-and-pastries">
+                                    <div class="product-card product-card-dark h-100">
+                                        <div class="product-card-thumb">
+                                            <div class="product-card-thumb-inner" style="aspect-ratio:1 / 1; padding:20px; display:grid; place-items:center;">
+                                                <img src="assets/images/dessert-receipe-5.png" alt="Doughnut Bites" style="width:100%; height:100%; object-fit:cover; border-radius:10px;">
+                                                <div class="product-card-button">
+                                                    <a href="cart.html" class="btn btn-yellow">Add To Cart</a>
+                                                    <a href="wishlist.html" class="btn">Wishlist</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product-card-content">
+                                            <h3><a href="shop-details.html">Doughnut Bites</a></h3>
+                                            <p>Soft, sweet mini doughnuts finished for quick snacking.</p>
+                                            <h4 class="product-price">&#8358; 4.55 <del>&#8358; 5.15</del></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-6 col-lg-4" data-category="snacks-and-pastries">
+                                    <div class="product-card product-card-dark h-100">
+                                        <div class="product-card-thumb">
+                                            <div class="product-card-thumb-inner" style="aspect-ratio:1 / 1; padding:20px; display:grid; place-items:center;">
+                                                <img src="assets/images/dessert-receipe-6.png" alt="Chicken Pie" style="width:100%; height:100%; object-fit:cover; border-radius:10px;">
+                                                <div class="product-card-button">
+                                                    <a href="cart.html" class="btn btn-yellow">Add To Cart</a>
+                                                    <a href="wishlist.html" class="btn">Wishlist</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product-card-content">
+                                            <h3><a href="shop-details.html">Chicken Pie</a></h3>
+                                            <p>Golden crust pastry filled with creamy chicken goodness.</p>
+                                            <h4 class="product-price">&#8358; 5.35 <del>&#8358; 6.00</del></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="menu-main-details-item">
+                            <div class="row g-4">
+                                <div class="col-6 col-md-6 col-lg-4" data-category="local-beverages">
+                                    <div class="product-card product-card-dark h-100">
+                                        <div class="product-card-thumb">
+                                            <div class="product-card-thumb-inner" style="aspect-ratio:1 / 1; padding:20px; display:grid; place-items:center;">
+                                                <img src="assets/images/shake-receipe-4.png" alt="Zobo Drink" style="width:100%; height:100%; object-fit:cover; border-radius:10px;">
+                                                <div class="product-card-button">
+                                                    <a href="cart.html" class="btn btn-yellow">Add To Cart</a>
+                                                    <a href="wishlist.html" class="btn">Wishlist</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product-card-content">
+                                            <h3><a href="shop-details.html">Zobo Drink</a></h3>
+                                            <p>Chilled hibiscus drink with spice notes and a refreshing finish.</p>
+                                            <h4 class="product-price">&#8358; 3.95 <del>&#8358; 4.60</del></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-6 col-lg-4" data-category="local-beverages">
+                                    <div class="product-card product-card-dark h-100">
+                                        <div class="product-card-thumb">
+                                            <div class="product-card-thumb-inner" style="aspect-ratio:1 / 1; padding:20px; display:grid; place-items:center;">
+                                                <img src="assets/images/shake-receipe-5.png" alt="Kunu Aya" style="width:100%; height:100%; object-fit:cover; border-radius:10px;">
+                                                <div class="product-card-button">
+                                                    <a href="cart.html" class="btn btn-yellow">Add To Cart</a>
+                                                    <a href="wishlist.html" class="btn">Wishlist</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product-card-content">
+                                            <h3><a href="shop-details.html">Kunu Aya</a></h3>
+                                            <p>Cool tiger nut drink blended into a creamy, smooth refreshment.</p>
+                                            <h4 class="product-price">&#8358; 4.25 <del>&#8358; 4.90</del></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-6 col-lg-4" data-category="local-beverages">
+                                    <div class="product-card product-card-dark h-100">
+                                        <div class="product-card-thumb">
+                                            <div class="product-card-thumb-inner" style="aspect-ratio:1 / 1; padding:20px; display:grid; place-items:center;">
+                                                <img src="assets/images/shake-receipe-6.png" alt="Palm Fruit Cooler" style="width:100%; height:100%; object-fit:cover; border-radius:10px;">
+                                                <div class="product-card-button">
+                                                    <a href="cart.html" class="btn btn-yellow">Add To Cart</a>
+                                                    <a href="wishlist.html" class="btn">Wishlist</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product-card-content">
+                                            <h3><a href="shop-details.html">Palm Fruit Cooler</a></h3>
+                                            <p>Refreshing local-style cooler with a vibrant fruity taste.</p>
+                                            <h4 class="product-price">&#8358; 4.10 <del>&#8358; 4.75</del></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="menu-main-details-item">
+                            <div class="row g-4">
+                                <div class="col-6 col-md-6 col-lg-4" data-category="sides-and-extra">
+                                    <div class="product-card product-card-dark h-100">
+                                        <div class="product-card-thumb">
+                                            <div class="product-card-thumb-inner" style="aspect-ratio:1 / 1; padding:20px; display:grid; place-items:center;">
+                                                <img src="assets/images/product-6.png" alt="Fried Plantain" style="width:100%; height:100%; object-fit:cover; border-radius:10px;">
+                                                <div class="product-card-button">
+                                                    <a href="cart.html" class="btn btn-yellow">Add To Cart</a>
+                                                    <a href="wishlist.html" class="btn">Wishlist</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product-card-content">
+                                            <h3><a href="shop-details.html">Fried Plantain</a></h3>
+                                            <p>Sweet golden plantain slices, crisp-edged and tender inside.</p>
+                                            <h4 class="product-price">&#8358; 3.85 <del>&#8358; 4.40</del></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-6 col-lg-4" data-category="sides-and-extra">
+                                    <div class="product-card product-card-dark h-100">
+                                        <div class="product-card-thumb">
+                                            <div class="product-card-thumb-inner" style="aspect-ratio:1 / 1; padding:20px; display:grid; place-items:center;">
+                                                <img src="assets/images/special-food.png" alt="Coleslaw Cup" style="width:100%; height:100%; object-fit:cover; border-radius:10px;">
+                                                <div class="product-card-button">
+                                                    <a href="cart.html" class="btn btn-yellow">Add To Cart</a>
+                                                    <a href="wishlist.html" class="btn">Wishlist</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product-card-content">
+                                            <h3><a href="shop-details.html">Coleslaw Cup</a></h3>
+                                            <p>Creamy slaw side for adding crunch and freshness to any meal.</p>
+                                            <h4 class="product-price">&#8358; 3.40 <del>&#8358; 4.05</del></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-6 col-lg-4" data-category="sides-and-extra">
+                                    <div class="product-card product-card-dark h-100">
+                                        <div class="product-card-thumb">
+                                            <div class="product-card-thumb-inner" style="aspect-ratio:1 / 1; padding:20px; display:grid; place-items:center;">
+                                                <img src="assets/images/product-7.png" alt="Extra Sauce" style="width:100%; height:100%; object-fit:cover; border-radius:10px;">
+                                                <div class="product-card-button">
+                                                    <a href="cart.html" class="btn btn-yellow">Add To Cart</a>
+                                                    <a href="wishlist.html" class="btn">Wishlist</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product-card-content">
+                                            <h3><a href="shop-details.html">Extra Sauce</a></h3>
+                                            <p>Flavor-packed extra sauce to complete rice, proteins or snacks.</p>
+                                            <h4 class="product-price">&#8358; 2.95 <del>&#8358; 3.50</del></h4>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1887,6 +1555,7 @@
             </div>
         </section>
         <!-- .end menu-section -->
+
         <!-- step-section -->
         <section class="step-section p-tb-100 bg-black">
             <div class="container">
@@ -1938,7 +1607,7 @@
                                         <li><a href="cart.html">Cart</a></li>
                                     </ul>
                                     <ul class="footer-details footer-list">
-                                        <li><a href="our-team.html">Teams</a></li>
+                                        <li><a href="admin.html">Admin</a></li>
                                         <li><a href="wishlist.html">Wishlist</a></li>
                                         <li><a href="privacy-policy.html">Privacy Policy</a></li>
                                         <li><a href="terms-conditions.html">Terms & Conditions</a></li>
@@ -2128,6 +1797,15 @@
     </body>
 
 </html>
+
+
+
+
+
+
+
+
+
 
 
 
