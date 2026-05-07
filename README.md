@@ -11,6 +11,18 @@ This project is now a static HTML site plus a small Node server that gives `admi
 
 When the server starts for the first time, it creates `data/products.json` automatically by seeding from the current menu page. After that, admin changes are written to that file, so the catalog is shared across refreshes, browser sessions, and devices using the same project/server.
 
+## GitHub Pages testing
+
+If you deploy this project to GitHub Pages or any other static host, `admin.html` and `menu.html` will still work, but they switch to browser storage mode automatically because static hosting cannot run `server.js` or write to `data/products.json`.
+
+In browser storage mode:
+
+- Admin add/edit/delete still works
+- Menu reads the same saved catalog in that browser
+- Changes persist across refreshes in the same browser
+- Changes are not shared across different browsers, devices, or users
+- `data/products.json` is not updated on GitHub Pages
+
 ## Structure
 
 - `admin.html` - Admin dashboard for product management
@@ -21,5 +33,5 @@ When the server starts for the first time, it creates `data/products.json` autom
 
 ## Notes
 
-- If you open the HTML files directly without `npm start`, the menu page falls back to its built-in static markup.
+- If you open the HTML files directly without `npm start`, or deploy to a static host, the admin and menu can fall back to shared browser storage for testing.
 - Uploaded admin images are saved into the shared catalog as resized data URLs so they can publish with the product data.

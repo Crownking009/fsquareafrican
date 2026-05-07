@@ -3,6 +3,7 @@
 
     var STORAGE_KEYS = {
         activity: "foodweb_admin_activity_v1",
+        catalog: "foodweb_catalog_products_v1",
         draft: "foodweb_admin_draft_v1"
     };
     var PRODUCTS_API_URL = "/api/products";
@@ -33,6 +34,8 @@
     var state = {
         products: [],
         activity: [],
+        catalogMode: "server",
+        catalogNoticeShown: false,
         selectedIds: new Set(),
         editingId: null,
         draftLoaded: false
@@ -43,7 +46,7 @@
     document.addEventListener("DOMContentLoaded", function () {
         init().catch(function (error) {
             console.error(error);
-            showToast('Start the shared catalog server with "npm start" to sync admin and menu data.', "error");
+            showToast("Admin could not start correctly.", "error");
             applyDefaultFormState();
             renderAll();
             renderPreviewFromForm();
@@ -57,6 +60,7 @@
         await loadState();
         populateCategoryInputs();
         renderAll();
+        maybeAnnounceCatalogMode();
         if (!restoreDraft()) {
             applyDefaultFormState();
         }
@@ -218,9 +222,31 @@
 
     async function loadState() {
         state.activity = parseJson(localStorage.getItem(STORAGE_KEYS.activity), []).slice(0, MAX_ACTIVITY_ITEMS);
-        state.products = (await fetchProductsFromApi()).map(function (product) {
+        var catalog = await loadProductsCatalog();
+        state.catalogMode = catalog.mode;
+        state.products = catalog.products.map(function (product) {
             return normalizeProduct(product);
         });
+    }
+
+    async function loadProductsCatalog() {
+        try {
+            return {
+                mode: "server",
+                products: await fetchProductsFromApi()
+            };
+        } catch (error) {
+            console.warn("Shared catalog server unavailable. Falling back to browser storage.", error);
+            var browserProducts = readProductsFromBrowserStorage();
+            if (!browserProducts.length) {
+                browserProducts = getStarterProducts();
+                writeProductsToBrowserStorage(browserProducts);
+            }
+            return {
+                mode: "browser",
+                products: browserProducts
+            };
+        }
     }
 
     function getStarterProducts() {
@@ -331,6 +357,14 @@
     }
 
     async function persistProducts() {
+        if (state.catalogMode === "browser") {
+            writeProductsToBrowserStorage(state.products);
+            state.products = readProductsFromBrowserStorage().map(function (product) {
+                return normalizeProduct(product);
+            });
+            return;
+        }
+
         var response = await fetch(PRODUCTS_API_URL, {
             method: "PUT",
             headers: {
@@ -343,7 +377,6 @@
         });
 
         if (!response.ok) {
-            showToast("Unable to save products to the shared catalog.", "error");
             throw new Error("Unable to save shared catalog.");
         }
 
@@ -352,6 +385,62 @@
         state.products = products.map(function (product) {
             return normalizeProduct(product);
         });
+    }
+
+    function readProductsFromBrowserStorage() {
+        var stored = parseJson(localStorage.getItem(STORAGE_KEYS.catalog), []);
+        return Array.isArray(stored) ? stored : [];
+    }
+
+    function writeProductsToBrowserStorage(products) {
+        localStorage.setItem(STORAGE_KEYS.catalog, JSON.stringify(products));
+    }
+
+    function maybeAnnounceCatalogMode() {
+        if (state.catalogNoticeShown) {
+            return;
+        }
+
+        state.catalogNoticeShown = true;
+        if (state.catalogMode === "browser") {
+            showToast("Static-host mode active. Catalog changes are saved in this browser for GitHub Pages testing.", "warning");
+        }
+    }
+
+    async function runCatalogMutation(mutator) {
+        var previousProducts = parseJson(JSON.stringify(state.products), []);
+        var previousSelectedIds = new Set(Array.from(state.selectedIds));
+        var previousEditingId = state.editingId;
+        var previousCatalogMode = state.catalogMode;
+
+        try {
+            mutator();
+            try {
+                await persistProducts();
+            } catch (error) {
+                if (state.catalogMode === "server") {
+                    console.warn("Shared catalog save failed. Switching to browser storage.", error);
+                    state.catalogMode = "browser";
+                    writeProductsToBrowserStorage(state.products);
+                    state.products = readProductsFromBrowserStorage().map(function (product) {
+                        return normalizeProduct(product);
+                    });
+                    showToast("Shared server unavailable. Changes were saved in this browser instead.", "warning");
+                    maybeAnnounceCatalogMode();
+                    return true;
+                }
+                throw error;
+            }
+            return true;
+        } catch (error) {
+            state.products = previousProducts.map(function (product) {
+                return normalizeProduct(product);
+            });
+            state.selectedIds = new Set(Array.from(previousSelectedIds));
+            state.editingId = previousEditingId;
+            state.catalogMode = previousCatalogMode;
+            throw error;
+        }
     }
 
     function persistActivity() {
@@ -416,18 +505,20 @@
             if (existingProduct) {
                 formData.createdAt = existingProduct.createdAt;
                 formData.updatedAt = new Date().toISOString();
-                state.products = state.products.map(function (product) {
-                    return product.id === formData.id ? formData : product;
+                await runCatalogMutation(function () {
+                    state.products = state.products.map(function (product) {
+                        return product.id === formData.id ? formData : product;
+                    });
                 });
-                await persistProducts();
                 addActivity('Updated "' + formData.name + '".');
                 showToast('Updated "' + formData.name + '".', "success");
             } else {
                 formData.id = createId();
                 formData.createdAt = new Date().toISOString();
                 formData.updatedAt = formData.createdAt;
-                state.products.unshift(formData);
-                await persistProducts();
+                await runCatalogMutation(function () {
+                    state.products.unshift(formData);
+                });
                 addActivity('Added "' + formData.name + '".');
                 showToast('Added "' + formData.name + '".', "success");
             }
@@ -706,9 +797,10 @@
 
         if (action === "toggle-featured") {
             try {
-                product.featured = !product.featured;
-                product.updatedAt = new Date().toISOString();
-                await persistProducts();
+                await runCatalogMutation(function () {
+                    product.featured = !product.featured;
+                    product.updatedAt = new Date().toISOString();
+                });
                 addActivity((product.featured ? "Featured " : "Removed featured flag from ") + '"' + product.name + '".');
                 renderAll();
                 showToast('Updated "' + product.name + '".', "success");
@@ -773,14 +865,15 @@
         }
 
         try {
-            state.products = state.products.map(function (product) {
-                if (state.selectedIds.has(product.id)) {
-                    mutator(product);
-                    product.updatedAt = new Date().toISOString();
-                }
-                return normalizeProduct(product);
+            await runCatalogMutation(function () {
+                state.products = state.products.map(function (product) {
+                    if (state.selectedIds.has(product.id)) {
+                        mutator(product);
+                        product.updatedAt = new Date().toISOString();
+                    }
+                    return normalizeProduct(product);
+                });
             });
-            await persistProducts();
             addActivity(successMessage);
             renderAll();
             showToast(successMessage, "success");
@@ -801,11 +894,12 @@
         }
 
         try {
-            state.products = state.products.filter(function (product) {
-                return !state.selectedIds.has(product.id);
+            await runCatalogMutation(function () {
+                state.products = state.products.filter(function (product) {
+                    return !state.selectedIds.has(product.id);
+                });
+                state.selectedIds.clear();
             });
-            state.selectedIds.clear();
-            await persistProducts();
             addActivity("Deleted selected products.");
             renderAll();
             showToast("Selected products deleted.", "success");
@@ -860,8 +954,9 @@
         copy.createdAt = new Date().toISOString();
         copy.updatedAt = copy.createdAt;
         try {
-            state.products.unshift(copy);
-            await persistProducts();
+            await runCatalogMutation(function () {
+                state.products.unshift(copy);
+            });
             addActivity('Duplicated "' + product.name + '" as "' + copy.name + '".');
             populateCategoryInputs();
             renderAll();
@@ -878,14 +973,19 @@
         }
 
         try {
-            state.products = state.products.filter(function (item) {
-                return item.id !== product.id;
+            var shouldResetForm = state.editingId === product.id;
+            await runCatalogMutation(function () {
+                state.products = state.products.filter(function (item) {
+                    return item.id !== product.id;
+                });
+                state.selectedIds.delete(product.id);
+                if (state.editingId === product.id) {
+                    state.editingId = null;
+                }
             });
-            state.selectedIds.delete(product.id);
-            if (state.editingId === product.id) {
+            if (shouldResetForm) {
                 resetForm();
             }
-            await persistProducts();
             addActivity('Deleted "' + product.name + '".');
             renderAll();
             showToast('Deleted "' + product.name + '".', "success");
@@ -930,21 +1030,26 @@
                         dom.importFileInput.value = "";
                         return;
                     }
-                    state.products = normalized;
+                    await runCatalogMutation(function () {
+                        state.products = normalized;
+                        state.selectedIds.clear();
+                        state.editingId = null;
+                    });
                 } else {
-                    var productMap = {};
-                    state.products.forEach(function (product) {
-                        productMap[product.id] = product;
-                    });
-                    normalized.forEach(function (product) {
-                        productMap[product.id] = product;
-                    });
-                    state.products = Object.keys(productMap).map(function (key) {
-                        return productMap[key];
+                    await runCatalogMutation(function () {
+                        var productMap = {};
+                        state.products.forEach(function (product) {
+                            productMap[product.id] = product;
+                        });
+                        normalized.forEach(function (product) {
+                            productMap[product.id] = product;
+                        });
+                        state.products = Object.keys(productMap).map(function (key) {
+                            return productMap[key];
+                        });
                     });
                 }
 
-                await persistProducts();
                 populateCategoryInputs();
                 renderAll();
                 addActivity("Imported product catalog.");
@@ -965,9 +1070,11 @@
         }
 
         try {
-            state.products = [];
-            state.selectedIds.clear();
-            await persistProducts();
+            await runCatalogMutation(function () {
+                state.products = [];
+                state.selectedIds.clear();
+                state.editingId = null;
+            });
             addActivity("Cleared all products.");
             renderAll();
             resetForm();
@@ -984,9 +1091,11 @@
         }
 
         try {
-            state.products = getStarterProducts();
-            state.selectedIds.clear();
-            await persistProducts();
+            await runCatalogMutation(function () {
+                state.products = getStarterProducts();
+                state.selectedIds.clear();
+                state.editingId = null;
+            });
             addActivity("Reset catalog to starter products.");
             populateCategoryInputs();
             renderAll();
@@ -1229,8 +1338,9 @@
         var draftBytes = estimateJsonBytes(parseJson(localStorage.getItem(STORAGE_KEYS.draft), {}));
         var totalBytes = productBytes + activityBytes + draftBytes;
         var percent = Math.min(100, Math.round((totalBytes / APPROX_LOCAL_STORAGE_LIMIT) * 100));
+        var modeCopy = state.catalogMode === "server" ? "Project file sync" : "Browser-only sync";
 
-        dom.storageUsageText.textContent = formatBytes(totalBytes) + " used of about " + formatBytes(APPROX_LOCAL_STORAGE_LIMIT);
+        dom.storageUsageText.textContent = formatBytes(totalBytes) + " used of about " + formatBytes(APPROX_LOCAL_STORAGE_LIMIT) + " / " + modeCopy;
         dom.storageUsageBar.style.width = String(percent) + "%";
         dom.storageUsageBar.setAttribute("aria-valuenow", String(percent));
     }

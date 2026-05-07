@@ -2,6 +2,7 @@ jQuery(function ($) {
     "use strict";
 
     var PRODUCTS_API_URL = "/api/products";
+    var BROWSER_CATALOG_KEY = "foodweb_catalog_products_v1";
     var CATEGORY_ORDER = [
         "Pizza",
         "Burger",
@@ -48,6 +49,7 @@ jQuery(function ($) {
         "assets/images/menu-5.png",
         "assets/images/menu-6.png"
     ];
+    var CATALOG_REFRESH_INTERVAL_MS = 5000;
     var REFRESH_DEBOUNCE_MS = 500;
 
     var dom = {
@@ -60,24 +62,65 @@ jQuery(function ($) {
         priceAmount: $("#price-amount")
     };
     var refreshTimer = null;
+    var catalogSignature = "";
+    var catalogMode = "server";
 
     if (!dom.thumbNav.length || !dom.detailsFor.length || !dom.searchInput.length || !dom.sortSelect.length || !dom.rangeSlider.length) {
         return;
     }
 
-    hydrateMenuFromApi();
+    hydrateMenuFromCatalog({ force: true });
+    window.setInterval(function () {
+        if (!document.hidden) {
+            hydrateMenuFromCatalog();
+        }
+    }, CATALOG_REFRESH_INTERVAL_MS);
     document.addEventListener("visibilitychange", function () {
         if (!document.hidden) {
-            hydrateMenuFromApi();
+            hydrateMenuFromCatalog({ force: true });
+        }
+    });
+    window.addEventListener("storage", function (event) {
+        if (event.key === BROWSER_CATALOG_KEY) {
+            hydrateMenuFromCatalog({ force: true });
         }
     });
 
-    async function hydrateMenuFromApi() {
+    async function hydrateMenuFromCatalog(options) {
+        var settings = options || {};
         try {
-            var products = await fetchProductsFromApi();
-            renderSharedMenu(products);
+            var catalog = await fetchProductsCatalog();
+            catalogMode = catalog.mode;
+            var products = catalog.products;
+            var nextSignature = buildProductsSignature(products);
+            if (!settings.force && nextSignature === catalogSignature) {
+                return;
+            }
+
+            renderSharedMenu(products, {
+                preserveCategory: getActiveCategoryName()
+            });
+            catalogSignature = nextSignature;
         } catch (error) {
             window.console && console.warn("Shared catalog unavailable, using menu fallback markup.", error);
+        }
+    }
+
+    async function fetchProductsCatalog() {
+        try {
+            return {
+                mode: "server",
+                products: await fetchProductsFromApi()
+            };
+        } catch (error) {
+            var browserProducts = readProductsFromBrowserStorage();
+            if (browserProducts.length) {
+                return {
+                    mode: "browser",
+                    products: browserProducts
+                };
+            }
+            throw error;
         }
     }
 
@@ -96,6 +139,15 @@ jQuery(function ($) {
         var payload = await response.json();
         var products = Array.isArray(payload) ? payload : payload.products;
         return Array.isArray(products) ? products.map(normalizeProduct) : [];
+    }
+
+    function readProductsFromBrowserStorage() {
+        try {
+            var stored = JSON.parse(localStorage.getItem(BROWSER_CATALOG_KEY) || "[]");
+            return Array.isArray(stored) ? stored.map(normalizeProduct) : [];
+        } catch (error) {
+            return [];
+        }
     }
 
     function normalizeProduct(product) {
@@ -155,7 +207,8 @@ jQuery(function ($) {
         }).join(" ").trim() || "Menu";
     }
 
-    function renderSharedMenu(products) {
+    function renderSharedMenu(products, options) {
+        var settings = options || {};
         var visibleProducts = products.filter(function (product) {
             return product.status === "active" || product.status === "sold-out";
         });
@@ -180,6 +233,7 @@ jQuery(function ($) {
         initMenuMainCarousel();
         initPriceSlider(getMaximumPrice());
         applyCurrentSortAndFilter();
+        restoreActiveCategory(settings.preserveCategory);
     }
 
     function groupProductsByCategory(products) {
@@ -479,6 +533,43 @@ jQuery(function ($) {
         }
     }
 
+    function getActiveCategoryName() {
+        var slides = dom.detailsFor.find(".menu-main-details-item");
+        if (!slides.length) {
+            return "";
+        }
+
+        if (dom.detailsFor.hasClass("slick-initialized")) {
+            var currentIndex = dom.detailsFor.slick("slickCurrentSlide");
+            return slides.eq(currentIndex).attr("data-category-name") || "";
+        }
+
+        return slides.first().attr("data-category-name") || "";
+    }
+
+    function restoreActiveCategory(categoryName) {
+        if (!categoryName) {
+            return;
+        }
+
+        var slides = dom.detailsFor.find(".menu-main-details-item");
+        var targetSlide = slides.filter(function () {
+            return $(this).attr("data-category-name") === categoryName;
+        }).first();
+
+        if (!targetSlide.length) {
+            return;
+        }
+
+        if (dom.detailsFor.find(".col-6:visible").length && !targetSlide.find(".col-6:visible").length) {
+            return;
+        }
+
+        if (dom.detailsFor.hasClass("slick-initialized")) {
+            dom.detailsFor.slick("slickGoTo", targetSlide.index());
+        }
+    }
+
     function filterMenuItems() {
         var term = dom.searchInput.val().toLowerCase().trim();
         var values = dom.rangeSlider.slider("values");
@@ -548,6 +639,20 @@ jQuery(function ($) {
 
     function slugify(value) {
         return String(value || "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+    }
+
+    function buildProductsSignature(products) {
+        return products.map(function (product) {
+            return [
+                product.id,
+                product.name,
+                product.category,
+                product.price,
+                product.comparePrice,
+                product.status,
+                product.updatedAt
+            ].join("|");
+        }).join("||");
     }
 
     function escapeHtml(value) {

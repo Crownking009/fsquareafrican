@@ -8,6 +8,9 @@ const DATA_DIR = path.join(ROOT_DIR, "data");
 const DATA_FILE = path.join(DATA_DIR, "products.json");
 const MENU_HTML_FILE = path.join(ROOT_DIR, "menu.html");
 const PORT = Number(process.env.PORT) || 3000;
+const LEGACY_ENTITY_PRICE = 8358;
+const LEGACY_COMPARE_PRICE_THRESHOLD = 100;
+const LEGACY_REPAIR_RATIO = 0.5;
 const MAX_REQUEST_BYTES = 25 * 1024 * 1024;
 
 const MIME_TYPES = {
@@ -140,7 +143,14 @@ function ensureCatalogFile() {
     if (!Array.isArray(products)) {
       throw new Error("Catalog file is not an array.");
     }
-    return products.map((product) => normalizeProduct(product));
+    const normalizedProducts = products.map((product) => normalizeProduct(product));
+    const repairedProducts = maybeRepairLegacySeedPrices(normalizedProducts);
+    if (repairedProducts) {
+      console.log("Repaired legacy seeded catalog prices in data/products.json.");
+      writeProductsToFile(repairedProducts);
+      return repairedProducts;
+    }
+    return normalizedProducts;
   } catch (error) {
     console.warn("Catalog file was invalid. Rebuilding from menu.html.", error.message);
     const seededProducts = seedProductsFromMenuHtml();
@@ -186,19 +196,20 @@ function seedProductsFromMenuHtml() {
 
   detailItems.forEach((itemHtml, categoryIndex) => {
     const category = categoryLabels[categoryIndex] || `Category ${categoryIndex + 1}`;
-    const cardPattern = /<div class="col-6[\s\S]*?<img src="([^"]+)" alt="([^"]*)"[\s\S]*?<h3><a[^>]*>([\s\S]*?)<\/a><\/h3>[\s\S]*?<p>([\s\S]*?)<\/p>[\s\S]*?<h4 class="product-price">[\s\S]*?([0-9]+(?:\.[0-9]+)?)(?:[\s\S]*?<del>[\s\S]*?([0-9]+(?:\.[0-9]+)?)<\/del>)?[\s\S]*?<\/h4>/gi;
+    const cardPattern = /<div class="col-6[\s\S]*?<img src="([^"]+)" alt="([^"]*)"[\s\S]*?<h3><a[^>]*>([\s\S]*?)<\/a><\/h3>[\s\S]*?<p>([\s\S]*?)<\/p>[\s\S]*?<h4 class="product-price">([\s\S]*?)<\/h4>/gi;
     let cardMatch;
     let indexInCategory = 0;
 
     while ((cardMatch = cardPattern.exec(itemHtml))) {
       const name = cleanText(cardMatch[3]) || `${category} Item ${indexInCategory + 1}`;
+      const prices = extractPriceValues(cardMatch[5]);
       products.push(
         normalizeProduct({
           id: createId(),
           name: name,
           category: category,
-          price: safeNumber(cardMatch[5]),
-          comparePrice: safeNumber(cardMatch[6]),
+          price: prices.price,
+          comparePrice: prices.comparePrice,
           stock: 12,
           sku: buildSuggestedSku(name, category),
           status: "active",
@@ -216,6 +227,68 @@ function seedProductsFromMenuHtml() {
   });
 
   return products.length ? products : buildFallbackProducts();
+}
+
+function maybeRepairLegacySeedPrices(products) {
+  if (!Array.isArray(products) || !products.length) {
+    return null;
+  }
+
+  const suspiciousProducts = products.filter((product) => isLegacySeedPrice(product));
+  if (!suspiciousProducts.length || suspiciousProducts.length / products.length < LEGACY_REPAIR_RATIO) {
+    return null;
+  }
+
+  const seededProducts = seedProductsFromMenuHtml();
+  const seededPriceMap = new Map(
+    seededProducts.map((product) => [buildLegacyRepairKey(product), product])
+  );
+
+  let changed = false;
+  const repairedProducts = products.map((product) => {
+    if (!isLegacySeedPrice(product)) {
+      return product;
+    }
+
+    const seededProduct = seededPriceMap.get(buildLegacyRepairKey(product));
+    if (!seededProduct) {
+      return product;
+    }
+
+    changed = true;
+    return normalizeProduct({
+      ...product,
+      price: seededProduct.price,
+      comparePrice: seededProduct.comparePrice,
+      updatedAt: product.updatedAt || seededProduct.updatedAt
+    });
+  });
+
+  return changed ? repairedProducts : null;
+}
+
+function isLegacySeedPrice(product) {
+  return (
+    safeNumber(product && product.price) === LEGACY_ENTITY_PRICE &&
+    safeNumber(product && product.comparePrice) > 0 &&
+    safeNumber(product && product.comparePrice) < LEGACY_COMPARE_PRICE_THRESHOLD
+  );
+}
+
+function buildLegacyRepairKey(product) {
+  return `${normalizeCategoryName(product && product.category)}::${cleanText(product && product.name).toLowerCase()}`;
+}
+
+function extractPriceValues(priceMarkup) {
+  const matches = decodeHtml(String(priceMarkup || "")).match(/[0-9]+(?:\.[0-9]+)?/g) || [];
+  const numericValues = matches
+    .map((value) => safeNumber(value))
+    .filter((value) => value > 0 && value !== LEGACY_ENTITY_PRICE);
+
+  return {
+    price: numericValues[0] || 0,
+    comparePrice: numericValues[1] || 0
+  };
 }
 
 function buildFallbackProducts() {
