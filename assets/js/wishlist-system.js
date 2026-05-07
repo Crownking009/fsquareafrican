@@ -3,6 +3,7 @@ jQuery(function ($) {
 
     var WISHLIST_STORAGE_KEY = "foodweb_wishlist_state_v1";
     var WISHLIST_TRIGGER_SELECTOR = [
+        ".wishlist-trigger",
         ".product-card-button a[href*='wishlist.html']",
         ".receipe-cart a[href*='wishlist.html']",
         "#product-detail-wishlist-link"
@@ -162,9 +163,26 @@ jQuery(function ($) {
     }
 
     function renderAll() {
+        hydrateMobileNavAccountLink();
         updateWishlistBadges();
         updateWishlistTriggers();
         renderWishlistPage();
+    }
+
+    function hydrateMobileNavAccountLink() {
+        $(".mobile-nav .navbar-option-dots .dropdown-menu").each(function () {
+            var dropdown = $(this);
+
+            if (dropdown.find(".navbar-option-auth-mobile-link-item").length) {
+                return;
+            }
+
+            dropdown.prepend([
+                '<div class="navbar-option-item navbar-option-auth-mobile-link-item">',
+                '<a href="my-account.html" class="navbar-option-auth-mobile-link" aria-label="Open my account"><i class="flaticon-add-user"></i></a>',
+                "</div>"
+            ].join(""));
+        });
     }
 
     function updateWishlistBadges() {
@@ -255,11 +273,13 @@ jQuery(function ($) {
         var trigger = $(event.currentTarget);
         var payload = extractWishlistPayloadFromTrigger(trigger);
 
+        event.preventDefault();
+        event.stopPropagation();
+
         if (!payload) {
             return;
         }
 
-        event.preventDefault();
         toggleItem(payload);
     }
 

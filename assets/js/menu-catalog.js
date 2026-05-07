@@ -404,7 +404,7 @@ jQuery(function ($) {
             "</a>",
             '<div class="product-card-button">',
             primaryAction,
-            '<a href="wishlist.html" class="btn">Wishlist</a>',
+            '<a href="#" class="btn wishlist-trigger" data-wishlist-default-label="Wishlist" data-wishlist-active-label="In Wishlist" data-wishlist-product-id="' + escapeAttribute(product.id) + '" data-wishlist-name="' + escapeAttribute(product.name) + '" data-wishlist-sku="' + escapeAttribute(product.sku || product.id) + '" data-wishlist-price="' + escapeAttribute(String(product.price)) + '" data-wishlist-image="' + escapeAttribute(product.image) + '" data-wishlist-alt="' + escapeAttribute(product.alt || product.name) + '" data-wishlist-details-url="' + escapeAttribute(detailsUrl) + '" data-wishlist-stock="' + escapeAttribute(String(product.stock)) + '" data-wishlist-option="' + escapeAttribute((product.servingOptions[0] || "Standard Order")) + '" data-wishlist-serving-mode="' + escapeAttribute(product.servingMode || "single") + '">Wishlist</a>',
             "</div>",
             "</div>",
             "</div>"

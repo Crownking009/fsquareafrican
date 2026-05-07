@@ -338,6 +338,9 @@
   .navbar-option .navbar-option-dots .dropdown-menu[style] {
     right: 0 !important;
   }
+  .mobile-nav .navbar-option > .navbar-option-authentication {
+    display: none !important;
+  }
   .navbar-option-order .btn {
     padding: 10px;
     border-radius: 25px;
@@ -942,7 +945,7 @@
     right: -50px !important;
   }
   .navbar-option-dots {
-    display: none !important;
+    display: block !important;
   }
   .navbar-option-cart.mobile-block,
   .navbar-option-wishlist.mobile-block,
