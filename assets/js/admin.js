@@ -12,9 +12,6 @@
     var LOW_STOCK_THRESHOLD = 5;
     var MAX_ACTIVITY_ITEMS = 12;
     var DEFAULT_CATEGORIES = [
-        "Pizza",
-        "Burger",
-        "Sandwich",
         "Shake",
         "Ice Cream",
         "Dessert",
@@ -31,9 +28,9 @@
         "Sides and Extra"
     ];
     var IMAGE_PRESETS = [
-        { label: "Pepperoni Pizza", value: "assets/images/pizza-receipe-1.png" },
-        { label: "Beef Burger", value: "assets/images/burger-receipe-2.png" },
-        { label: "Chicken Sandwich", value: "assets/images/sandwitch-receipe-3.png" },
+        { label: "Amala, Gbegiri & Ewedu", value: "assets/images/pizza-receipe-1.png" },
+        { label: "Ofada Rice & Ayamase", value: "assets/images/burger-receipe-2.png" },
+        { label: "Jollof Rice with Chicken", value: "assets/images/sandwitch-receipe-3.png" },
         { label: "Jollof Rice", value: "assets/images/product-4.png" },
         { label: "Catfish Pepper Soup", value: "assets/images/blog-nav-4.jpg" },
         { label: "Pounded Yam", value: "assets/images/product-1.png" },
@@ -308,9 +305,9 @@
 
     function getStarterProducts() {
         return [
-            makeStarterProduct("Pepperoni Pizza", "Pizza", 4.59, 7.59, 18, "Spicy pepperoni pizza with mozzarella and tomato sauce.", "assets/images/pizza-receipe-1.png", ["pizza", "promo"], true, "active"),
-            makeStarterProduct("Beefka Burger", "Burger", 5.12, 6.59, 12, "Grilled beef burger with cheese and signature sauce.", "assets/images/burger-receipe-2.png", ["burger", "beef"], true, "active"),
-            makeStarterProduct("Chicken Sandwich", "Sandwich", 6.57, 7.12, 9, "Crispy chicken sandwich with lettuce, tomato, and sauce.", "assets/images/sandwitch-receipe-3.png", ["sandwich", "chicken"], false, "active"),
+            makeStarterProduct("Amala, Gbegiri & Ewedu", "Swallows", 4.59, 7.59, 18, "Soft amala served with silky ewedu and rich gbegiri for a true Yoruba classic.", "assets/images/pizza-receipe-1.png", ["swallows", "amala", "gbegiri"], true, "active"),
+            makeStarterProduct("Ofada Rice & Ayamase", "Rice Dishes", 5.12, 6.59, 12, "Local ofada rice matched with green ayamase sauce and tender beef.", "assets/images/burger-receipe-2.png", ["rice", "ofada", "ayamase"], true, "active"),
+            makeStarterProduct("Jollof Rice with Chicken", "Rice Dishes", 6.57, 7.12, 9, "Smoky jollof rice served with juicy chicken and full party-style flavour.", "assets/images/sandwitch-receipe-3.png", ["rice", "jollof", "chicken"], false, "active"),
             makeStarterProduct("Jollof Rice", "Rice Dishes", 6.80, 7.60, 15, "Smoky jollof rice with rich pepper and tomato flavor.", "assets/images/product-4.png", ["rice", "party"], true, "active"),
             makeStarterProduct("Catfish Pepper Soup", "Pepper Soups", 8.25, 9.35, 4, "Aromatic catfish pepper soup with warming native spice.", "assets/images/blog-nav-4.jpg", ["soup", "catfish"], false, "active"),
             makeStarterProduct("Pounded Yam", "Swallows", 6.40, 7.20, 8, "Soft swallow prepared to pair with rich native soups.", "assets/images/product-1.png", ["swallow", "classic"], false, "active"),
