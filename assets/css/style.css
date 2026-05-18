@@ -5811,6 +5811,253 @@ textarea.form-control {
   margin-bottom: 0;
 }
 
+.chef-story-card {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 45px;
+  padding: 45px;
+  border-radius: 30px;
+  background: #fff;
+  -webkit-box-shadow: 0 20px 60px rgba(34, 34, 34, 0.08);
+          box-shadow: 0 20px 60px rgba(34, 34, 34, 0.08);
+  overflow: hidden;
+  position: relative;
+}
+
+.chef-story-card:before {
+  content: "";
+  position: absolute;
+  top: -90px;
+  right: -90px;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: rgba(255, 204, 0, 0.2);
+}
+
+.chef-story-card:after {
+  content: "";
+  position: absolute;
+  bottom: -120px;
+  left: -80px;
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  background: rgba(231, 39, 45, 0.08);
+}
+
+.chef-story-card-dark {
+  background: #2B2B2B;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
+.chef-story-card-dark:before {
+  background: rgba(255, 204, 0, 0.12);
+}
+
+.chef-story-card-dark:after {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.chef-story-card-reverse {
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+      -ms-flex-direction: row-reverse;
+          flex-direction: row-reverse;
+}
+
+.chef-story-media,
+.chef-story-content {
+  position: relative;
+  z-index: 1;
+}
+
+.chef-story-media {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 40%;
+          flex: 0 0 40%;
+}
+
+.chef-story-image {
+  padding: 25px;
+  border-radius: 30px;
+  background: linear-gradient(135deg, rgba(255, 204, 0, 0.18), rgba(231, 39, 45, 0.08));
+}
+
+.chef-story-image img {
+  width: 100%;
+}
+
+.chef-story-badge {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 18px;
+  border-radius: 30px;
+  background: #E7272D;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.chef-story-content {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
+}
+
+.chef-story-content h3 {
+  font-size: 42px;
+  font-family: "Abril Fatface", cursive;
+  margin-bottom: 12px;
+}
+
+.chef-story-content h4 {
+  font-size: 20px;
+  color: #E7272D;
+  margin-bottom: 22px;
+}
+
+.chef-story-content p {
+  margin-bottom: 18px;
+}
+
+.chef-story-quote {
+  margin: 30px 0;
+  padding: 24px 28px;
+  border-left: 4px solid #FFCC00;
+  border-radius: 0 20px 20px 0;
+  background: #FFF8DD;
+  color: #222222;
+  font-size: 20px;
+  line-height: 1.7;
+  font-family: "Abril Fatface", cursive;
+}
+
+.chef-story-highlights {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 10px;
+}
+
+.chef-story-highlight {
+  min-width: 160px;
+  padding: 18px 20px;
+  border-radius: 18px;
+  background: #FFF8DD;
+}
+
+.chef-story-highlight-number {
+  display: block;
+  margin-bottom: 8px;
+  color: #E7272D;
+  font-size: 26px;
+  font-family: "Abril Fatface", cursive;
+  line-height: 1;
+}
+
+.chef-story-highlight-label {
+  display: block;
+  color: #4A4A4A;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.chef-story-actions {
+  margin-top: 30px;
+}
+
+.chef-story-actions .btn {
+  margin-right: 15px;
+  margin-bottom: 15px;
+}
+
+.chef-story-card-dark .chef-story-content h3,
+.chef-story-card-dark .chef-story-content p {
+  color: #fff;
+}
+
+.chef-story-card-dark .chef-story-content h4 {
+  color: #FFCC00;
+}
+
+.chef-story-card-dark .chef-story-quote {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  border-left-color: #E7272D;
+}
+
+.chef-story-card-dark .chef-story-highlight {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.chef-story-card-dark .chef-story-highlight-number {
+  color: #FFCC00;
+}
+
+.chef-story-card-dark .chef-story-highlight-label {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.chef-story-card-dark .btn.btn-border {
+  border-color: #FFCC00;
+  color: #FFCC00;
+}
+
+.chef-story-card-dark .btn.btn-border:hover {
+  border-color: #E7272D;
+  color: #fff;
+}
+
+@media only screen and (max-width: 991px) {
+  .chef-story-card,
+  .chef-story-card-reverse {
+    display: block;
+    padding: 35px 25px;
+  }
+
+  .chef-story-media {
+    margin-bottom: 30px;
+  }
+
+  .chef-story-content h3 {
+    font-size: 34px;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .chef-story-card {
+    gap: 0;
+    padding: 30px 20px;
+    border-radius: 20px;
+  }
+
+  .chef-story-content h3 {
+    font-size: 28px;
+  }
+
+  .chef-story-content h4 {
+    font-size: 18px;
+  }
+
+  .chef-story-quote {
+    padding: 20px;
+    font-size: 18px;
+  }
+
+  .chef-story-highlight {
+    width: 100%;
+  }
+}
+
 .team-item-box {
   position: relative;
   overflow: hidden;
