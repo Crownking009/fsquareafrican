@@ -365,7 +365,7 @@
     right: 0 !important;
   }
   .option-badge {
-    background: #E7272D;
+    background: #ff4700;
     color: #fff;
     top: -8px;
   }
@@ -982,7 +982,7 @@
         -ms-flex-align: center;
             align-items: center;
     font-size: 14px !important;
-    color: #E7272D;
+    color: #ff4700;
   }
   .header-3-caption-shape .header-content-subtitle .header-subtitle-price span {
     margin-top: 5px !important;
