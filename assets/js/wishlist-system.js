@@ -176,7 +176,7 @@ jQuery(function ($) {
         }
 
         $("body").append([
-            '<a href="https://wa.me/2349048239391" class="floating-whatsapp" target="_blank" rel="noopener" aria-label="Chat us now on WhatsApp">',
+            '<a href="https://wa.me/07534529854" class="floating-whatsapp" target="_blank" rel="noopener" aria-label="Chat us now on WhatsApp">',
             '<span class="floating-whatsapp-icon"><i class="icofont-brand-whatsapp"></i></span>',
             '<span class="floating-whatsapp-text">Chat Us Now</span>',
             "</a>"

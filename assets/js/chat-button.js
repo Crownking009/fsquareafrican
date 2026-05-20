@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     var button = document.createElement("a");
-    button.href = "https://wa.me/2349048239391";
+    button.href = "https://wa.me/07534529854";
     button.className = "floating-whatsapp";
     button.target = "_blank";
     button.rel = "noopener";
