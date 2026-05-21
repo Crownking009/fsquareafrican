@@ -100,14 +100,16 @@ jQuery(function ($) {
     function normalizeItem(item) {
         var safeItem = item || {};
         var productId = String(safeItem.productId || "").trim();
-        var optionLabel = String(safeItem.optionLabel || "Standard Order").trim() || "Standard Order";
+        var sizeLabel = String(safeItem.sizeLabel || safeItem.optionLabel || "Standard Order").trim() || "Standard Order";
+        var selectedAddOns = normalizeSelectedAddOns(safeItem.selectedAddOns);
+        var optionLabel = buildOptionLabel(sizeLabel, selectedAddOns);
 
         if (!productId) {
             return null;
         }
 
         return {
-            key: buildItemKey(productId, optionLabel),
+            key: buildItemKey(productId, sizeLabel, selectedAddOns),
             productId: productId,
             name: String(safeItem.name || "Untitled Product").trim() || "Untitled Product",
             sku: String(safeItem.sku || productId).trim() || productId,
@@ -118,6 +120,8 @@ jQuery(function ($) {
             quantity: Math.max(1, Math.round(safeNumber(safeItem.quantity) || 1)),
             stock: Math.max(0, Math.round(safeNumber(safeItem.stock))),
             servingMode: String(safeItem.servingMode || "single").trim() || "single",
+            sizeLabel: sizeLabel,
+            selectedAddOns: selectedAddOns,
             optionLabel: optionLabel
         };
     }
@@ -136,8 +140,33 @@ jQuery(function ($) {
         return JSON.parse(JSON.stringify(value));
     }
 
-    function buildItemKey(productId, optionLabel) {
-        return String(productId || "").trim() + "::" + String(optionLabel || "Standard Order").trim().toLowerCase();
+    function normalizeSelectedAddOns(selectedAddOns) {
+        if (!Array.isArray(selectedAddOns)) {
+            return [];
+        }
+
+        return selectedAddOns.map(function (entry) {
+            return String(entry || "").replace(/\s+/g, " ").trim();
+        }).filter(Boolean);
+    }
+
+    function buildOptionLabel(sizeLabel, selectedAddOns) {
+        var segments = [];
+        var normalizedAddOns = normalizeSelectedAddOns(selectedAddOns);
+
+        if (sizeLabel) {
+            segments.push("Size: " + sizeLabel);
+        }
+
+        if (normalizedAddOns.length) {
+            segments.push("Add-ons: " + normalizedAddOns.join(", "));
+        }
+
+        return segments.join(" | ") || "Standard Order";
+    }
+
+    function buildItemKey(productId, sizeLabel, selectedAddOns) {
+        return String(productId || "").trim() + "::" + buildOptionLabel(sizeLabel, selectedAddOns).toLowerCase();
     }
 
     function saveState() {
@@ -177,6 +206,7 @@ jQuery(function ($) {
         });
 
         if (existingItem) {
+            existingItem.price = normalizedItem.price;
             existingItem.quantity = clampQuantity(existingItem.quantity + normalizedItem.quantity, existingItem.stock);
             saveState();
             return {
@@ -363,7 +393,8 @@ jQuery(function ($) {
             "</div>",
             '<div class="cart-modal-content">',
             '<h4><a href="', escapeAttribute(item.detailsUrl), '">', escapeHtml(item.name), "</a></h4>",
-            '<span class="cart-modal-option">', escapeHtml(item.optionLabel), "</span>",
+            '<span class="cart-modal-option">', escapeHtml("Size: " + item.sizeLabel), "</span>",
+            (item.selectedAddOns.length ? '<span class="cart-modal-option">' + escapeHtml("Add-ons: " + item.selectedAddOns.join(", ")) + "</span>" : ""),
             '<div class="cart-modal-action">',
             '<div class="cart-modal-action-item">',
             '<div class="cart-modal-quantity">',
@@ -452,7 +483,7 @@ jQuery(function ($) {
             '<div class="product-table-thumb"><img src="', escapeAttribute(item.image), '" alt="', escapeAttribute(item.alt), '"></div>',
             "</div>",
             "</td>",
-            '<td class="td-product-name">', escapeHtml(item.name), '<span class="cart-line-option">', escapeHtml(item.optionLabel), "</span></td>",
+            '<td class="td-product-name">', escapeHtml(item.name), '<span class="cart-line-option">', escapeHtml("Size: " + item.sizeLabel), "</span>", (item.selectedAddOns.length ? '<span class="cart-line-option">' + escapeHtml("Add-ons: " + item.selectedAddOns.join(", ")) + "</span>" : ""), "</td>",
             "<td>", escapeHtml(item.sku), "</td>",
             "<td>", escapeHtml(formatCurrency(item.price)), "</td>",
             "<td>",
@@ -481,8 +512,13 @@ jQuery(function ($) {
     function handleAddToCartFromDetails(event) {
         var button = $(event.currentTarget);
         var selectedOption = $("#product-detail-serving-options li.active").first().text().trim() || "Standard Order";
+        var selectedAddOns = getSelectedAddOnsFromDetails();
+        var selectedAddOnLabels = selectedAddOns.map(function (entry) {
+            return entry.label;
+        });
         var quantityInput = button.closest(".product-quantity").find(".qu-input").first();
         var quantity = quantityInput.length ? quantityInput.val() : 1;
+        var unitPrice = calculateSelectedUnitPrice(button, selectedOption, selectedAddOns);
         var payload;
         var result;
 
@@ -492,7 +528,7 @@ jQuery(function ($) {
         }
 
         event.preventDefault();
-        payload = extractCartPayloadFromElement(button, quantity, selectedOption);
+        payload = extractCartPayloadFromElement(button, quantity, selectedOption, selectedAddOnLabels, unitPrice);
         result = addItem(payload);
 
         if (result.ok) {
@@ -500,21 +536,56 @@ jQuery(function ($) {
         }
     }
 
-    function extractCartPayloadFromElement(element, quantity, optionLabel) {
+    function getSelectedAddOnsFromDetails() {
+        return $(".product-addon-checkbox:checked").map(function () {
+            var checkbox = $(this);
+            var groupName = String(checkbox.attr("data-addon-group") || "Add-on").trim() || "Add-on";
+            var optionName = String(checkbox.val() || "").trim();
+            return optionName ? {
+                label: groupName + ": " + optionName,
+                price: Math.max(0, safeNumber(checkbox.attr("data-addon-price")))
+            } : null;
+        }).get().filter(Boolean);
+    }
+
+    function calculateSelectedUnitPrice(element, optionLabel, selectedAddOns) {
+        var basePrice = safeNumber(element.attr("data-cart-base-price") || element.attr("data-cart-price"));
+        var priceMap = parsePriceMap(element.attr("data-cart-serving-prices"));
+        var selectedOption = String(optionLabel || "").replace(/\s+/g, " ").trim();
+        var servingPrice = selectedOption ? Math.max(0, safeNumber(priceMap[selectedOption])) : 0;
+        var addOnPrice = (Array.isArray(selectedAddOns) ? selectedAddOns : []).reduce(function (sum, entry) {
+            return sum + Math.max(0, safeNumber(entry && entry.price));
+        }, 0);
+
+        return basePrice + servingPrice + addOnPrice;
+    }
+
+    function parsePriceMap(value) {
+        try {
+            var parsed = JSON.parse(String(value || "{}"));
+            return parsed && typeof parsed === "object" ? parsed : {};
+        } catch (error) {
+            return {};
+        }
+    }
+
+    function extractCartPayloadFromElement(element, quantity, optionLabel, selectedAddOns, overridePrice) {
         var productId = String(element.attr("data-cart-product-id") || "").trim();
         var fallbackName = String(element.attr("data-cart-name") || "Product").trim() || "Product";
-        var selectedOption = String(optionLabel || element.attr("data-cart-option") || "Standard Order").trim() || "Standard Order";
+        var selectedSize = String(optionLabel || element.attr("data-cart-option") || "Standard Order").trim() || "Standard Order";
+        var chosenAddOns = normalizeSelectedAddOns(selectedAddOns);
 
         return {
             productId: productId,
             name: fallbackName,
             sku: String(element.attr("data-cart-sku") || productId).trim() || productId,
-            price: safeNumber(element.attr("data-cart-price")),
+            price: typeof overridePrice === "number" ? safeNumber(overridePrice) : safeNumber(element.attr("data-cart-price")),
             image: String(element.attr("data-cart-image") || "assets/images/product-1.png").trim() || "assets/images/product-1.png",
             alt: String(element.attr("data-cart-alt") || fallbackName).trim() || fallbackName,
             stock: Math.max(0, Math.round(safeNumber(element.attr("data-cart-stock")))),
             quantity: Math.max(1, Math.round(safeNumber(quantity) || 1)),
-            optionLabel: selectedOption,
+            sizeLabel: selectedSize,
+            selectedAddOns: chosenAddOns,
             servingMode: String(element.attr("data-cart-serving-mode") || "single").trim() || "single",
             detailsUrl: String(element.attr("data-cart-details-url") || ("shop-details.html?product=" + encodeURIComponent(productId))).trim()
         };

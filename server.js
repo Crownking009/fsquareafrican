@@ -32,12 +32,14 @@ const MIME_TYPES = {
 
 const CATEGORY_NAME_MAP = {
   PIZZA: "Pizza",
-  BURGER: "Burger",
+  BURGER: "Proteins",
   SANDWITCH: "Sandwich",
   SANDWICH: "Sandwich",
-  SHAKE: "Shake",
-  "ICE-CREAME": "Ice Cream",
-  "ICE CREAM": "Ice Cream",
+  SHAKE: "Alcohol",
+  ALCOHOL: "Alcohol",
+  "ICE-CREAME": "Combo Meal",
+  "ICE CREAM": "Combo Meal",
+  "COMBO MEAL": "Combo Meal",
   DESSERT: "Dessert",
   SWALLOWS: "Swallows",
   SOUPS: "Soups",
@@ -373,6 +375,9 @@ function normalizeProduct(product) {
   const createdAt = safeProduct.createdAt || new Date().toISOString();
   const updatedAt = safeProduct.updatedAt || createdAt;
   const servingMode = normalizeServingMode(safeProduct.servingMode, category);
+  const servingOptions = normalizeServingOptions(safeProduct.servingOptions, servingMode, category);
+  const tags = normalizeTags(safeProduct.tags);
+  const customizationGroups = normalizeCustomizationGroups(safeProduct.customizationGroups, category, name, tags, safeProduct.toppings);
 
   return {
     id: String(safeProduct.id || createId()),
@@ -388,8 +393,14 @@ function normalizeProduct(product) {
     image: String(safeProduct.image || "").trim(),
     alt: String(safeProduct.alt || name).trim(),
     servingMode: servingMode,
-    servingOptions: normalizeServingOptions(safeProduct.servingOptions, servingMode, category),
-    tags: normalizeTags(safeProduct.tags),
+    servingOptions,
+    servingOptionPrices: normalizeServingOptionPrices(safeProduct.servingOptionPrices, servingOptions),
+    tags: tags,
+    toppings: normalizeToppings(safeProduct.toppings, category, name, tags, customizationGroups),
+    allergens: normalizeAllergens(safeProduct.allergens, category, name, tags),
+    spiceLevel: normalizeSpiceLevel(safeProduct.spiceLevel, category, name, tags),
+    prepTimeMinutes: normalizePrepTimeMinutes(safeProduct.prepTimeMinutes, category, name, tags),
+    customizationGroups: customizationGroups,
     createdAt: createdAt,
     updatedAt: updatedAt
   };
@@ -412,6 +423,316 @@ function normalizeTags(tags) {
     .split(",")
     .map((tag) => tag.trim())
     .filter(Boolean);
+}
+
+function normalizeMetadataList(values) {
+  const seen = new Set();
+  const list = Array.isArray(values) ? values : String(values || "").split(",");
+  return list
+    .map((value) => String(value || "").replace(/\s+/g, " ").trim())
+    .filter(Boolean)
+    .filter((value) => {
+      const key = value.toLowerCase();
+      if (seen.has(key)) {
+        return false;
+      }
+      seen.add(key);
+      return true;
+    });
+}
+
+function normalizeCustomizationGroupOption(option) {
+  const safeOption = option || {};
+  let label;
+  let price;
+
+  if (typeof safeOption === "object" && !Array.isArray(safeOption)) {
+    label = String(safeOption.label || safeOption.name || "").replace(/\s+/g, " ").trim();
+    price = Math.max(0, safeNumber(safeOption.price));
+    return label ? { label, price } : null;
+  }
+
+  label = String(safeOption || "").replace(/\s+/g, " ").trim();
+  price = 0;
+
+  if (label.includes("|")) {
+    price = Math.max(0, safeNumber(label.split("|").slice(1).join("|")));
+    label = label.split("|")[0].replace(/\s+/g, " ").trim();
+  }
+
+  return label ? { label, price } : null;
+}
+
+function normalizeCustomizationGroups(groups, category, name, tags, toppings) {
+  const suggestedGroups = getSuggestedCustomizationGroups(category, name, tags, toppings);
+  let source = groups;
+  let normalizedGroups = [];
+
+  if (typeof source === "string") {
+    source = parseCustomizationGroupsInput(source);
+  }
+
+  if (Array.isArray(source)) {
+    normalizedGroups = source
+      .map((group, index) => {
+        const safeGroup = group || {};
+        const title = String(safeGroup.title || safeGroup.name || "").replace(/\s+/g, " ").trim();
+        const options = Array.isArray(safeGroup.options) ? safeGroup.options : String(safeGroup.options || "").split(",");
+        const seenOptions = new Set();
+        const normalizedOptions = options
+          .map(normalizeCustomizationGroupOption)
+          .filter(Boolean)
+          .filter((entry) => {
+            const key = entry.label.toLowerCase();
+            if (seenOptions.has(key)) {
+              return false;
+            }
+            seenOptions.add(key);
+            return true;
+          });
+
+        if (!title || !normalizedOptions.length) {
+          return null;
+        }
+
+        return {
+          id: slugify(safeGroup.id || title || `group-${index}`) || `group-${index}`,
+          title,
+          selectionType: "multiple",
+          options: normalizedOptions
+        };
+      })
+      .filter(Boolean);
+  }
+
+  return normalizedGroups.length ? normalizedGroups : suggestedGroups;
+}
+
+function parseCustomizationGroupsInput(value) {
+  return String(value || "")
+    .split(/\r?\n/)
+    .map((line) => {
+      const safeLine = String(line || "").trim();
+      const separatorIndex = safeLine.indexOf(":");
+      let title;
+      let options;
+
+      if (!safeLine || separatorIndex === -1) {
+        return null;
+      }
+
+      title = safeLine.slice(0, separatorIndex).trim();
+      options = safeLine
+        .slice(separatorIndex + 1)
+        .split(",")
+        .map((option) => normalizeCustomizationGroupOption(option))
+        .filter(Boolean);
+
+      if (!title || !options.length) {
+        return null;
+      }
+
+      return {
+        title,
+        selectionType: "multiple",
+        options
+      };
+    })
+    .filter(Boolean);
+}
+
+function getSuggestedProductInfo(category, name, tags) {
+  const safeCategory = String(category || "").trim().toLowerCase();
+  const safeName = String(name || "").trim().toLowerCase();
+  const safeTags = normalizeTags(tags).map((tag) => String(tag || "").trim().toLowerCase());
+  const presets = {
+    pizza: { toppings: ["Extra Cheese", "Pepperoni", "Jalapeno"], allergens: ["Milk", "Gluten"], spiceLevel: "Medium", prepTimeMinutes: 18 },
+    burger: { toppings: ["Cheese Slice", "Caramelized Onion", "Special Sauce"], allergens: ["Gluten", "Milk"], spiceLevel: "Medium", prepTimeMinutes: 14 },
+    sandwich: { toppings: ["Cheese", "Fresh Lettuce", "Chili Mayo"], allergens: ["Gluten", "Milk"], spiceLevel: "Mild", prepTimeMinutes: 10 },
+    alcohol: { toppings: ["Ice Cubes", "Lime Wedge", "Mint"], allergens: ["None"], spiceLevel: "Mild", prepTimeMinutes: 4 },
+    "combo meal": { toppings: ["Fries", "Coleslaw", "Extra Sauce"], allergens: ["Gluten", "Eggs"], spiceLevel: "Medium", prepTimeMinutes: 15 },
+    dessert: { toppings: ["Fresh Fruit", "Caramel Sauce", "Ice Cream Scoop"], allergens: ["Milk", "Eggs", "Gluten"], spiceLevel: "Mild", prepTimeMinutes: 7 },
+    swallows: { toppings: ["Extra Ewedu", "Assorted Meat", "Ponmo"], allergens: ["Fish", "Crayfish"], spiceLevel: "Medium", prepTimeMinutes: 18 },
+    soups: { toppings: ["Beef", "Stock Fish", "Scent Leaves"], allergens: ["Fish", "Crayfish"], spiceLevel: "Medium", prepTimeMinutes: 20 },
+    "rice dishes": { toppings: ["Fried Plantain", "Boiled Egg", "Peppered Chicken"], allergens: ["Soy"], spiceLevel: "Medium", prepTimeMinutes: 16 },
+    "small chops": { toppings: ["Extra Dip", "Pepper Sauce", "Party Mix"], allergens: ["Gluten", "Eggs"], spiceLevel: "Mild", prepTimeMinutes: 10 },
+    proteins: { toppings: ["Pepper Sauce", "Onion Garnish", "Fried Plantain"], allergens: ["Soy"], spiceLevel: "Hot", prepTimeMinutes: 14 },
+    "pepper soups": { toppings: ["Extra Pepper", "Scent Leaves", "Fresh Ginger"], allergens: ["Fish", "Crayfish"], spiceLevel: "Hot", prepTimeMinutes: 17 },
+    beans: { toppings: ["Fried Plantain", "Pepper Sauce", "Smoked Fish"], allergens: ["Fish"], spiceLevel: "Mild", prepTimeMinutes: 15 },
+    porridges: { toppings: ["Smoked Fish", "Crayfish", "Ugwu"], allergens: ["Fish", "Crayfish"], spiceLevel: "Medium", prepTimeMinutes: 18 },
+    "snacks and pastries": { toppings: ["Chili Dip", "Ketchup", "Extra Filling"], allergens: ["Gluten", "Eggs"], spiceLevel: "Mild", prepTimeMinutes: 8 },
+    "local beverages": { toppings: ["Citrus Slice", "Ice Cubes", "Mint"], allergens: ["None"], spiceLevel: "Mild", prepTimeMinutes: 4 },
+    "sides and extra": { toppings: ["Pepper Drizzle", "Sesame Finish", "Extra Herbs"], allergens: ["Sesame"], spiceLevel: "Mild", prepTimeMinutes: 6 }
+  };
+  const defaults = presets[safeCategory] || { toppings: ["Chef Recommendation"], allergens: ["Ask Restaurant"], spiceLevel: "Medium", prepTimeMinutes: 12 };
+  const suggested = {
+    toppings: defaults.toppings.slice(),
+    allergens: defaults.allergens.slice(),
+    spiceLevel: defaults.spiceLevel,
+    prepTimeMinutes: defaults.prepTimeMinutes
+  };
+
+  if ((safeName.includes("pepper") || safeCategory === "pepper soups") && suggested.spiceLevel !== "Hot") {
+    suggested.spiceLevel = "Hot";
+  }
+  if (safeCategory === "alcohol" || safeName.includes("wine") || safeName.includes("whiskey") || safeName.includes("cocktail") || safeCategory === "dessert") {
+    suggested.spiceLevel = "Mild";
+  }
+  if ((safeName.includes("fish") || safeName.includes("catfish") || safeName.includes("seafood")) && !suggested.allergens.includes("Fish")) {
+    suggested.allergens.push("Fish");
+  }
+  if ((safeName.includes("chicken") || safeTags.includes("chicken")) && !suggested.toppings.includes("Extra Chicken") && ["rice dishes", "burger", "sandwich", "proteins"].includes(safeCategory)) {
+    suggested.toppings.unshift("Extra Chicken");
+  }
+
+  suggested.toppings = normalizeMetadataList(suggested.toppings);
+  suggested.allergens = normalizeMetadataList(suggested.allergens);
+  return suggested;
+}
+
+function getSuggestedCustomizationGroups(category, name, tags, toppings) {
+  const safeCategory = String(category || "").trim().toLowerCase();
+  const info = getSuggestedProductInfo(category, name, tags);
+  const summaryToppings = normalizeMetadataList(toppings);
+  const categoryGroups = {
+    pizza: [
+      { title: "Extra Proteins", options: ["Chicken", "Pepperoni", "Beef", "Turkey"] },
+      { title: "Drinks", options: ["Coke", "Fanta", "Sprite", "Water", "Malt"] },
+      { title: "Toppings & Sides", options: ["Extra Cheese", "Jalapeno", "Mushroom", "Onion", "Olives", "Fried Plantain"] }
+    ],
+    burger: [
+      { title: "Extra Proteins", options: ["Chicken", "Beef Patty", "Turkey", "Bacon Style Beef"] },
+      { title: "Drinks", options: ["Coke", "Fanta", "Sprite", "Water", "Milkshake"] },
+      { title: "Toppings & Sides", options: ["Cheese Slice", "Caramelized Onion", "Lettuce", "Tomato", "Special Sauce", "Fries"] }
+    ],
+    sandwich: [
+      { title: "Extra Proteins", options: ["Chicken", "Beef", "Turkey", "Fish"] },
+      { title: "Drinks", options: ["Coke", "Fanta", "Sprite", "Water", "Chapman"] },
+      { title: "Toppings & Sides", options: ["Cheese", "Chili Mayo", "Fresh Lettuce", "Tomato", "Cucumber", "Fries"] }
+    ],
+    alcohol: [
+      { title: "Mixers", options: ["Tonic Water", "Soda Water", "Orange Juice", "Cranberry Juice", "Ginger Ale", "Ice Cubes"] },
+      { title: "Pair With", options: ["Peppered Beef", "Grilled Chicken", "Small Chops", "Fried Fish"] }
+    ],
+    "combo meal": [
+      { title: "Extra Proteins", options: ["Chicken", "Peppered Beef", "Turkey", "Fried Fish"] },
+      { title: "Drinks", options: ["Water", "Coke", "Fanta", "Sprite", "Malt", "Chapman"] },
+      { title: "Toppings & Sides", options: ["Fries", "Plantain", "Coleslaw", "Extra Sauce", "Salad", "Moi Moi"] }
+    ],
+    dessert: [
+      { title: "Toppings", options: ["Ice Cream Scoop", "Fresh Fruit", "Caramel Sauce", "Chocolate Drizzle", "Cookie Crumbs", "Whipped Cream"] },
+      { title: "Pair With", options: ["Water", "Chapman", "Cabernet Red Wine", "Tropical Rum Cocktail"] }
+    ],
+    swallows: [
+      { title: "Extra Proteins", options: ["Assorted Meat", "Beef", "Goat Meat", "Chicken", "Fish", "Turkey", "Ponmo", "Cow Leg"] },
+      { title: "Drinks", options: ["Water", "Coke", "Fanta", "Sprite", "Malt", "Zobo Drink", "Chapman"] },
+      { title: "Toppings & Sides", options: ["Extra Ewedu", "Extra Gbegiri", "Extra Soup", "Boiled Egg", "Fried Plantain", "Extra Sauce"] }
+    ],
+    soups: [
+      { title: "Extra Proteins", options: ["Assorted Meat", "Beef", "Goat Meat", "Chicken", "Fish", "Turkey", "Stock Fish"] },
+      { title: "Drinks", options: ["Water", "Coke", "Fanta", "Malt", "Zobo Drink", "Chapman"] },
+      { title: "Toppings & Sides", options: ["Extra Soup", "Scent Leaves", "Crayfish", "Boiled Egg", "Fried Plantain"] }
+    ],
+    "rice dishes": [
+      { title: "Extra Proteins", options: ["Chicken", "Turkey", "Beef", "Fish", "Goat Meat", "Assorted Meat"] },
+      { title: "Drinks", options: ["Water", "Coke", "Fanta", "Sprite", "Malt", "Chapman", "Zobo Drink"] },
+      { title: "Toppings & Sides", options: ["Fried Plantain", "Boiled Egg", "Extra Sauce", "Salad", "Moi Moi", "Coleslaw"] }
+    ],
+    "small chops": [
+      { title: "Extra Pieces", options: ["Samosa", "Spring Roll", "Puff Puff", "Meat Pie", "Chicken Pie"] },
+      { title: "Drinks", options: ["Water", "Coke", "Fanta", "Sprite", "Chapman", "Zobo Drink"] },
+      { title: "Dips & Extras", options: ["Pepper Sauce", "Ketchup", "Chili Dip", "Extra Pack"] }
+    ],
+    proteins: [
+      { title: "Extra Proteins", options: ["Chicken", "Turkey", "Beef", "Fish", "Goat Meat"] },
+      { title: "Drinks", options: ["Water", "Coke", "Fanta", "Malt", "Chapman"] },
+      { title: "Toppings & Sides", options: ["Pepper Sauce", "Fried Plantain", "Extra Sauce", "Onion Garnish", "Coleslaw"] }
+    ],
+    "pepper soups": [
+      { title: "Extra Proteins", options: ["Goat Meat", "Chicken", "Fish", "Assorted Meat", "Turkey"] },
+      { title: "Drinks", options: ["Water", "Malt", "Chapman", "Zobo Drink"] },
+      { title: "Soup Add-Ons", options: ["Extra Pepper", "Scent Leaves", "Fresh Ginger", "Stock Fish"] }
+    ],
+    beans: [
+      { title: "Extra Proteins", options: ["Fish", "Beef", "Chicken", "Assorted Meat"] },
+      { title: "Drinks", options: ["Water", "Coke", "Malt", "Zobo Drink"] },
+      { title: "Toppings & Sides", options: ["Fried Plantain", "Boiled Egg", "Pepper Sauce", "Extra Stew"] }
+    ],
+    porridges: [
+      { title: "Extra Proteins", options: ["Fish", "Chicken", "Beef", "Turkey"] },
+      { title: "Drinks", options: ["Water", "Coke", "Malt", "Zobo Drink"] },
+      { title: "Toppings & Sides", options: ["Crayfish", "Ugwu", "Pepper Sauce", "Boiled Egg"] }
+    ],
+    "snacks and pastries": [
+      { title: "Extra Pieces", options: ["Sausage Roll", "Chicken Pie", "Fish Roll", "Doughnut Bites"] },
+      { title: "Drinks", options: ["Water", "Coke", "Fanta", "Sprite", "Chapman"] },
+      { title: "Dips & Extras", options: ["Chili Dip", "Ketchup", "Extra Filling"] }
+    ],
+    "local beverages": [
+      { title: "Add-Ins", options: ["Ice Cubes", "Mint", "Citrus Slice", "Extra Chill"] },
+      { title: "Pair With", options: ["Doughnut Bites", "Sausage Roll", "Fish Roll", "Chicken Pie"] }
+    ],
+    "sides and extra": [
+      { title: "Extra Proteins", options: ["Chicken", "Beef", "Fish", "Turkey"] },
+      { title: "Drinks", options: ["Water", "Coke", "Fanta", "Malt"] },
+      { title: "Toppings & Sides", options: ["Pepper Drizzle", "Extra Sauce", "Sesame Finish", "Fried Plantain"] }
+    ]
+  };
+  return (categoryGroups[safeCategory] || [
+    { title: "Extras", options: ["Chef Recommendation", "Extra Sauce", "Boiled Egg"] },
+    { title: "Drinks", options: ["Water", "Coke", "Fanta"] }
+  ])
+    .map((group, index) => ({
+      id: slugify(group.title) || `addon-group-${index}`,
+      title: group.title,
+      selectionType: "multiple",
+      options: normalizeMetadataList((index === 0 ? group.options.concat(summaryToppings) : group.options).concat(index === 0 ? info.toppings : [])).map((option) => ({
+        label: option,
+        price: 0
+      }))
+    }))
+    .filter((group) => group.options.length > 0);
+}
+
+function normalizeToppings(toppings, category, name, tags, customizationGroups) {
+  const normalized = normalizeMetadataList(toppings);
+  if (normalized.length) {
+    return normalized;
+  }
+
+  if (Array.isArray(customizationGroups) && customizationGroups.length) {
+    return customizationGroups
+      .reduce((list, group) => {
+        const groupTitle = String(group.title || "").toLowerCase();
+        if (groupTitle.includes("topping") || groupTitle.includes("side")) {
+          return list.concat(group.options.map((option) => option.label));
+        }
+        return list;
+      }, [])
+      .slice(0, 8);
+  }
+
+  return getSuggestedProductInfo(category, name, tags).toppings;
+}
+
+function normalizeAllergens(allergens, category, name, tags) {
+  const normalized = normalizeMetadataList(allergens);
+  return normalized.length ? normalized : getSuggestedProductInfo(category, name, tags).allergens;
+}
+
+function normalizeSpiceLevel(spiceLevel, category, name, tags) {
+  const safeValue = String(spiceLevel || "").trim().toLowerCase();
+  const allowed = {
+    mild: "Mild",
+    medium: "Medium",
+    hot: "Hot"
+  };
+  return allowed[safeValue] || getSuggestedProductInfo(category, name, tags).spiceLevel;
+}
+
+function normalizePrepTimeMinutes(value, category, name, tags) {
+  const parsed = Math.max(0, Math.round(safeNumber(value)));
+  return parsed > 0 ? parsed : getSuggestedProductInfo(category, name, tags).prepTimeMinutes;
 }
 
 function normalizeCategoryName(category) {
@@ -440,8 +761,8 @@ function inferServingMode(category) {
     pizza: "small-medium-large",
     burger: "single",
     sandwich: "single",
-    shake: "small-medium-large",
-    "ice cream": "cup",
+    alcohol: "bottle",
+    "combo meal": "plate",
     dessert: "portion",
     swallows: "portion",
     soups: "portion",
@@ -485,6 +806,56 @@ function normalizeServingOptions(options, servingMode, category) {
   }
 
   return ["Custom Order"];
+}
+
+function normalizeServingOptionPrices(prices, servingOptions) {
+  const normalizedOptions = Array.isArray(servingOptions) ? servingOptions : [];
+  let entries;
+  const parsedPrices = {};
+
+  if (Array.isArray(prices)) {
+    entries = prices.map((value, index) => ({
+      key: normalizedOptions[index] || "",
+      value
+    }));
+  } else if (prices && typeof prices === "object") {
+    entries = Object.keys(prices).map((key) => ({
+      key,
+      value: prices[key]
+    }));
+  } else {
+    entries = String(prices || "")
+      .split(",")
+      .map((chunk) => {
+        const safeChunk = String(chunk || "").trim();
+        const separatorIndex = safeChunk.indexOf(":");
+        if (!safeChunk || separatorIndex === -1) {
+          return null;
+        }
+
+        return {
+          key: safeChunk.slice(0, separatorIndex).trim(),
+          value: safeChunk.slice(separatorIndex + 1).trim()
+        };
+      })
+      .filter(Boolean);
+  }
+
+  entries.forEach((entry) => {
+    const key = String((entry && entry.key) || "").replace(/\s+/g, " ").trim();
+    const value = Math.max(0, safeNumber(entry && entry.value));
+    if (key && normalizedOptions.includes(key)) {
+      parsedPrices[key] = value;
+    }
+  });
+
+  normalizedOptions.forEach((option) => {
+    if (!Object.prototype.hasOwnProperty.call(parsedPrices, option)) {
+      parsedPrices[option] = 0;
+    }
+  });
+
+  return parsedPrices;
 }
 
 function cleanText(value) {

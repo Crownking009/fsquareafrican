@@ -982,6 +982,12 @@
                                 </div>
                             </div>
 
+                            <div class="admin-field">
+                                <label for="product-serving-prices">Serving Option Extra Prices</label>
+                                <input class="form-control" id="product-serving-prices" type="text" placeholder="Ex: Small:0, Medium:1500, Large:3000">
+                                <p class="admin-microcopy mt-2 mb-0">Optional. Add any amount that should be added on top of the base product price for each serving option.</p>
+                            </div>
+
                             <div class="admin-form-grid">
                                 <div class="admin-field">
                                     <label for="product-sku">SKU</label>
@@ -991,6 +997,40 @@
                                     <label for="product-tags">Tags</label>
                                     <input class="form-control" id="product-tags" type="text" placeholder="Comma separated tags">
                                 </div>
+                            </div>
+
+                            <div class="admin-form-grid">
+                                <div class="admin-field">
+                                    <label for="product-toppings">Optional Toppings</label>
+                                    <input class="form-control" id="product-toppings" type="text" placeholder="Ex: Extra Chicken, Fried Plantain, Boiled Egg">
+                                    <p class="admin-microcopy mt-2 mb-0">Comma-separated extras or finishing toppings available for the product.</p>
+                                </div>
+                                <div class="admin-field">
+                                    <label for="product-allergens">Allergens / Notes</label>
+                                    <input class="form-control" id="product-allergens" type="text" placeholder="Ex: Fish, Crayfish, Milk">
+                                    <p class="admin-microcopy mt-2 mb-0">Use short labels customers should know before ordering.</p>
+                                </div>
+                            </div>
+
+                            <div class="admin-form-grid">
+                                <div class="admin-field">
+                                    <label for="product-spice-level">Spice Level</label>
+                                    <select class="form-select" id="product-spice-level">
+                                        <option value="Mild">Mild</option>
+                                        <option value="Medium">Medium</option>
+                                        <option value="Hot">Hot</option>
+                                    </select>
+                                </div>
+                                <div class="admin-field">
+                                    <label for="product-prep-time">Prep Time (Minutes)</label>
+                                    <input class="form-control" id="product-prep-time" type="number" step="1" min="1" placeholder="Ex: 15">
+                                </div>
+                            </div>
+
+                            <div class="admin-field">
+                                <label for="product-customization-groups">Checkbox Add-On Groups</label>
+                                <textarea class="form-control" id="product-customization-groups" rows="6" placeholder="Extra Proteins: Chicken|2500, Beef|2000, Turkey|2200&#10;Drinks: Coke|800, Fanta|800, Water|500&#10;Toppings & Sides: Fried Plantain|1200, Boiled Egg|700, Extra Sauce|500"></textarea>
+                                <p class="admin-microcopy mt-2 mb-0">One group per line using this format: <strong>Group Name: option 1|price, option 2|price</strong>. Leave out <strong>|price</strong> if an add-on is free.</p>
                             </div>
 
                             <div class="admin-field">
@@ -1080,7 +1120,10 @@
                                 <h3 id="preview-name">New Product</h3>
                                 <p class="admin-label-muted mb-2" id="preview-sku">SKU: AUTO</p>
                                 <p class="admin-label-muted mb-2" id="preview-serving">Sold as: Standard</p>
+                                <p class="admin-label-muted mb-2" id="preview-extra">Prep: 0 mins / Spice: Mild / Allergens: None</p>
                                 <p class="mb-3" id="preview-description">Your product description will appear here as you type.</p>
+                                <p class="admin-row-meta mb-3" id="preview-toppings">Toppings: No toppings added yet.</p>
+                                <p class="admin-row-meta mb-3" id="preview-customizations">Checkbox groups: No add-on groups added yet.</p>
                                 <div class="admin-preview-price" id="preview-price">£0.00</div>
                             </div>
                         </div>

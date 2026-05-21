@@ -2,13 +2,13 @@ jQuery(function ($) {
     "use strict";
 
     var PRODUCTS_API_URL = "/api/products";
+    var FALLBACK_PRODUCTS_URL = "data/products.json";
     var BROWSER_CATALOG_KEY = "foodweb_catalog_products_v1";
     var CATEGORY_ORDER = [
         "Pizza",
-        "Burger",
         "Sandwich",
-        "Shake",
-        "Ice Cream",
+        "Alcohol",
+        "Combo Meal",
         "Dessert",
         "Swallows",
         "Soups",
@@ -24,10 +24,9 @@ jQuery(function ($) {
     ];
     var CATEGORY_META = {
         pizza: { image: "assets/images/menu-2.png", label: "PIZZA" },
-        burger: { image: "assets/images/menu-1.png", label: "BURGER" },
         sandwich: { image: "assets/images/menu-3.png", label: "SANDWICH" },
-        shake: { image: "assets/images/menu-4.png", label: "SHAKE" },
-        "ice-cream": { image: "assets/images/menu-5.png", label: "ICE CREAM" },
+        alcohol: { image: "assets/images/menu-4.png", label: "ALCOHOL" },
+        "combo-meal": { image: "assets/images/menu-5.png", label: "COMBO<br>MEAL" },
         dessert: { image: "assets/images/menu-6.png", label: "DESSERT" },
         swallows: { image: "assets/images/menu-1.png", label: "SWALLOWS" },
         soups: { image: "assets/images/menu-2.png", label: "SOUPS" },
@@ -113,6 +112,15 @@ jQuery(function ($) {
                 products: await fetchProductsFromApi()
             };
         } catch (error) {
+            try {
+                return {
+                    mode: "file",
+                    products: await fetchProductsFromJsonFile()
+                };
+            } catch (fileError) {
+                // Keep the existing browser-storage fallback when the JSON file is not reachable.
+            }
+
             var browserProducts = readProductsFromBrowserStorage();
             if (browserProducts.length) {
                 return {
@@ -141,6 +149,23 @@ jQuery(function ($) {
         return Array.isArray(products) ? products.map(normalizeProduct) : [];
     }
 
+    async function fetchProductsFromJsonFile() {
+        var response = await fetch(FALLBACK_PRODUCTS_URL, {
+            cache: "no-store",
+            headers: {
+                "Accept": "application/json"
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error("Unable to load menu catalog fallback.");
+        }
+
+        var payload = await response.json();
+        var products = Array.isArray(payload) ? payload : payload.products;
+        return Array.isArray(products) ? products.map(normalizeProduct) : [];
+    }
+
     function readProductsFromBrowserStorage() {
         try {
             var stored = JSON.parse(localStorage.getItem(BROWSER_CATALOG_KEY) || "[]");
@@ -154,6 +179,8 @@ jQuery(function ($) {
         var safeProduct = product || {};
         var name = String(safeProduct.name || "Untitled Product").trim();
         var category = normalizeCategoryName(safeProduct.category);
+        var servingMode = normalizeServingMode(safeProduct.servingMode, category);
+        var servingOptions = normalizeServingOptions(safeProduct.servingOptions, servingMode, category);
         return {
             id: String(safeProduct.id || ""),
             name: name,
@@ -168,8 +195,9 @@ jQuery(function ($) {
             image: String(safeProduct.image || "").trim() || "assets/images/product-1.png",
             alt: String(safeProduct.alt || name).trim() || name,
             updatedAt: safeProduct.updatedAt || safeProduct.createdAt || "",
-            servingMode: normalizeServingMode(safeProduct.servingMode, category),
-            servingOptions: normalizeServingOptions(safeProduct.servingOptions, safeProduct.servingMode, category),
+            servingMode: servingMode,
+            servingOptions: servingOptions,
+            servingOptionPrices: normalizeServingOptionPrices(safeProduct.servingOptionPrices, servingOptions),
             tags: normalizeTags(safeProduct.tags)
         };
     }
@@ -189,6 +217,59 @@ jQuery(function ($) {
         return String(tags || "").split(",").map(function (tag) {
             return tag.trim();
         }).filter(Boolean);
+    }
+
+    function normalizeServingOptionPrices(prices, servingOptions) {
+        var normalizedOptions = Array.isArray(servingOptions) ? servingOptions : [];
+        var parsedPrices = {};
+        var entries;
+
+        if (Array.isArray(prices)) {
+            entries = prices.map(function (value, index) {
+                return {
+                    key: normalizedOptions[index] || "",
+                    value: value
+                };
+            });
+        } else if (prices && typeof prices === "object") {
+            entries = Object.keys(prices).map(function (key) {
+                return {
+                    key: key,
+                    value: prices[key]
+                };
+            });
+        } else {
+            entries = String(prices || "").split(",").map(function (chunk) {
+                var safeChunk = String(chunk || "").trim();
+                var separatorIndex = safeChunk.indexOf(":");
+
+                if (!safeChunk || separatorIndex === -1) {
+                    return null;
+                }
+
+                return {
+                    key: safeChunk.slice(0, separatorIndex).trim(),
+                    value: safeChunk.slice(separatorIndex + 1).trim()
+                };
+            }).filter(Boolean);
+        }
+
+        entries.forEach(function (entry) {
+            var key = String(entry && entry.key || "").replace(/\s+/g, " ").trim();
+            var value = Math.max(0, safeNumber(entry && entry.value));
+
+            if (key && normalizedOptions.indexOf(key) !== -1) {
+                parsedPrices[key] = value;
+            }
+        });
+
+        normalizedOptions.forEach(function (option) {
+            if (!Object.prototype.hasOwnProperty.call(parsedPrices, option)) {
+                parsedPrices[option] = 0;
+            }
+        });
+
+        return parsedPrices;
     }
 
     function normalizeServingMode(mode, category) {
@@ -220,8 +301,8 @@ jQuery(function ($) {
             pizza: "small-medium-large",
             burger: "single",
             sandwich: "single",
-            shake: "small-medium-large",
-            "ice cream": "cup",
+            alcohol: "bottle",
+            "combo meal": "plate",
             dessert: "portion",
             swallows: "portion",
             soups: "portion",
@@ -274,10 +355,14 @@ jQuery(function ($) {
         var safeCategory = String(category || "Menu").replace(/\s+/g, " ").trim();
         var key = safeCategory.toLowerCase();
         var aliases = {
+            burger: "Proteins",
+            shake: "Alcohol",
             sandwitch: "Sandwich",
             sandwich: "Sandwich",
-            "ice-creame": "Ice Cream",
-            "ice cream": "Ice Cream",
+            "ice-creame": "Combo Meal",
+            "ice cream": "Combo Meal",
+            combo: "Combo Meal",
+            "combo meal": "Combo Meal",
             "snacks & pastries": "Snacks and Pastries",
             "sides & extra": "Sides and Extra"
         };
@@ -349,7 +434,7 @@ jQuery(function ($) {
         }).forEach(function (category) {
             groupedList.push({
                 category: category,
-                products: groupedMap[category]
+                products: groupedMap[category].slice()
             });
         });
 
@@ -378,12 +463,47 @@ jQuery(function ($) {
         ].join("");
     }
 
+    function getServingOptionPriceAdjustment(product, optionLabel) {
+        var safeOption = String(optionLabel || "").replace(/\s+/g, " ").trim();
+        var priceMap = normalizeServingOptionPrices(product && product.servingOptionPrices, product && product.servingOptions);
+        return safeOption ? Math.max(0, safeNumber(priceMap[safeOption])) : 0;
+    }
+
+    function getProductPriceRange(product) {
+        var basePrice = safeNumber(product && product.price);
+        var maxAdjustment = (Array.isArray(product && product.servingOptions) ? product.servingOptions : []).reduce(function (highest, option) {
+            return Math.max(highest, getServingOptionPriceAdjustment(product, option));
+        }, 0);
+
+        return {
+            min: basePrice,
+            max: basePrice + maxAdjustment
+        };
+    }
+
+    function buildCatalogPriceMarkup(product) {
+        var range = getProductPriceRange(product);
+        var hasAdjustments = range.max > range.min;
+        var current = hasAdjustments ? (formatCurrency(range.min) + " - " + formatCurrency(range.max)) : formatCurrency(product.price);
+        var compare = "";
+
+        if (product.comparePrice > 0) {
+            compare = hasAdjustments
+                ? formatCurrency(product.comparePrice) + " - " + formatCurrency(product.comparePrice + (range.max - range.min))
+                : formatCurrency(product.comparePrice);
+        }
+
+        return escapeHtml(current) + (compare ? " <del>" + escapeHtml(compare) + "</del>" : "");
+    }
+
     function buildProductCardMarkup(product) {
         var isSoldOut = product.status === "sold-out";
         var detailsUrl = buildProductDetailsUrl(product);
+        var defaultOption = product.servingOptions[0] || "Standard Order";
+        var defaultUnitPrice = product.price + getServingOptionPriceAdjustment(product, defaultOption);
         var primaryAction = isSoldOut
             ? '<a href="javascript:void(0)" class="btn" aria-disabled="true" tabindex="-1">Sold Out</a>'
-            : '<a href="cart.html" class="btn btn-yellow add-to-cart-trigger" data-cart-product-id="' + escapeAttribute(product.id) + '" data-cart-name="' + escapeAttribute(product.name) + '" data-cart-sku="' + escapeAttribute(product.sku || product.id) + '" data-cart-price="' + escapeAttribute(String(product.price)) + '" data-cart-image="' + escapeAttribute(product.image) + '" data-cart-alt="' + escapeAttribute(product.alt || product.name) + '" data-cart-stock="' + escapeAttribute(String(product.stock)) + '" data-cart-option="' + escapeAttribute((product.servingOptions[0] || "Standard Order")) + '" data-cart-serving-mode="' + escapeAttribute(product.servingMode || "single") + '" data-cart-details-url="' + escapeAttribute(detailsUrl) + '">Add To Cart</a>';
+            : '<a href="cart.html" class="btn btn-yellow add-to-cart-trigger" data-cart-product-id="' + escapeAttribute(product.id) + '" data-cart-name="' + escapeAttribute(product.name) + '" data-cart-sku="' + escapeAttribute(product.sku || product.id) + '" data-cart-price="' + escapeAttribute(String(defaultUnitPrice)) + '" data-cart-image="' + escapeAttribute(product.image) + '" data-cart-alt="' + escapeAttribute(product.alt || product.name) + '" data-cart-stock="' + escapeAttribute(String(product.stock)) + '" data-cart-option="' + escapeAttribute(defaultOption) + '" data-cart-serving-mode="' + escapeAttribute(product.servingMode || "single") + '" data-cart-details-url="' + escapeAttribute(detailsUrl) + '">Add To Cart</a>';
 
         return [
             '<div class="col-6 col-md-6 col-lg-4" data-menu-category="', escapeAttribute(slugify(product.category)), '">',
@@ -397,9 +517,7 @@ jQuery(function ($) {
             '<div class="product-card-content">',
             "<h3>", escapeHtml(product.name), "</h3>",
             "<p>", escapeHtml(product.description || "Freshly prepared and ready to order."), "</p>",
-            '<h4 class="product-price">', escapeHtml(formatCurrency(product.price)),
-            product.comparePrice > 0 ? " <del>" + escapeHtml(formatCurrency(product.comparePrice)) + "</del>" : "",
-            "</h4>",
+            '<h4 class="product-price">', buildCatalogPriceMarkup(product), "</h4>",
             "</div>",
             "</a>",
             '<div class="product-card-button">',

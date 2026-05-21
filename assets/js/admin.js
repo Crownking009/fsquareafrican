@@ -7,13 +7,14 @@
         draft: "foodweb_admin_draft_v1"
     };
     var PRODUCTS_API_URL = "/api/products";
+    var FALLBACK_PRODUCTS_URL = "data/products.json";
 
     var APPROX_LOCAL_STORAGE_LIMIT = 5 * 1024 * 1024;
     var LOW_STOCK_THRESHOLD = 5;
     var MAX_ACTIVITY_ITEMS = 12;
     var DEFAULT_CATEGORIES = [
-        "Shake",
-        "Ice Cream",
+        "Alcohol",
+        "Combo Meal",
         "Dessert",
         "Swallows",
         "Soups",
@@ -45,7 +46,7 @@
         { value: "bowl", label: "Bowl", helper: "Use for soups, porridges, and similar bowl servings.", options: ["Bowl"] },
         { value: "piece", label: "Piece", helper: "Use for pastries, proteins, and snacks sold per piece.", options: ["1 Piece"] },
         { value: "pack", label: "Pack", helper: "Use when the product is sold as a bundle or snack pack.", options: ["Pack"] },
-        { value: "cup", label: "Cup", helper: "Use for drinks, desserts, or ice cream sold per cup.", options: ["Cup"] },
+        { value: "cup", label: "Cup", helper: "Use for drinks or desserts sold per cup.", options: ["Cup"] },
         { value: "bottle", label: "Bottle", helper: "Use for bottled beverages.", options: ["Bottle"] },
         { value: "tray", label: "Tray", helper: "Use for catering or family tray servings.", options: ["Tray"] },
         { value: "small-medium-large", label: "Small / Medium / Large", helper: "Use when the product has three size choices.", options: ["Small", "Medium", "Large"] },
@@ -104,9 +105,15 @@
         dom.productStatus = document.getElementById("product-status");
         dom.productServingMode = document.getElementById("product-serving-mode");
         dom.productServingOptions = document.getElementById("product-serving-options");
+        dom.productServingPrices = document.getElementById("product-serving-prices");
         dom.productServingHelper = document.getElementById("product-serving-helper");
         dom.productSku = document.getElementById("product-sku");
         dom.productTags = document.getElementById("product-tags");
+        dom.productToppings = document.getElementById("product-toppings");
+        dom.productAllergens = document.getElementById("product-allergens");
+        dom.productSpiceLevel = document.getElementById("product-spice-level");
+        dom.productPrepTime = document.getElementById("product-prep-time");
+        dom.productCustomizationGroups = document.getElementById("product-customization-groups");
         dom.productDescription = document.getElementById("product-description");
         dom.productImagePreset = document.getElementById("product-image-preset");
         dom.productImageUrl = document.getElementById("product-image-url");
@@ -150,7 +157,10 @@
         dom.previewName = document.getElementById("preview-name");
         dom.previewSku = document.getElementById("preview-sku");
         dom.previewServing = document.getElementById("preview-serving");
+        dom.previewExtra = document.getElementById("preview-extra");
         dom.previewDescription = document.getElementById("preview-description");
+        dom.previewToppings = document.getElementById("preview-toppings");
+        dom.previewCustomizations = document.getElementById("preview-customizations");
         dom.previewPrice = document.getElementById("preview-price");
         dom.sidebarCategoryChips = document.getElementById("sidebar-category-chips");
         dom.toastRegion = document.getElementById("toast-region");
@@ -193,6 +203,7 @@
             if (!dom.productSku.dataset.userTouched) {
                 dom.productSku.value = buildSuggestedSku(dom.productName.value, getResolvedCategoryValue());
             }
+            applyProductInfoPreset(true);
             saveDraftFromForm();
             renderPreviewFromForm();
         });
@@ -200,6 +211,7 @@
             if (!dom.productSku.dataset.userTouched) {
                 dom.productSku.value = buildSuggestedSku(dom.productName.value, getResolvedCategoryValue());
             }
+            applyProductInfoPreset(true);
             saveDraftFromForm();
             renderPreviewFromForm();
         });
@@ -227,8 +239,14 @@
             dom.productStock,
             dom.productStatus,
             dom.productServingOptions,
+            dom.productServingPrices,
             dom.productSku,
             dom.productTags,
+            dom.productToppings,
+            dom.productAllergens,
+            dom.productSpiceLevel,
+            dom.productPrepTime,
+            dom.productCustomizationGroups,
             dom.productDescription,
             dom.productImageAlt,
             dom.productFeatured
@@ -237,6 +255,12 @@
             field.addEventListener(eventName, function () {
                 if (field === dom.productName && !dom.productSku.dataset.userTouched) {
                     dom.productSku.value = buildSuggestedSku(dom.productName.value, getResolvedCategoryValue());
+                }
+                if (field === dom.productName) {
+                    applyProductInfoPreset(true);
+                }
+                if (field === dom.productServingOptions) {
+                    syncServingOptionPriceInput(true);
                 }
                 saveDraftFromForm();
                 renderPreviewFromForm();
@@ -290,7 +314,14 @@
                 products: await fetchProductsFromApi()
             };
         } catch (error) {
-            console.warn("Shared catalog server unavailable. Falling back to browser storage.", error);
+            try {
+                return {
+                    mode: "file",
+                    products: await fetchProductsFromJsonFile()
+                };
+            } catch (fileError) {
+                console.warn("Shared catalog server unavailable. Falling back to browser storage.", error);
+            }
             var browserProducts = readProductsFromBrowserStorage();
             if (!browserProducts.length) {
                 browserProducts = getStarterProducts();
@@ -350,8 +381,8 @@
             pizza: "small-medium-large",
             burger: "single",
             sandwich: "single",
-            shake: "small-medium-large",
-            "ice cream": "cup",
+            alcohol: "bottle",
+            "combo meal": "plate",
             dessert: "portion",
             swallows: "portion",
             soups: "portion",
@@ -397,19 +428,149 @@
         return ["Custom Order"];
     }
 
+    function normalizeServingOptionPrices(prices, servingOptions) {
+        var normalizedOptions = Array.isArray(servingOptions) ? servingOptions : [];
+        var parsedPrices = {};
+        var entries;
+
+        if (Array.isArray(prices)) {
+            entries = prices.map(function (value, index) {
+                return {
+                    key: normalizedOptions[index] || "",
+                    value: value
+                };
+            });
+        } else if (prices && typeof prices === "object") {
+            entries = Object.keys(prices).map(function (key) {
+                return {
+                    key: key,
+                    value: prices[key]
+                };
+            });
+        } else {
+            entries = String(prices || "").split(",").map(function (chunk) {
+                var safeChunk = String(chunk || "").trim();
+                var separatorIndex = safeChunk.indexOf(":");
+
+                if (!safeChunk || separatorIndex === -1) {
+                    return null;
+                }
+
+                return {
+                    key: safeChunk.slice(0, separatorIndex).trim(),
+                    value: safeChunk.slice(separatorIndex + 1).trim()
+                };
+            }).filter(Boolean);
+        }
+
+        entries.forEach(function (entry) {
+            var key = String(entry && entry.key || "").replace(/\s+/g, " ").trim();
+            var value = Math.max(0, safeNumber(entry && entry.value));
+
+            if (key && normalizedOptions.indexOf(key) !== -1) {
+                parsedPrices[key] = value;
+            }
+        });
+
+        normalizedOptions.forEach(function (option) {
+            if (!Object.prototype.hasOwnProperty.call(parsedPrices, option)) {
+                parsedPrices[option] = 0;
+            }
+        });
+
+        return parsedPrices;
+    }
+
+    function serializeServingOptionPrices(priceMap, servingOptions) {
+        var normalizedOptions = Array.isArray(servingOptions) ? servingOptions : [];
+        var normalizedMap = normalizeServingOptionPrices(priceMap, normalizedOptions);
+
+        return normalizedOptions.map(function (option) {
+            return option + ": " + String(safeNumber(normalizedMap[option]));
+        }).join(", ");
+    }
+
+    function getServingOptionPriceAdjustment(product, optionLabel) {
+        var safeOption = String(optionLabel || "").replace(/\s+/g, " ").trim();
+        var priceMap = normalizeServingOptionPrices(product && product.servingOptionPrices, product && product.servingOptions);
+        return safeOption ? Math.max(0, safeNumber(priceMap[safeOption])) : 0;
+    }
+
+    function hasServingOptionPriceAdjustments(product) {
+        return (Array.isArray(product && product.servingOptions) ? product.servingOptions : []).some(function (option) {
+            return getServingOptionPriceAdjustment(product, option) > 0;
+        });
+    }
+
+    function getProductPriceRange(product) {
+        var basePrice = safeNumber(product && product.price);
+        var maxAdjustment = (Array.isArray(product && product.servingOptions) ? product.servingOptions : []).reduce(function (highest, option) {
+            return Math.max(highest, getServingOptionPriceAdjustment(product, option));
+        }, 0);
+
+        return {
+            min: basePrice,
+            max: basePrice + maxAdjustment
+        };
+    }
+
     function formatServingSummary(product) {
         var config = getServingModeConfig(product && product.servingMode);
         var options = Array.isArray(product && product.servingOptions) ? product.servingOptions : [];
         return config.label + (options.length ? ": " + options.join(", ") : "");
     }
 
+    function formatCustomizationGroupSummary(groups) {
+        if (!Array.isArray(groups) || !groups.length) {
+            return "No add-on groups";
+        }
+
+        return groups.map(function (group) {
+            return group.title + " (" + group.options.length + ")";
+        }).join(" | ");
+    }
+
+    function formatProductInfoSummary(product) {
+        return "Prep " + product.prepTimeMinutes + " mins / Spice " + product.spiceLevel;
+    }
+
+    function formatAllergenSummary(product) {
+        return product.allergens.length ? product.allergens.join(", ") : "None";
+    }
+
+    function normalizeCategoryName(category) {
+        var safeCategory = String(category || DEFAULT_CATEGORIES[0]).replace(/\s+/g, " ").trim();
+        var key = safeCategory.toLowerCase();
+        var aliases = {
+            burger: "Proteins",
+            shake: "Alcohol",
+            sandwitch: "Sandwich",
+            sandwich: "Sandwich",
+            "ice-creame": "Combo Meal",
+            "ice cream": "Combo Meal",
+            combo: "Combo Meal",
+            "combo meal": "Combo Meal",
+            "snacks & pastries": "Snacks and Pastries",
+            "sides & extra": "Sides and Extra"
+        };
+
+        if (aliases[key]) {
+            return aliases[key];
+        }
+
+        return safeCategory || DEFAULT_CATEGORIES[0];
+    }
+
     function normalizeProduct(product) {
         var safeProduct = product || {};
         var name = String(safeProduct.name || "Untitled Product").trim();
-        var category = String(safeProduct.category || DEFAULT_CATEGORIES[0]).trim();
+        var category = normalizeCategoryName(safeProduct.category || DEFAULT_CATEGORIES[0]);
         var createdAt = safeProduct.createdAt || new Date().toISOString();
         var updatedAt = safeProduct.updatedAt || createdAt;
         var servingMode = normalizeServingMode(safeProduct.servingMode, category);
+        var servingOptions = normalizeServingOptions(safeProduct.servingOptions, servingMode, category);
+        var tags = normalizeTags(safeProduct.tags);
+        var customizationGroups = normalizeCustomizationGroups(safeProduct.customizationGroups, category, name, tags, safeProduct.toppings);
         return {
             id: String(safeProduct.id || createId()),
             name: name,
@@ -424,8 +585,14 @@
             image: String(safeProduct.image || "").trim(),
             alt: String(safeProduct.alt || name).trim(),
             servingMode: servingMode,
-            servingOptions: normalizeServingOptions(safeProduct.servingOptions, servingMode, category),
-            tags: normalizeTags(safeProduct.tags),
+            servingOptions: servingOptions,
+            servingOptionPrices: normalizeServingOptionPrices(safeProduct.servingOptionPrices, servingOptions),
+            tags: tags,
+            toppings: normalizeToppings(safeProduct.toppings, category, name, tags, customizationGroups),
+            allergens: normalizeAllergens(safeProduct.allergens, category, name, tags),
+            spiceLevel: normalizeSpiceLevel(safeProduct.spiceLevel, category, name, tags),
+            prepTimeMinutes: normalizePrepTimeMinutes(safeProduct.prepTimeMinutes, category, name, tags),
+            customizationGroups: customizationGroups,
             createdAt: createdAt,
             updatedAt: updatedAt
         };
@@ -454,6 +621,333 @@
             .filter(Boolean);
     }
 
+    function normalizeMetadataList(values) {
+        var seen = {};
+        var list = Array.isArray(values) ? values : String(values || "").split(",");
+        return list
+            .map(function (value) {
+                return String(value || "").replace(/\s+/g, " ").trim();
+            })
+            .filter(Boolean)
+            .filter(function (value) {
+                var key = value.toLowerCase();
+                if (seen[key]) {
+                    return false;
+                }
+                seen[key] = true;
+                return true;
+            });
+    }
+
+    function normalizeCustomizationGroupOption(option) {
+        var safeOption = option || {};
+        var label;
+        var price;
+
+        if (typeof safeOption === "object" && !Array.isArray(safeOption)) {
+            label = String(safeOption.label || safeOption.name || "").replace(/\s+/g, " ").trim();
+            price = Math.max(0, safeNumber(safeOption.price));
+            return label ? { label: label, price: price } : null;
+        }
+
+        label = String(safeOption || "").replace(/\s+/g, " ").trim();
+        price = 0;
+
+        if (label.indexOf("|") !== -1) {
+            price = Math.max(0, safeNumber(label.split("|").slice(1).join("|")));
+            label = label.split("|")[0].replace(/\s+/g, " ").trim();
+        }
+
+        return label ? { label: label, price: price } : null;
+    }
+
+    function normalizeCustomizationGroups(groups, category, name, tags, toppings) {
+        var suggestedGroups = getSuggestedCustomizationGroups(category, name, tags, toppings);
+        var source = groups;
+        var normalizedGroups = [];
+
+        if (typeof source === "string") {
+            source = parseCustomizationGroupsInput(source);
+        }
+
+        if (Array.isArray(source)) {
+            normalizedGroups = source.map(function (group, index) {
+                var safeGroup = group || {};
+                var title = String(safeGroup.title || safeGroup.name || "").replace(/\s+/g, " ").trim();
+                var options = Array.isArray(safeGroup.options) ? safeGroup.options : String(safeGroup.options || "").split(",");
+                var seenOptions = {};
+                var normalizedOptions = options.map(normalizeCustomizationGroupOption).filter(Boolean).filter(function (entry) {
+                    var key = entry.label.toLowerCase();
+                    if (seenOptions[key]) {
+                        return false;
+                    }
+                    seenOptions[key] = true;
+                    return true;
+                });
+
+                if (!title || !normalizedOptions.length) {
+                    return null;
+                }
+
+                return {
+                    id: slugify(safeGroup.id || title || ("group-" + index)) || ("group-" + index),
+                    title: title,
+                    selectionType: "multiple",
+                    options: normalizedOptions
+                };
+            }).filter(Boolean);
+        }
+
+        return normalizedGroups.length ? normalizedGroups : suggestedGroups;
+    }
+
+    function parseCustomizationGroupsInput(value) {
+        return String(value || "").split(/\r?\n/).map(function (line) {
+            var safeLine = String(line || "").trim();
+            var separatorIndex;
+            var title;
+            var options;
+
+            if (!safeLine) {
+                return null;
+            }
+
+            separatorIndex = safeLine.indexOf(":");
+            if (separatorIndex === -1) {
+                return null;
+            }
+
+            title = safeLine.slice(0, separatorIndex).trim();
+            options = safeLine.slice(separatorIndex + 1).split(",").map(function (option) {
+                return normalizeCustomizationGroupOption(option);
+            }).filter(Boolean);
+
+            if (!title || !options.length) {
+                return null;
+            }
+
+            return {
+                title: title,
+                selectionType: "multiple",
+                options: options
+            };
+        }).filter(Boolean);
+    }
+
+    function serializeCustomizationGroups(groups) {
+        if (!Array.isArray(groups) || !groups.length) {
+            return "";
+        }
+
+        return groups.map(function (group) {
+            return group.title + ": " + group.options.map(function (option) {
+                return option.label + (option.price > 0 ? "|" + String(option.price) : "");
+            }).join(", ");
+        }).join("\n");
+    }
+
+    function getSuggestedProductInfo(category, name, tags) {
+        var safeCategory = String(category || "").trim().toLowerCase();
+        var safeName = String(name || "").trim().toLowerCase();
+        var safeTags = normalizeTags(tags).map(function (tag) {
+            return String(tag || "").trim().toLowerCase();
+        });
+        var presets = {
+            pizza: { toppings: ["Extra Cheese", "Pepperoni", "Jalapeno"], allergens: ["Milk", "Gluten"], spiceLevel: "Medium", prepTimeMinutes: 18 },
+            burger: { toppings: ["Cheese Slice", "Caramelized Onion", "Special Sauce"], allergens: ["Gluten", "Milk"], spiceLevel: "Medium", prepTimeMinutes: 14 },
+            sandwich: { toppings: ["Cheese", "Fresh Lettuce", "Chili Mayo"], allergens: ["Gluten", "Milk"], spiceLevel: "Mild", prepTimeMinutes: 10 },
+            alcohol: { toppings: ["Ice Cubes", "Lime Wedge", "Mint"], allergens: ["None"], spiceLevel: "Mild", prepTimeMinutes: 4 },
+            "combo meal": { toppings: ["Fries", "Coleslaw", "Extra Sauce"], allergens: ["Gluten", "Eggs"], spiceLevel: "Medium", prepTimeMinutes: 15 },
+            dessert: { toppings: ["Fresh Fruit", "Caramel Sauce", "Ice Cream Scoop"], allergens: ["Milk", "Eggs", "Gluten"], spiceLevel: "Mild", prepTimeMinutes: 7 },
+            swallows: { toppings: ["Extra Ewedu", "Assorted Meat", "Ponmo"], allergens: ["Fish", "Crayfish"], spiceLevel: "Medium", prepTimeMinutes: 18 },
+            soups: { toppings: ["Beef", "Stock Fish", "Scent Leaves"], allergens: ["Fish", "Crayfish"], spiceLevel: "Medium", prepTimeMinutes: 20 },
+            "rice dishes": { toppings: ["Fried Plantain", "Boiled Egg", "Peppered Chicken"], allergens: ["Soy"], spiceLevel: "Medium", prepTimeMinutes: 16 },
+            "small chops": { toppings: ["Extra Dip", "Pepper Sauce", "Party Mix"], allergens: ["Gluten", "Eggs"], spiceLevel: "Mild", prepTimeMinutes: 10 },
+            proteins: { toppings: ["Pepper Sauce", "Onion Garnish", "Fried Plantain"], allergens: ["Soy"], spiceLevel: "Hot", prepTimeMinutes: 14 },
+            "pepper soups": { toppings: ["Extra Pepper", "Scent Leaves", "Fresh Ginger"], allergens: ["Fish", "Crayfish"], spiceLevel: "Hot", prepTimeMinutes: 17 },
+            beans: { toppings: ["Fried Plantain", "Pepper Sauce", "Smoked Fish"], allergens: ["Fish"], spiceLevel: "Mild", prepTimeMinutes: 15 },
+            porridges: { toppings: ["Smoked Fish", "Crayfish", "Ugwu"], allergens: ["Fish", "Crayfish"], spiceLevel: "Medium", prepTimeMinutes: 18 },
+            "snacks and pastries": { toppings: ["Chili Dip", "Ketchup", "Extra Filling"], allergens: ["Gluten", "Eggs"], spiceLevel: "Mild", prepTimeMinutes: 8 },
+            "local beverages": { toppings: ["Citrus Slice", "Ice Cubes", "Mint"], allergens: ["None"], spiceLevel: "Mild", prepTimeMinutes: 4 },
+            "sides and extra": { toppings: ["Pepper Drizzle", "Sesame Finish", "Extra Herbs"], allergens: ["Sesame"], spiceLevel: "Mild", prepTimeMinutes: 6 }
+        };
+        var defaults = presets[safeCategory] || { toppings: ["Chef Recommendation"], allergens: ["Ask Restaurant"], spiceLevel: "Medium", prepTimeMinutes: 12 };
+        var suggested = {
+            toppings: defaults.toppings.slice(),
+            allergens: defaults.allergens.slice(),
+            spiceLevel: defaults.spiceLevel,
+            prepTimeMinutes: defaults.prepTimeMinutes
+        };
+
+        if ((safeName.indexOf("pepper") !== -1 || safeCategory === "pepper soups") && suggested.spiceLevel !== "Hot") {
+            suggested.spiceLevel = "Hot";
+        }
+        if (safeCategory === "alcohol" || safeName.indexOf("wine") !== -1 || safeName.indexOf("whiskey") !== -1 || safeName.indexOf("cocktail") !== -1 || safeCategory === "dessert") {
+            suggested.spiceLevel = "Mild";
+        }
+        if ((safeName.indexOf("fish") !== -1 || safeName.indexOf("catfish") !== -1 || safeName.indexOf("seafood") !== -1) && suggested.allergens.indexOf("Fish") === -1) {
+            suggested.allergens.push("Fish");
+        }
+        if ((safeName.indexOf("chicken") !== -1 || safeTags.indexOf("chicken") !== -1) && suggested.toppings.indexOf("Extra Chicken") === -1 && ["rice dishes", "burger", "sandwich", "proteins"].indexOf(safeCategory) !== -1) {
+            suggested.toppings.unshift("Extra Chicken");
+        }
+
+        suggested.toppings = normalizeMetadataList(suggested.toppings);
+        suggested.allergens = normalizeMetadataList(suggested.allergens);
+        return suggested;
+    }
+
+    function getSuggestedCustomizationGroups(category, name, tags, toppings) {
+        var safeCategory = String(category || "").trim().toLowerCase();
+        var info = getSuggestedProductInfo(category, name, tags);
+        var summaryToppings = normalizeMetadataList(toppings);
+        var categoryGroups = {
+            pizza: [
+                { title: "Extra Proteins", options: ["Chicken", "Pepperoni", "Beef", "Turkey"] },
+                { title: "Drinks", options: ["Coke", "Fanta", "Sprite", "Water", "Malt"] },
+                { title: "Toppings & Sides", options: ["Extra Cheese", "Jalapeno", "Mushroom", "Onion", "Olives", "Fried Plantain"] }
+            ],
+            burger: [
+                { title: "Extra Proteins", options: ["Chicken", "Beef Patty", "Turkey", "Bacon Style Beef"] },
+                { title: "Drinks", options: ["Coke", "Fanta", "Sprite", "Water", "Milkshake"] },
+                { title: "Toppings & Sides", options: ["Cheese Slice", "Caramelized Onion", "Lettuce", "Tomato", "Special Sauce", "Fries"] }
+            ],
+            sandwich: [
+                { title: "Extra Proteins", options: ["Chicken", "Beef", "Turkey", "Fish"] },
+                { title: "Drinks", options: ["Coke", "Fanta", "Sprite", "Water", "Chapman"] },
+                { title: "Toppings & Sides", options: ["Cheese", "Chili Mayo", "Fresh Lettuce", "Tomato", "Cucumber", "Fries"] }
+            ],
+            alcohol: [
+                { title: "Mixers", options: ["Tonic Water", "Soda Water", "Orange Juice", "Cranberry Juice", "Ginger Ale", "Ice Cubes"] },
+                { title: "Pair With", options: ["Peppered Beef", "Grilled Chicken", "Small Chops", "Fried Fish"] }
+            ],
+            "combo meal": [
+                { title: "Extra Proteins", options: ["Chicken", "Peppered Beef", "Turkey", "Fried Fish"] },
+                { title: "Drinks", options: ["Water", "Coke", "Fanta", "Sprite", "Malt", "Chapman"] },
+                { title: "Toppings & Sides", options: ["Fries", "Plantain", "Coleslaw", "Extra Sauce", "Salad", "Moi Moi"] }
+            ],
+            dessert: [
+                { title: "Toppings", options: ["Ice Cream Scoop", "Fresh Fruit", "Caramel Sauce", "Chocolate Drizzle", "Cookie Crumbs", "Whipped Cream"] },
+                { title: "Pair With", options: ["Water", "Chapman", "Cabernet Red Wine", "Tropical Rum Cocktail"] }
+            ],
+            swallows: [
+                { title: "Extra Proteins", options: ["Assorted Meat", "Beef", "Goat Meat", "Chicken", "Fish", "Turkey", "Ponmo", "Cow Leg"] },
+                { title: "Drinks", options: ["Water", "Coke", "Fanta", "Sprite", "Malt", "Zobo Drink", "Chapman"] },
+                { title: "Toppings & Sides", options: ["Extra Ewedu", "Extra Gbegiri", "Extra Soup", "Boiled Egg", "Fried Plantain", "Extra Sauce"] }
+            ],
+            soups: [
+                { title: "Extra Proteins", options: ["Assorted Meat", "Beef", "Goat Meat", "Chicken", "Fish", "Turkey", "Stock Fish"] },
+                { title: "Drinks", options: ["Water", "Coke", "Fanta", "Malt", "Zobo Drink", "Chapman"] },
+                { title: "Toppings & Sides", options: ["Extra Soup", "Scent Leaves", "Crayfish", "Boiled Egg", "Fried Plantain"] }
+            ],
+            "rice dishes": [
+                { title: "Extra Proteins", options: ["Chicken", "Turkey", "Beef", "Fish", "Goat Meat", "Assorted Meat"] },
+                { title: "Drinks", options: ["Water", "Coke", "Fanta", "Sprite", "Malt", "Chapman", "Zobo Drink"] },
+                { title: "Toppings & Sides", options: ["Fried Plantain", "Boiled Egg", "Extra Sauce", "Salad", "Moi Moi", "Coleslaw"] }
+            ],
+            "small chops": [
+                { title: "Extra Pieces", options: ["Samosa", "Spring Roll", "Puff Puff", "Meat Pie", "Chicken Pie"] },
+                { title: "Drinks", options: ["Water", "Coke", "Fanta", "Sprite", "Chapman", "Zobo Drink"] },
+                { title: "Dips & Extras", options: ["Pepper Sauce", "Ketchup", "Chili Dip", "Extra Pack"] }
+            ],
+            proteins: [
+                { title: "Extra Proteins", options: ["Chicken", "Turkey", "Beef", "Fish", "Goat Meat"] },
+                { title: "Drinks", options: ["Water", "Coke", "Fanta", "Malt", "Chapman"] },
+                { title: "Toppings & Sides", options: ["Pepper Sauce", "Fried Plantain", "Extra Sauce", "Onion Garnish", "Coleslaw"] }
+            ],
+            "pepper soups": [
+                { title: "Extra Proteins", options: ["Goat Meat", "Chicken", "Fish", "Assorted Meat", "Turkey"] },
+                { title: "Drinks", options: ["Water", "Malt", "Chapman", "Zobo Drink"] },
+                { title: "Soup Add-Ons", options: ["Extra Pepper", "Scent Leaves", "Fresh Ginger", "Stock Fish"] }
+            ],
+            beans: [
+                { title: "Extra Proteins", options: ["Fish", "Beef", "Chicken", "Assorted Meat"] },
+                { title: "Drinks", options: ["Water", "Coke", "Malt", "Zobo Drink"] },
+                { title: "Toppings & Sides", options: ["Fried Plantain", "Boiled Egg", "Pepper Sauce", "Extra Stew"] }
+            ],
+            porridges: [
+                { title: "Extra Proteins", options: ["Fish", "Chicken", "Beef", "Turkey"] },
+                { title: "Drinks", options: ["Water", "Coke", "Malt", "Zobo Drink"] },
+                { title: "Toppings & Sides", options: ["Crayfish", "Ugwu", "Pepper Sauce", "Boiled Egg"] }
+            ],
+            "snacks and pastries": [
+                { title: "Extra Pieces", options: ["Sausage Roll", "Chicken Pie", "Fish Roll", "Doughnut Bites"] },
+                { title: "Drinks", options: ["Water", "Coke", "Fanta", "Sprite", "Chapman"] },
+                { title: "Dips & Extras", options: ["Chili Dip", "Ketchup", "Extra Filling"] }
+            ],
+            "local beverages": [
+                { title: "Add-Ins", options: ["Ice Cubes", "Mint", "Citrus Slice", "Extra Chill"] },
+                { title: "Pair With", options: ["Doughnut Bites", "Sausage Roll", "Fish Roll", "Chicken Pie"] }
+            ],
+            "sides and extra": [
+                { title: "Extra Proteins", options: ["Chicken", "Beef", "Fish", "Turkey"] },
+                { title: "Drinks", options: ["Water", "Coke", "Fanta", "Malt"] },
+                { title: "Toppings & Sides", options: ["Pepper Drizzle", "Extra Sauce", "Sesame Finish", "Fried Plantain"] }
+            ]
+        };
+        var groups = (categoryGroups[safeCategory] || [
+            { title: "Extras", options: ["Chef Recommendation", "Extra Sauce", "Boiled Egg"] },
+            { title: "Drinks", options: ["Water", "Coke", "Fanta"] }
+        ]).map(function (group, index) {
+            var mergedOptions = normalizeMetadataList((index === 0 ? group.options.concat(summaryToppings) : group.options).concat(index === 0 ? info.toppings : []));
+            return {
+                id: slugify(group.title) || ("addon-group-" + index),
+                title: group.title,
+                selectionType: "multiple",
+                options: mergedOptions.map(function (option) {
+                    return {
+                        label: option,
+                        price: 0
+                    };
+                })
+            };
+        });
+
+        return groups.filter(function (group) {
+            return group.options.length > 0;
+        });
+    }
+
+    function normalizeToppings(toppings, category, name, tags, customizationGroups) {
+        var normalized = normalizeMetadataList(toppings);
+        if (normalized.length) {
+            return normalized;
+        }
+
+        if (Array.isArray(customizationGroups) && customizationGroups.length) {
+            return customizationGroups.reduce(function (list, group) {
+                if (String(group.title || "").toLowerCase().indexOf("topping") !== -1 || String(group.title || "").toLowerCase().indexOf("side") !== -1) {
+                    return list.concat(group.options.map(function (option) {
+                        return option.label;
+                    }));
+                }
+                return list;
+            }, []).slice(0, 8);
+        }
+
+        return getSuggestedProductInfo(category, name, tags).toppings;
+    }
+
+    function normalizeAllergens(allergens, category, name, tags) {
+        var normalized = normalizeMetadataList(allergens);
+        return normalized.length ? normalized : getSuggestedProductInfo(category, name, tags).allergens;
+    }
+
+    function normalizeSpiceLevel(spiceLevel, category, name, tags) {
+        var safeValue = String(spiceLevel || "").trim().toLowerCase();
+        var allowed = {
+            mild: "Mild",
+            medium: "Medium",
+            hot: "Hot"
+        };
+        return allowed[safeValue] || getSuggestedProductInfo(category, name, tags).spiceLevel;
+    }
+
+    function normalizePrepTimeMinutes(value, category, name, tags) {
+        var parsed = Math.max(0, Math.round(safeNumber(value)));
+        return parsed > 0 ? parsed : getSuggestedProductInfo(category, name, tags).prepTimeMinutes;
+    }
+
     function parseJson(value, fallback) {
         try {
             return value ? JSON.parse(value) : fallback;
@@ -479,8 +973,25 @@
         return Array.isArray(products) ? products : [];
     }
 
+    async function fetchProductsFromJsonFile() {
+        var response = await fetch(FALLBACK_PRODUCTS_URL, {
+            cache: "no-store",
+            headers: {
+                "Accept": "application/json"
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error("Unable to load shared catalog fallback.");
+        }
+
+        var payload = await response.json();
+        var products = Array.isArray(payload) ? payload : payload.products;
+        return Array.isArray(products) ? products : [];
+    }
+
     async function persistProducts() {
-        if (state.catalogMode === "browser") {
+        if (state.catalogMode !== "server") {
             writeProductsToBrowserStorage(state.products);
             state.products = readProductsFromBrowserStorage().map(function (product) {
                 return normalizeProduct(product);
@@ -525,7 +1036,7 @@
         }
 
         state.catalogNoticeShown = true;
-        if (state.catalogMode === "browser") {
+        if (state.catalogMode !== "server") {
             showToast("Static-host mode active. Catalog changes are saved in this browser for GitHub Pages testing.", "warning");
         }
     }
@@ -716,6 +1227,42 @@
         if (!preserveExisting || !dom.productServingOptions.value.trim()) {
             dom.productServingOptions.value = config.options.join(", ");
         }
+        syncServingOptionPriceInput(preserveExisting);
+    }
+
+    function syncServingOptionPriceInput(preserveExisting) {
+        var nextOptions = normalizeServingOptions(dom.productServingOptions.value, dom.productServingMode.value, getResolvedCategoryValue());
+        var normalizedPrices = normalizeServingOptionPrices(dom.productServingPrices.value, nextOptions);
+
+        dom.productServingPrices.placeholder = nextOptions.length ? serializeServingOptionPrices({}, nextOptions) : "Option:0, Option:0";
+
+        if (!preserveExisting || !dom.productServingPrices.value.trim()) {
+            dom.productServingPrices.value = serializeServingOptionPrices(normalizedPrices, nextOptions);
+            return;
+        }
+
+        dom.productServingPrices.value = serializeServingOptionPrices(normalizedPrices, nextOptions);
+    }
+
+    function applyProductInfoPreset(preserveExisting) {
+        var preset = getSuggestedProductInfo(getResolvedCategoryValue(), dom.productName.value, dom.productTags.value);
+        var customizationPreset = getSuggestedCustomizationGroups(getResolvedCategoryValue(), dom.productName.value, dom.productTags.value, dom.productToppings.value);
+
+        if (!preserveExisting || !dom.productToppings.value.trim()) {
+            dom.productToppings.value = preset.toppings.join(", ");
+        }
+        if (!preserveExisting || !dom.productAllergens.value.trim()) {
+            dom.productAllergens.value = preset.allergens.join(", ");
+        }
+        if (!preserveExisting || !dom.productSpiceLevel.value) {
+            dom.productSpiceLevel.value = preset.spiceLevel;
+        }
+        if (!preserveExisting || !String(dom.productPrepTime.value || "").trim()) {
+            dom.productPrepTime.value = String(preset.prepTimeMinutes);
+        }
+        if (!preserveExisting || !dom.productCustomizationGroups.value.trim()) {
+            dom.productCustomizationGroups.value = serializeCustomizationGroups(customizationPreset);
+        }
     }
 
     async function handleFormSubmit(event) {
@@ -771,7 +1318,13 @@
         var status = normalizeStatus(dom.productStatus.value);
         var servingMode = dom.productServingMode.value;
         var servingOptions = dom.productServingOptions.value.trim();
+        var servingOptionPrices = dom.productServingPrices.value.trim();
         var sku = dom.productSku.value.trim() || buildSuggestedSku(name, category);
+        var toppings = dom.productToppings.value.trim();
+        var allergens = dom.productAllergens.value.trim();
+        var spiceLevel = dom.productSpiceLevel.value;
+        var prepTimeMinutes = dom.productPrepTime.value;
+        var customizationGroups = dom.productCustomizationGroups.value.trim();
         var description = dom.productDescription.value.trim();
         var image = dom.productImageUrl.value.trim();
         var alt = dom.productImageAlt.value.trim() || name;
@@ -818,6 +1371,12 @@
             description: description,
             servingMode: servingMode,
             servingOptions: servingOptions,
+            servingOptionPrices: servingOptionPrices,
+            toppings: toppings,
+            allergens: allergens,
+            spiceLevel: spiceLevel,
+            prepTimeMinutes: prepTimeMinutes,
+            customizationGroups: customizationGroups,
             image: image,
             alt: alt,
             tags: tags
@@ -884,7 +1443,12 @@
                 product.sku,
                 product.description,
                 formatServingSummary(product),
-                product.tags.join(" ")
+                formatProductInfoSummary(product),
+                formatAllergenSummary(product),
+                product.tags.join(" "),
+                product.toppings.join(" "),
+                product.allergens.join(" "),
+                formatCustomizationGroupSummary(product.customizationGroups)
             ].join(" ").toLowerCase();
 
             var matchesSearch = !searchTerm || haystack.indexOf(searchTerm) !== -1;
@@ -935,7 +1499,9 @@
             '<div class="admin-row-name">', escapeHtml(product.name), "</div>",
             '<div class="admin-row-meta">', escapeHtml(product.category), " / ", escapeHtml(product.sku), "</div>",
             '<div class="admin-row-meta">Sold as: ', escapeHtml(formatServingSummary(product)), "</div>",
-            '<div class="admin-chip-list mt-2">', renderTagBadges(product.tags), "</div>",
+            '<div class="admin-row-meta">', escapeHtml(formatProductInfoSummary(product)), " / Allergens: ", escapeHtml(formatAllergenSummary(product)), "</div>",
+            '<div class="admin-row-meta">Checkbox groups: ', escapeHtml(formatCustomizationGroupSummary(product.customizationGroups)), "</div>",
+            '<div class="admin-chip-list mt-2">', renderTagBadges(product.tags), renderFoodInfoBadges(product), "</div>",
             "</div>",
             "</div>",
             "</td>",
@@ -973,6 +1539,8 @@
             "<h4>", escapeHtml(product.name), "</h4>",
             '<p class="admin-row-meta mb-0">', escapeHtml(product.category), " / ", escapeHtml(product.sku), "</p>",
             '<p class="admin-row-meta mb-0">Sold as: ', escapeHtml(formatServingSummary(product)), "</p>",
+            '<p class="admin-row-meta mb-0">', escapeHtml(formatProductInfoSummary(product)), "</p>",
+            '<p class="admin-row-meta mb-0">Checkbox groups: ', escapeHtml(formatCustomizationGroupSummary(product.customizationGroups)), "</p>",
             "</div>",
             "</div>",
             '<div class="admin-preview-meta mb-2">',
@@ -982,7 +1550,10 @@
             "</div>",
             '<div class="mb-2">', buildPriceMarkup(product), "</div>",
             '<p class="admin-row-meta">', escapeHtml(product.description || "No description provided."), "</p>",
-            '<div class="admin-chip-list mb-3">', renderTagBadges(product.tags), "</div>",
+            '<p class="admin-row-meta">Allergens: ', escapeHtml(formatAllergenSummary(product)), "</p>",
+            '<p class="admin-row-meta">Toppings: ', escapeHtml(product.toppings.join(", ")), "</p>",
+            '<p class="admin-row-meta">Checkbox groups: ', escapeHtml(formatCustomizationGroupSummary(product.customizationGroups)), "</p>",
+            '<div class="admin-chip-list mb-3">', renderTagBadges(product.tags), renderFoodInfoBadges(product), "</div>",
             '<div class="admin-table-actions">',
             '<button class="btn btn-sm btn-outline-light" type="button" data-action="edit" data-product-id="', escapeHtml(product.id), '">Edit</button>',
             '<button class="btn btn-sm btn-outline-light" type="button" data-action="duplicate" data-product-id="', escapeHtml(product.id), '">Duplicate</button>',
@@ -994,8 +1565,19 @@
     }
 
     function buildPriceMarkup(product) {
-        var current = '<strong>' + escapeHtml(formatCurrency(product.price)) + "</strong>";
-        var compare = product.comparePrice > 0 ? ' <span class="admin-label-muted"><del>' + escapeHtml(formatCurrency(product.comparePrice)) + "</del></span>" : "";
+        var range = getProductPriceRange(product);
+        var hasAdjustments = hasServingOptionPriceAdjustments(product);
+        var currentText = hasAdjustments ? (formatCurrency(range.min) + " - " + formatCurrency(range.max)) : formatCurrency(product.price);
+        var compareText = "";
+
+        if (product.comparePrice > 0) {
+            compareText = hasAdjustments
+                ? formatCurrency(product.comparePrice) + " - " + formatCurrency(product.comparePrice + (range.max - range.min))
+                : formatCurrency(product.comparePrice);
+        }
+
+        var current = '<strong>' + escapeHtml(currentText) + "</strong>";
+        var compare = compareText ? ' <span class="admin-label-muted"><del>' + escapeHtml(compareText) + "</del></span>" : "";
         return current + compare;
     }
 
@@ -1007,6 +1589,14 @@
         return tags.slice(0, 3).map(function (tag) {
             return '<span class="admin-badge">' + escapeHtml(tag) + "</span>";
         }).join("");
+    }
+
+    function renderFoodInfoBadges(product) {
+        return [
+            '<span class="admin-badge">', escapeHtml(product.spiceLevel), "</span>",
+            '<span class="admin-badge">Prep ', escapeHtml(String(product.prepTimeMinutes)), " mins</span>",
+            '<span class="admin-badge">', escapeHtml(String(product.toppings.length)), " toppings</span>"
+        ].join("");
     }
 
     async function handleProductActionClick(event) {
@@ -1153,7 +1743,7 @@
         state.editingId = product.id;
         dom.productId.value = product.id;
         dom.productName.value = product.name;
-        dom.productCategory.value = product.category;
+        setCategoryValue(product.category);
         dom.productPrice.value = product.price;
         dom.productComparePrice.value = product.comparePrice || "";
         dom.productStock.value = product.stock;
@@ -1161,9 +1751,15 @@
         dom.productServingMode.value = product.servingMode;
         dom.productServingOptions.value = product.servingOptions.join(", ");
         applyServingModePreset(true);
+        dom.productServingPrices.value = serializeServingOptionPrices(product.servingOptionPrices, product.servingOptions);
         dom.productSku.value = product.sku;
         dom.productSku.dataset.userTouched = product.sku ? "true" : "";
         dom.productTags.value = product.tags.join(", ");
+        dom.productToppings.value = product.toppings.join(", ");
+        dom.productAllergens.value = product.allergens.join(", ");
+        dom.productSpiceLevel.value = product.spiceLevel;
+        dom.productPrepTime.value = product.prepTimeMinutes;
+        dom.productCustomizationGroups.value = serializeCustomizationGroups(product.customizationGroups);
         dom.productDescription.value = product.description;
         dom.productImageUrl.value = product.image;
         dom.productImageAlt.value = product.alt;
@@ -1192,6 +1788,12 @@
             description: product.description,
             servingMode: product.servingMode,
             servingOptions: product.servingOptions,
+            servingOptionPrices: product.servingOptionPrices,
+            toppings: product.toppings,
+            allergens: product.allergens,
+            spiceLevel: product.spiceLevel,
+            prepTimeMinutes: product.prepTimeMinutes,
+            customizationGroups: product.customizationGroups,
             image: product.image,
             alt: product.alt,
             tags: product.tags
@@ -1404,15 +2006,21 @@
         var draft = {
             id: dom.productId.value,
             name: dom.productName.value,
-            category: dom.productCategory.value,
+            category: getResolvedCategoryValue(),
             price: dom.productPrice.value,
             comparePrice: dom.productComparePrice.value,
             stock: dom.productStock.value,
             status: dom.productStatus.value,
             servingMode: dom.productServingMode.value,
             servingOptions: dom.productServingOptions.value,
+            servingOptionPrices: dom.productServingPrices.value,
             sku: dom.productSku.value,
             tags: dom.productTags.value,
+            toppings: dom.productToppings.value,
+            allergens: dom.productAllergens.value,
+            spiceLevel: dom.productSpiceLevel.value,
+            prepTimeMinutes: dom.productPrepTime.value,
+            customizationGroups: dom.productCustomizationGroups.value,
             description: dom.productDescription.value,
             image: dom.productImageUrl.value,
             alt: dom.productImageAlt.value,
@@ -1442,17 +2050,24 @@
 
         dom.productId.value = draft.id || "";
         dom.productName.value = draft.name || "";
-        dom.productCategory.value = draft.category || DEFAULT_CATEGORIES[0];
+        setCategoryValue(draft.category || DEFAULT_CATEGORIES[0]);
         dom.productPrice.value = draft.price || "";
         dom.productComparePrice.value = draft.comparePrice || "";
         dom.productStock.value = draft.stock || "";
         dom.productStatus.value = draft.status || "active";
-        dom.productServingMode.value = draft.servingMode || inferServingMode(draft.category || DEFAULT_CATEGORIES[0]);
+        dom.productServingMode.value = draft.servingMode || inferServingMode(getResolvedCategoryValue());
         dom.productServingOptions.value = draft.servingOptions || "";
         applyServingModePreset(true);
+        dom.productServingPrices.value = draft.servingOptionPrices || "";
         dom.productSku.value = draft.sku || "";
         dom.productSku.dataset.userTouched = draft.sku ? "true" : "";
         dom.productTags.value = draft.tags || "";
+        dom.productToppings.value = draft.toppings || "";
+        dom.productAllergens.value = draft.allergens || "";
+        dom.productSpiceLevel.value = draft.spiceLevel || "";
+        dom.productPrepTime.value = draft.prepTimeMinutes || "";
+        dom.productCustomizationGroups.value = draft.customizationGroups || "";
+        applyProductInfoPreset(true);
         dom.productDescription.value = draft.description || "";
         dom.productImageUrl.value = draft.image || "";
         dom.productImageAlt.value = draft.alt || "";
@@ -1469,11 +2084,18 @@
     }
 
     function applyDefaultFormState() {
-        dom.productCategory.value = DEFAULT_CATEGORIES[0];
+        setCategoryValue(DEFAULT_CATEGORIES[0]);
         dom.productStatus.value = "active";
-        dom.productServingMode.value = inferServingMode(dom.productCategory.value);
+        dom.productServingMode.value = inferServingMode(getResolvedCategoryValue());
         dom.productServingOptions.value = "";
         applyServingModePreset();
+        dom.productServingPrices.value = "";
+        dom.productToppings.value = "";
+        dom.productAllergens.value = "";
+        dom.productSpiceLevel.value = "";
+        dom.productPrepTime.value = "";
+        dom.productCustomizationGroups.value = "";
+        applyProductInfoPreset();
         dom.productFeatured.checked = false;
         dom.productSku.value = "";
         dom.productSku.dataset.userTouched = "";
@@ -1490,10 +2112,17 @@
         dom.productId.value = "";
         dom.productStatus.value = "active";
         dom.productSku.dataset.userTouched = "";
-        dom.productCategory.value = DEFAULT_CATEGORIES[0];
-        dom.productServingMode.value = inferServingMode(dom.productCategory.value);
+        setCategoryValue(DEFAULT_CATEGORIES[0]);
+        dom.productServingMode.value = inferServingMode(getResolvedCategoryValue());
         dom.productServingOptions.value = "";
         applyServingModePreset();
+        dom.productServingPrices.value = "";
+        dom.productToppings.value = "";
+        dom.productAllergens.value = "";
+        dom.productSpiceLevel.value = "";
+        dom.productPrepTime.value = "";
+        dom.productCustomizationGroups.value = "";
+        applyProductInfoPreset();
         state.editingId = null;
         dom.formModeBadge.textContent = "Adding New";
         dom.formModeBadge.className = "admin-badge admin-badge-primary";
@@ -1516,27 +2145,45 @@
 
     function renderPreviewFromForm() {
         var name = dom.productName.value.trim() || "New Product";
-        var category = dom.productCategory.value.trim() || "Category";
-        var sku = dom.productSku.value.trim() || buildSuggestedSku(name, category);
-        var status = labelizeStatus(dom.productStatus.value);
-        var servingMode = dom.productServingMode.value || inferServingMode(category);
-        var servingOptions = normalizeServingOptions(dom.productServingOptions.value, servingMode, category);
-        var description = dom.productDescription.value.trim() || "Your product description will appear here as you type.";
-        var price = safeNumber(dom.productPrice.value);
-        var comparePrice = safeNumber(dom.productComparePrice.value);
-        var image = dom.productImageUrl.value.trim() || "assets/images/product-1.png";
+        var category = getResolvedCategoryValue() || "Category";
+        var previewProduct = normalizeProduct({
+            id: dom.productId.value || createId(),
+            name: name,
+            category: category,
+            price: dom.productPrice.value,
+            comparePrice: dom.productComparePrice.value,
+            stock: dom.productStock.value,
+            sku: dom.productSku.value.trim() || buildSuggestedSku(name, category),
+            status: dom.productStatus.value,
+            featured: dom.productFeatured.checked,
+            description: dom.productDescription.value.trim() || "Your product description will appear here as you type.",
+            servingMode: dom.productServingMode.value || inferServingMode(category),
+            servingOptions: dom.productServingOptions.value,
+            servingOptionPrices: dom.productServingPrices.value,
+            toppings: dom.productToppings.value,
+            allergens: dom.productAllergens.value,
+            spiceLevel: dom.productSpiceLevel.value,
+            prepTimeMinutes: dom.productPrepTime.value,
+            customizationGroups: dom.productCustomizationGroups.value,
+            image: dom.productImageUrl.value.trim() || "assets/images/product-1.png",
+            alt: dom.productImageAlt.value.trim() || name,
+            tags: dom.productTags.value
+        });
 
-        dom.previewName.textContent = name;
-        dom.previewCategory.textContent = category;
-        dom.previewStatus.textContent = status;
-        dom.previewSku.textContent = "SKU: " + sku;
-        dom.previewServing.textContent = "Sold as: " + getServingModeConfig(servingMode).label + " - " + servingOptions.join(", ");
-        dom.previewDescription.textContent = description;
-        dom.previewCardImage.src = image;
-        dom.previewCardImage.alt = dom.productImageAlt.value.trim() || name;
-        dom.previewFeatured.hidden = !dom.productFeatured.checked;
+        dom.previewName.textContent = previewProduct.name;
+        dom.previewCategory.textContent = previewProduct.category;
+        dom.previewStatus.textContent = labelizeStatus(previewProduct.status);
+        dom.previewSku.textContent = "SKU: " + previewProduct.sku;
+        dom.previewServing.textContent = "Sold as: " + formatServingSummary(previewProduct);
+        dom.previewExtra.textContent = "Prep: " + previewProduct.prepTimeMinutes + " mins / Spice: " + previewProduct.spiceLevel + " / Allergens: " + formatAllergenSummary(previewProduct);
+        dom.previewDescription.textContent = previewProduct.description || "Your product description will appear here as you type.";
+        dom.previewToppings.textContent = "Toppings: " + (previewProduct.toppings.length ? previewProduct.toppings.join(", ") : "No toppings added yet.");
+        dom.previewCustomizations.textContent = "Checkbox groups: " + formatCustomizationGroupSummary(previewProduct.customizationGroups);
+        dom.previewCardImage.src = previewProduct.image || "assets/images/product-1.png";
+        dom.previewCardImage.alt = previewProduct.alt || previewProduct.name;
+        dom.previewFeatured.hidden = !previewProduct.featured;
 
-        dom.previewPrice.innerHTML = escapeHtml(formatCurrency(price)) + (comparePrice > 0 ? ' <del>' + escapeHtml(formatCurrency(comparePrice)) + "</del>" : "");
+        dom.previewPrice.innerHTML = buildPriceMarkup(previewProduct);
     }
 
     function renderCategoryBreakdown() {
