@@ -20,6 +20,7 @@ jQuery(function ($) {
         "Porridges",
         "Snacks and Pastries",
         "Local Beverages",
+        "Soft Drinks",
         "Sides and Extra"
     ];
     var CATEGORY_META = {
@@ -38,6 +39,7 @@ jQuery(function ($) {
         porridges: { image: "assets/images/menu-2.png", label: "PORRIDGES" },
         "snacks-and-pastries": { image: "assets/images/menu-3.png", label: "SNACKS &amp;<br>PASTRIES" },
         "local-beverages": { image: "assets/images/menu-4.png", label: "LOCAL<br>BEVERAGES" },
+        "soft-drinks": { image: "assets/images/menu-6.png", label: "SOFT<br>DRINKS" },
         "sides-and-extra": { image: "assets/images/menu-5.png", label: "SIDES &amp;<br>EXTRA" }
     };
     var FALLBACK_THUMB_IMAGES = [

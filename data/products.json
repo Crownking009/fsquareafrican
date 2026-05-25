@@ -355,20 +355,20 @@
   },
   {
     "id": "prod-x7wue5qp-mov8d8mi",
-    "name": "Zesty Dessert",
+    "name": "Semo Dessert",
     "category": "Dessert",
     "price": 6.57,
     "comparePrice": 7.12,
     "stock": 12,
-    "sku": "DESS-ZESTY-",
+    "sku": "DESS-Semo-",
     "status": "active",
     "featured": false,
-    "description": "Zesty dessert with citrus notes, cream and crunchy topping.",
+    "description": "Semo dessert with citrus notes, cream and crunchy topping.",
     "image": "assets/images/dessert-receipe-3.png",
-    "alt": "Zesty Dessert",
+    "alt": "Semo Dessert",
     "tags": [
       "dessert",
-      "zesty"
+      "Semo"
     ],
     "createdAt": "2026-05-07T08:34:52.259Z",
     "updatedAt": "2026-05-07T08:34:52.259Z"
@@ -1263,5 +1263,68 @@
     ],
     "createdAt": "2026-05-20T10:15:00.000Z",
     "updatedAt": "2026-05-20T10:15:00.000Z"
+  },
+  {
+    "id": "prod-sd1cola-soft1",
+    "name": "Coca Cola",
+    "category": "Soft Drinks",
+    "price": 2.50,
+    "comparePrice": 3.50,
+    "stock": 12,
+    "sku": "SOFT-COCA-C",
+    "status": "active",
+    "featured": true,
+    "description": "Refreshing ice-cold Coca Cola to complement your meal.",
+    "image": "assets/images/shake-receipe-1.png",
+    "alt": "Coca Cola",
+    "tags": [
+      "soft drinks",
+      "cola",
+      "coca"
+    ],
+    "createdAt": "2026-05-25T12:00:00.000Z",
+    "updatedAt": "2026-05-25T12:00:00.000Z"
+  },
+  {
+    "id": "prod-sd2fanta-soft2",
+    "name": "Fanta Orange",
+    "category": "Soft Drinks",
+    "price": 2.50,
+    "comparePrice": 3.50,
+    "stock": 12,
+    "sku": "SOFT-FANTA-O",
+    "status": "active",
+    "featured": false,
+    "description": "Vibrant orange Fanta with a fruity, bubbly taste.",
+    "image": "assets/images/shake-receipe-2.png",
+    "alt": "Fanta Orange",
+    "tags": [
+      "soft drinks",
+      "fanta",
+      "orange"
+    ],
+    "createdAt": "2026-05-25T12:00:00.000Z",
+    "updatedAt": "2026-05-25T12:00:00.000Z"
+  },
+  {
+    "id": "prod-sd3sprite-soft3",
+    "name": "Sprite Lemon",
+    "category": "Soft Drinks",
+    "price": 2.50,
+    "comparePrice": 3.50,
+    "stock": 12,
+    "sku": "SOFT-SPRIT-L",
+    "status": "active",
+    "featured": false,
+    "description": "Crisp and refreshing lemon-lime Sprite with a citrusy punch.",
+    "image": "assets/images/shake-receipe-3.png",
+    "alt": "Sprite Lemon",
+    "tags": [
+      "soft drinks",
+      "sprite",
+      "lemon"
+    ],
+    "createdAt": "2026-05-25T12:00:00.000Z",
+    "updatedAt": "2026-05-25T12:00:00.000Z"
   }
 ]
