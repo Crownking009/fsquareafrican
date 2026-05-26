@@ -1,1330 +1,1637 @@
 [
   {
-    "id": "prod-ar23mb63-mov8d8mf",
     "name": "Amala, Gbegiri & Ewedu",
     "category": "Swallows",
-    "price": 4.59,
-    "comparePrice": 7.59,
-    "stock": 12,
-    "sku": "SWAL-AMALA-",
-    "status": "active",
-    "featured": true,
-    "description": "Soft amala served with silky ewedu and rich gbegiri for a true Yoruba classic.",
-    "image": "assets/images/pizza-receipe-1.png",
-    "alt": "Amala, Gbegiri & Ewedu",
+    "price": 14.5,
+    "comparePrice": 16.95,
+    "stock": 14,
+    "description": "Soft amala served with silky ewedu and rich gbegiri for a deeply comforting Yoruba classic.",
+    "image": "assets/images/amalaa.png",
     "tags": [
       "swallows",
       "amala",
       "gbegiri",
       "ewedu"
     ],
-    "createdAt": "2026-05-07T08:34:52.259Z",
-    "updatedAt": "2026-05-07T08:34:52.259Z"
+    "featured": true,
+    "id": "prod-001",
+    "createdAt": "2026-05-26T12:00:00.000Z",
+    "updatedAt": "2026-05-26T12:00:00.000Z",
+    "servingMode": "portion",
+    "servingOptions": [
+      "Portion"
+    ],
+    "servingOptionPrices": {
+      "Portion": 0
+    },
+    "sku": "SWAL-AMAL-001",
+    "status": "active",
+    "alt": "Amala, Gbegiri & Ewedu"
   },
   {
-    "id": "prod-61h6wa4h-mov8d8mg",
     "name": "Pounded Yam & Egusi",
     "category": "Swallows",
-    "price": 5.12,
-    "comparePrice": 6.59,
+    "price": 15.95,
+    "comparePrice": 18.25,
     "stock": 12,
-    "sku": "SWAL-POUND-",
-    "status": "active",
-    "featured": false,
     "description": "Smooth pounded yam paired with hearty egusi soup and tender assorted meat.",
-    "image": "assets/images/pizza-receipe-2.png",
-    "alt": "Pounded Yam & Egusi",
+    "image": "assets/images/egusi-pounded yam.png",
     "tags": [
       "swallows",
       "pounded yam",
       "egusi"
     ],
-    "createdAt": "2026-05-07T08:34:52.259Z",
-    "updatedAt": "2026-05-07T08:34:52.259Z"
+    "featured": false,
+    "id": "prod-002",
+    "createdAt": "2026-05-26T12:00:00.000Z",
+    "updatedAt": "2026-05-26T12:00:00.000Z",
+    "servingMode": "portion",
+    "servingOptions": [
+      "Portion"
+    ],
+    "servingOptionPrices": {
+      "Portion": 0
+    },
+    "sku": "SWAL-POUN-002",
+    "status": "active",
+    "alt": "Pounded Yam & Egusi"
   },
   {
-    "id": "prod-3fcg73l9-mov8d8mh",
     "name": "Eba with Okra Soup",
     "category": "Swallows",
-    "price": 6.57,
-    "comparePrice": 7.12,
-    "stock": 12,
-    "sku": "SWAL-EBA-OK",
-    "status": "active",
-    "featured": false,
-    "description": "Comforting eba served with fresh okra soup and a savory home-style finish.",
-    "image": "assets/images/pizza-receipe-3.png",
-    "alt": "Eba with Okra Soup",
+    "price": 14.95,
+    "comparePrice": 17.2,
+    "stock": 11,
+    "description": "Fresh eba served with rich okra soup and a satisfying home-style finish.",
+    "image": "assets/images/eba-okro.png",
     "tags": [
       "swallows",
       "eba",
       "okra"
     ],
-    "createdAt": "2026-05-07T08:34:52.259Z",
-    "updatedAt": "2026-05-07T08:34:52.259Z"
+    "featured": false,
+    "id": "prod-003",
+    "createdAt": "2026-05-26T12:00:00.000Z",
+    "updatedAt": "2026-05-26T12:00:00.000Z",
+    "servingMode": "portion",
+    "servingOptions": [
+      "Portion"
+    ],
+    "servingOptionPrices": {
+      "Portion": 0
+    },
+    "sku": "SWAL-EBAW-003",
+    "status": "active",
+    "alt": "Eba with Okra Soup"
   },
   {
-    "id": "prod-0ilnmmu3-mov8d8mh",
+    "name": "Semo & Efo Riro",
+    "category": "Swallows",
+    "price": 14.75,
+    "comparePrice": 17.1,
+    "stock": 10,
+    "description": "Soft semo matched with bold efo riro and layered Nigerian spice.",
+    "image": "assets/images/semo-eforiro.png",
+    "tags": [
+      "swallows",
+      "semo",
+      "efo riro"
+    ],
+    "featured": false,
+    "id": "prod-004",
+    "createdAt": "2026-05-26T12:00:00.000Z",
+    "updatedAt": "2026-05-26T12:00:00.000Z",
+    "servingMode": "portion",
+    "servingOptions": [
+      "Portion"
+    ],
+    "servingOptionPrices": {
+      "Portion": 0
+    },
+    "sku": "SWAL-SEMO-004",
+    "status": "active",
+    "alt": "Semo & Efo Riro"
+  },
+  {
     "name": "Ewedu Soup",
     "category": "Soups",
-    "price": 4.59,
-    "comparePrice": 7.59,
-    "stock": 12,
-    "sku": "SOUP-EWEDU-",
-    "status": "active",
-    "featured": true,
-    "description": "Velvety jute-leaf soup finished the traditional way for light, earthy flavour.",
-    "image": "assets/images/burger-receipe-1.png",
-    "alt": "Ewedu Soup",
+    "price": 9.5,
+    "comparePrice": 11.25,
+    "stock": 13,
+    "description": "Velvety ewedu soup finished the traditional way for a light, earthy bowl.",
+    "image": "assets/images/SOUP EFO RIRO.jpg",
     "tags": [
       "soups",
       "ewedu"
     ],
-    "createdAt": "2026-05-07T08:34:52.259Z",
-    "updatedAt": "2026-05-07T08:34:52.259Z"
+    "featured": false,
+    "id": "prod-005",
+    "createdAt": "2026-05-26T12:00:00.000Z",
+    "updatedAt": "2026-05-26T12:00:00.000Z",
+    "servingMode": "portion",
+    "servingOptions": [
+      "Portion"
+    ],
+    "servingOptionPrices": {
+      "Portion": 0
+    },
+    "sku": "SOUP-EWED-005",
+    "status": "active",
+    "alt": "Ewedu Soup"
   },
   {
-    "id": "prod-47mfu4iu-mov8d8mh",
     "name": "Banga Soup",
     "category": "Soups",
-    "price": 5.12,
-    "comparePrice": 6.59,
+    "price": 11.4,
+    "comparePrice": 13.15,
     "stock": 12,
-    "sku": "SOUP-BANGA-",
-    "status": "active",
-    "featured": false,
     "description": "Palm-fruit soup simmered with bold spices and a rich, aromatic finish.",
-    "image": "assets/images/burger-receipe-2.png",
-    "alt": "Banga Soup",
+    "image": "assets/images/SOUP EFO RIRO.jpg",
     "tags": [
       "soups",
       "banga"
     ],
-    "createdAt": "2026-05-07T08:34:52.259Z",
-    "updatedAt": "2026-05-07T08:34:52.259Z"
+    "featured": false,
+    "id": "prod-006",
+    "createdAt": "2026-05-26T12:00:00.000Z",
+    "updatedAt": "2026-05-26T12:00:00.000Z",
+    "servingMode": "portion",
+    "servingOptions": [
+      "Portion"
+    ],
+    "servingOptionPrices": {
+      "Portion": 0
+    },
+    "sku": "SOUP-BANG-006",
+    "status": "active",
+    "alt": "Banga Soup"
   },
   {
-    "id": "prod-cqf5qo7h-mov8d8mh",
+    "name": "Egusi Soup",
+    "category": "Soups",
+    "price": 12.25,
+    "comparePrice": 14.1,
+    "stock": 12,
+    "description": "Classic egusi soup cooked till thick, nutty, and deeply savory.",
+    "image": "assets/images/egusi-pounded yam.png",
+    "tags": [
+      "soups",
+      "egusi"
+    ],
+    "featured": false,
+    "id": "prod-007",
+    "createdAt": "2026-05-26T12:00:00.000Z",
+    "updatedAt": "2026-05-26T12:00:00.000Z",
+    "servingMode": "portion",
+    "servingOptions": [
+      "Portion"
+    ],
+    "servingOptionPrices": {
+      "Portion": 0
+    },
+    "sku": "SOUP-EGUS-007",
+    "status": "active",
+    "alt": "Egusi Soup"
+  },
+  {
     "name": "Seafood Okra Soup",
     "category": "Soups",
-    "price": 9.45,
-    "comparePrice": 10.12,
-    "stock": 12,
-    "sku": "SOUP-OKRA-S",
-    "status": "active",
-    "featured": false,
-    "description": "Fresh okra soup packed with seafood and a deep, savory stock.",
-    "image": "assets/images/burger-receipe-3.png",
-    "alt": "Seafood Okra Soup",
+    "price": 13.75,
+    "comparePrice": 15.6,
+    "stock": 9,
+    "description": "Fresh okra soup packed with seafood and a deep, flavorful stock.",
+    "image": "assets/images/eba-okro.png",
     "tags": [
       "soups",
       "okra",
       "seafood"
     ],
-    "createdAt": "2026-05-07T08:34:52.259Z",
-    "updatedAt": "2026-05-07T08:34:52.259Z"
+    "featured": false,
+    "id": "prod-008",
+    "createdAt": "2026-05-26T12:00:00.000Z",
+    "updatedAt": "2026-05-26T12:00:00.000Z",
+    "servingMode": "portion",
+    "servingOptions": [
+      "Portion"
+    ],
+    "servingOptionPrices": {
+      "Portion": 0
+    },
+    "sku": "SOUP-SEAF-008",
+    "status": "active",
+    "alt": "Seafood Okra Soup"
   },
   {
-    "id": "prod-antlnjc7-mov8d8mh",
     "name": "Jollof Rice with Chicken",
     "category": "Rice Dishes",
-    "price": 4.59,
-    "comparePrice": 7.59,
-    "stock": 12,
-    "sku": "RICE-JOLL-CH",
-    "status": "active",
-    "featured": true,
-    "description": "Smoky jollof rice served with juicy chicken and full party-style flavour.",
-    "image": "assets/images/sandwitch-receipe-1.png",
-    "alt": "Jollof Rice with Chicken",
+    "price": 13.95,
+    "comparePrice": 16.1,
+    "stock": 15,
+    "description": "Smoky jollof rice served with juicy chicken and full party-style flavor.",
+    "image": "assets/images/jollof-rice.png",
     "tags": [
       "rice dishes",
       "jollof",
       "chicken"
     ],
-    "createdAt": "2026-05-07T08:34:52.259Z",
-    "updatedAt": "2026-05-07T08:34:52.259Z"
+    "featured": true,
+    "id": "prod-009",
+    "createdAt": "2026-05-26T12:00:00.000Z",
+    "updatedAt": "2026-05-26T12:00:00.000Z",
+    "servingMode": "portion",
+    "servingOptions": [
+      "Portion"
+    ],
+    "servingOptionPrices": {
+      "Portion": 0
+    },
+    "sku": "RICE-JOLL-009",
+    "status": "active",
+    "alt": "Jollof Rice with Chicken"
   },
   {
-    "id": "prod-m60m6zzy-mov8d8mh",
     "name": "Ofada Rice & Ayamase",
     "category": "Rice Dishes",
-    "price": 5.12,
-    "comparePrice": 6.59,
+    "price": 14.5,
+    "comparePrice": 16.8,
     "stock": 12,
-    "sku": "RICE-OFADA-",
-    "status": "active",
-    "featured": false,
     "description": "Local ofada rice matched with green ayamase sauce and tender beef.",
-    "image": "assets/images/sandwitch-receipe-2.png",
-    "alt": "Ofada Rice & Ayamase",
+    "image": "assets/images/ofada rice.png",
     "tags": [
       "rice dishes",
       "ofada",
       "ayamase"
     ],
-    "createdAt": "2026-05-07T08:34:52.259Z",
-    "updatedAt": "2026-05-07T08:34:52.259Z"
+    "featured": false,
+    "id": "prod-010",
+    "createdAt": "2026-05-26T12:00:00.000Z",
+    "updatedAt": "2026-05-26T12:00:00.000Z",
+    "servingMode": "portion",
+    "servingOptions": [
+      "Portion"
+    ],
+    "servingOptionPrices": {
+      "Portion": 0
+    },
+    "sku": "RICE-OFAD-010",
+    "status": "active",
+    "alt": "Ofada Rice & Ayamase"
   },
   {
-    "id": "prod-ryljzj54-mov8d8mh",
     "name": "Coconut Rice & Turkey",
     "category": "Rice Dishes",
-    "price": 6.57,
-    "comparePrice": 7.12,
-    "stock": 12,
-    "sku": "RICE-COCO-TU",
-    "status": "active",
-    "featured": false,
-    "description": "Fragrant coconut rice paired with well-seasoned turkey for a rich, festive plate.",
-    "image": "assets/images/sandwitch-receipe-3.png",
-    "alt": "Coconut Rice & Turkey",
+    "price": 15.25,
+    "comparePrice": 17.6,
+    "stock": 10,
+    "description": "Fragrant coconut rice paired with seasoned turkey for a festive Nigerian plate.",
+    "image": "assets/images/Village_Rice.jpg",
     "tags": [
       "rice dishes",
-      "coconut",
+      "coconut rice",
       "turkey"
     ],
-    "createdAt": "2026-05-07T08:34:52.259Z",
-    "updatedAt": "2026-05-07T08:34:52.259Z"
-  },
-  {
-    "id": "prod-qsvikcrw-mov8d8mi",
-    "name": "Cabernet Red Wine",
-    "category": "Alcohol",
-    "price": 8.59,
-    "comparePrice": 9.75,
-    "stock": 12,
-    "sku": "ALCH-CABERN",
-    "status": "active",
-    "featured": true,
-    "description": "Smooth cabernet red wine with deep berry notes and a balanced finish.",
-    "image": "assets/images/shake-receipe-1.png",
-    "alt": "Cabernet Red Wine",
-    "tags": [
-      "alcohol",
-      "wine",
-      "cabernet"
-    ],
-    "createdAt": "2026-05-07T08:34:52.259Z",
-    "updatedAt": "2026-05-07T08:34:52.259Z"
-  },
-  {
-    "id": "prod-7008tmjb-mov8d8mi",
-    "name": "Classic Whiskey",
-    "category": "Alcohol",
-    "price": 10.12,
-    "comparePrice": 11.4,
-    "stock": 12,
-    "sku": "ALCH-WHISKY",
-    "status": "active",
     "featured": false,
-    "description": "A bold whiskey bottle with warm oak notes and a smooth slow finish.",
-    "image": "assets/images/shake-receipe-2.png",
-    "alt": "Classic Whiskey",
-    "tags": [
-      "alcohol",
-      "whiskey",
-      "reserve"
+    "id": "prod-011",
+    "createdAt": "2026-05-26T12:00:00.000Z",
+    "updatedAt": "2026-05-26T12:00:00.000Z",
+    "servingMode": "portion",
+    "servingOptions": [
+      "Portion"
     ],
-    "createdAt": "2026-05-07T08:34:52.259Z",
-    "updatedAt": "2026-05-07T08:34:52.259Z"
-  },
-  {
-    "id": "prod-4m0u7urw-mov8d8mi",
-    "name": "Rose Sparkling",
-    "category": "Alcohol",
-    "price": 9.45,
-    "comparePrice": 10.3,
-    "stock": 12,
-    "sku": "ALCH-ROSE--",
+    "servingOptionPrices": {
+      "Portion": 0
+    },
+    "sku": "RICE-COCO-011",
     "status": "active",
-    "featured": false,
-    "description": "Light sparkling rose with crisp fruit notes and a celebratory finish.",
-    "image": "assets/images/shake-receipe-3.png",
-    "alt": "Rose Sparkling",
-    "tags": [
-      "alcohol",
-      "rose",
-      "sparkling"
-    ],
-    "createdAt": "2026-05-07T08:34:52.259Z",
-    "updatedAt": "2026-05-07T08:34:52.259Z"
+    "alt": "Coconut Rice & Turkey"
   },
   {
-    "id": "prod-ojg6igmi-mov8d8mi",
-    "name": "Chicken & Fries Combo",
-    "category": "Combo Meal",
-    "price": 11.25,
-    "comparePrice": 12.4,
-    "stock": 12,
-    "sku": "COMB-CHKFRY",
-    "status": "active",
-    "featured": true,
-    "description": "Crispy chicken served with golden fries and a house dipping sauce.",
-    "image": "assets/images/combo-2-1.png",
-    "alt": "Chicken & Fries Combo",
-    "tags": [
-      "combo meal",
-      "chicken",
-      "fries"
-    ],
-    "createdAt": "2026-05-07T08:34:52.259Z",
-    "updatedAt": "2026-05-07T08:34:52.259Z"
-  },
-  {
-    "id": "prod-r7lrktd2-mov8d8mi",
-    "name": "Peppered Beef & Rice Combo",
-    "category": "Combo Meal",
-    "price": 12.15,
-    "comparePrice": 13.1,
-    "stock": 12,
-    "sku": "COMB-BEFRIC",
-    "status": "active",
-    "featured": false,
-    "description": "Peppered beef paired with seasoned rice and a fresh side salad.",
-    "image": "assets/images/combo-2-2.png",
-    "alt": "Peppered Beef & Rice Combo",
-    "tags": [
-      "combo meal",
-      "beef",
-      "rice"
-    ],
-    "createdAt": "2026-05-07T08:34:52.259Z",
-    "updatedAt": "2026-05-07T08:34:52.259Z"
-  },
-  {
-    "id": "prod-hh4emcze-mov8d8mi",
-    "name": "Fried Fish & Plantain Combo",
-    "category": "Combo Meal",
-    "price": 12.85,
-    "comparePrice": 13.75,
-    "stock": 12,
-    "sku": "COMB-FISPLA",
-    "status": "active",
-    "featured": false,
-    "description": "Crisp fried fish matched with sweet plantain and pepper sauce.",
-    "image": "assets/images/combo-2-3.png",
-    "alt": "Fried Fish & Plantain Combo",
-    "tags": [
-      "combo meal",
-      "fish",
-      "plantain"
-    ],
-    "createdAt": "2026-05-07T08:34:52.259Z",
-    "updatedAt": "2026-05-07T08:34:52.259Z"
-  },
-  {
-    "id": "prod-ioz9raq0-mov8d8mi",
-    "name": "Frozen Dessert",
-    "category": "Dessert",
-    "price": 4.59,
-    "comparePrice": 7.59,
-    "stock": 12,
-    "sku": "DESS-FROZEN",
-    "status": "active",
-    "featured": true,
-    "description": "Refreshing frozen dessert topped with berries and chocolate.",
-    "image": "assets/images/dessert-receipe-1.png",
-    "alt": "Frozen Dessert",
-    "tags": [
-      "dessert",
-      "frozen"
-    ],
-    "createdAt": "2026-05-07T08:34:52.259Z",
-    "updatedAt": "2026-05-07T08:34:52.259Z"
-  },
-  {
-    "id": "prod-2b1tkurs-mov8d8mi",
-    "name": "Decadent Dessert",
-    "category": "Dessert",
-    "price": 5.12,
-    "comparePrice": 6.59,
-    "stock": 12,
-    "sku": "DESS-DECADE",
-    "status": "active",
-    "featured": false,
-    "description": "Sweet dessert with rich layers and creamy topping.",
-    "image": "assets/images/dessert-receipe-2.png",
-    "alt": "Decadent Dessert",
-    "tags": [
-      "dessert",
-      "decadent"
-    ],
-    "createdAt": "2026-05-07T08:34:52.259Z",
-    "updatedAt": "2026-05-07T08:34:52.259Z"
-  },
-  {
-    "id": "prod-x7wue5qp-mov8d8mi",
-    "name": "Semo Dessert",
-    "category": "Dessert",
-    "price": 6.57,
-    "comparePrice": 7.12,
-    "stock": 12,
-    "sku": "DESS-Semo-",
-    "status": "active",
-    "featured": false,
-    "description": "Semo dessert with citrus notes, cream and crunchy topping.",
-    "image": "assets/images/dessert-receipe-3.png",
-    "alt": "Semo Dessert",
-    "tags": [
-      "dessert",
-      "Semo"
-    ],
-    "createdAt": "2026-05-07T08:34:52.259Z",
-    "updatedAt": "2026-05-07T08:34:52.259Z"
-  },
-  {
-    "id": "prod-u669iw7e-mov8d8mi",
-    "name": "Pounded Yam",
-    "category": "Swallows",
-    "price": 6.4,
-    "comparePrice": 7.2,
-    "stock": 12,
-    "sku": "SWAL-POUNDE",
-    "status": "active",
-    "featured": true,
-    "description": "Soft swallow served to pair beautifully with rich native soups.",
-    "image": "assets/images/product-1.png",
-    "alt": "Pounded Yam",
-    "tags": [
-      "swallows",
-      "pounded"
-    ],
-    "createdAt": "2026-05-07T08:34:52.259Z",
-    "updatedAt": "2026-05-07T08:34:52.259Z"
-  },
-  {
-    "id": "prod-3pdbrync-mov8d8mi",
-    "name": "Eba Special",
-    "category": "Swallows",
-    "price": 5.85,
-    "comparePrice": 6.5,
-    "stock": 12,
-    "sku": "SWAL-EBA-SP",
-    "status": "active",
-    "featured": false,
-    "description": "Smooth garri swallow with a hearty, home-style finish.",
-    "image": "assets/images/product-2.png",
-    "alt": "Eba Special",
-    "tags": [
-      "swallows",
-      "eba"
-    ],
-    "createdAt": "2026-05-07T08:34:52.259Z",
-    "updatedAt": "2026-05-07T08:34:52.259Z"
-  },
-  {
-    "id": "prod-iykw7dnc-mov8d8mk",
-    "name": "Semo Delight",
-    "category": "Swallows",
-    "price": 5.4,
-    "comparePrice": 6.1,
-    "stock": 12,
-    "sku": "SWAL-SEMO-D",
-    "status": "active",
-    "featured": false,
-    "description": "Classic semo portion prepared for satisfying soup combinations.",
-    "image": "assets/images/product-3.png",
-    "alt": "Semo Delight",
-    "tags": [
-      "swallows",
-      "semo"
-    ],
-    "createdAt": "2026-05-07T08:34:52.259Z",
-    "updatedAt": "2026-05-07T08:34:52.259Z"
-  },
-  {
-    "id": "prod-pvqqzeza-mov8d8mk",
-    "name": "Egusi Soup",
-    "category": "Soups",
-    "price": 7.1,
-    "comparePrice": 8.2,
-    "stock": 12,
-    "sku": "SOUP-EGUSI-",
-    "status": "active",
-    "featured": true,
-    "description": "Melon-seed soup simmered with greens and bold traditional flavor.",
-    "image": "assets/images/blog-nav-1.jpg",
-    "alt": "Egusi Soup",
-    "tags": [
-      "soups",
-      "egusi"
-    ],
-    "createdAt": "2026-05-07T08:34:52.259Z",
-    "updatedAt": "2026-05-07T08:34:52.259Z"
-  },
-  {
-    "id": "prod-ozn9r0zh-mov8d8mk",
-    "name": "Ogbono Soup",
-    "category": "Soups",
-    "price": 7.35,
-    "comparePrice": 8.15,
-    "stock": 12,
-    "sku": "SOUP-OGBONO",
-    "status": "active",
-    "featured": false,
-    "description": "Silky draw soup cooked with native spices and tender cuts.",
-    "image": "assets/images/blog-nav-2.jpg",
-    "alt": "Ogbono Soup",
-    "tags": [
-      "soups",
-      "ogbono"
-    ],
-    "createdAt": "2026-05-07T08:34:52.259Z",
-    "updatedAt": "2026-05-07T08:34:52.259Z"
-  },
-  {
-    "id": "prod-pr5fe3en-mov8d8mk",
-    "name": "Vegetable Soup",
-    "category": "Soups",
-    "price": 6.95,
-    "comparePrice": 7.9,
-    "stock": 12,
-    "sku": "SOUP-VEGETA",
-    "status": "active",
-    "featured": false,
-    "description": "Leafy, savory soup with a deep stock and fresh texture.",
-    "image": "assets/images/blog-nav-3.jpg",
-    "alt": "Vegetable Soup",
-    "tags": [
-      "soups",
-      "vegetable"
-    ],
-    "createdAt": "2026-05-07T08:34:52.259Z",
-    "updatedAt": "2026-05-07T08:34:52.259Z"
-  },
-  {
-    "id": "prod-eo1dj9ge-mov8d8mk",
-    "name": "Jollof Rice",
+    "name": "Village Rice & Fish",
     "category": "Rice Dishes",
-    "price": 6.8,
-    "comparePrice": 7.6,
-    "stock": 12,
-    "sku": "RICE-JOLLOF",
-    "status": "active",
-    "featured": true,
-    "description": "Smoky party-style rice cooked in a rich pepper tomato base.",
-    "image": "assets/images/product-4.png",
-    "alt": "Jollof Rice",
+    "price": 15.1,
+    "comparePrice": 17.45,
+    "stock": 10,
+    "description": "Native village rice cooked in rich sauce and served with well-seasoned fish.",
+    "image": "assets/images/Village_Rice.jpg",
     "tags": [
       "rice dishes",
+      "village rice",
+      "fish"
+    ],
+    "featured": false,
+    "id": "prod-012",
+    "createdAt": "2026-05-26T12:00:00.000Z",
+    "updatedAt": "2026-05-26T12:00:00.000Z",
+    "servingMode": "portion",
+    "servingOptions": [
+      "Portion"
+    ],
+    "servingOptionPrices": {
+      "Portion": 0
+    },
+    "sku": "RICE-VILL-012",
+    "status": "active",
+    "alt": "Village Rice & Fish"
+  },
+  {
+    "name": "Asun & Jollof Combo",
+    "category": "Combo Meal",
+    "price": 18.5,
+    "comparePrice": 21.25,
+    "stock": 8,
+    "description": "Smoky asun served over party jollof for a bold and satisfying combo plate.",
+    "image": "assets/images/jollof-rice.png",
+    "tags": [
+      "combo meal",
+      "asun",
       "jollof"
     ],
-    "createdAt": "2026-05-07T08:34:52.259Z",
-    "updatedAt": "2026-05-07T08:34:52.259Z"
-  },
-  {
-    "id": "prod-3zo9d4ht-mov8d8mk",
-    "name": "Fried Rice",
-    "category": "Rice Dishes",
-    "price": 7.05,
-    "comparePrice": 7.95,
-    "stock": 12,
-    "sku": "RICE-FRIED-",
-    "status": "active",
-    "featured": false,
-    "description": "Colorful rice tossed with vegetables and savory seasoning.",
-    "image": "assets/images/product-5.png",
-    "alt": "Fried Rice",
-    "tags": [
-      "rice dishes",
-      "fried"
-    ],
-    "createdAt": "2026-05-07T08:34:52.259Z",
-    "updatedAt": "2026-05-07T08:34:52.259Z"
-  },
-  {
-    "id": "prod-8lpwkzi1-mov8d8mk",
-    "name": "Coconut Rice",
-    "category": "Rice Dishes",
-    "price": 7.4,
-    "comparePrice": 8.35,
-    "stock": 12,
-    "sku": "RICE-COCONU",
-    "status": "active",
-    "featured": false,
-    "description": "Fragrant rice infused with coconut milk and gentle spices.",
-    "image": "assets/images/product-6.png",
-    "alt": "Coconut Rice",
-    "tags": [
-      "rice dishes",
-      "coconut"
-    ],
-    "createdAt": "2026-05-07T08:34:52.259Z",
-    "updatedAt": "2026-05-07T08:34:52.259Z"
-  },
-  {
-    "id": "prod-m6rnq9k6-mov8d8mk",
-    "name": "Puff Puff Basket",
-    "category": "Small Chops",
-    "price": 4.6,
-    "comparePrice": 5.2,
-    "stock": 12,
-    "sku": "SMAL-PUFF-P",
-    "status": "active",
     "featured": true,
-    "description": "Golden bite-size treats with a light, fluffy center.",
-    "image": "assets/images/combo-2-1.png",
-    "alt": "Puff Puff Basket",
-    "tags": [
-      "small chops",
-      "puff"
+    "id": "prod-013",
+    "createdAt": "2026-05-26T12:00:00.000Z",
+    "updatedAt": "2026-05-26T12:00:00.000Z",
+    "servingMode": "plate",
+    "servingOptions": [
+      "Plate"
     ],
-    "createdAt": "2026-05-07T08:34:52.259Z",
-    "updatedAt": "2026-05-07T08:34:52.259Z"
-  },
-  {
-    "id": "prod-owizhrng-mov8d8mk",
-    "name": "Meat Pie Pack",
-    "category": "Small Chops",
-    "price": 5.2,
-    "comparePrice": 5.9,
-    "stock": 12,
-    "sku": "SMAL-MEAT-P",
+    "servingOptionPrices": {
+      "Plate": 0
+    },
+    "sku": "COMB-ASUN-013",
     "status": "active",
-    "featured": false,
-    "description": "Buttery pastry filled with seasoned meat and vegetables.",
-    "image": "assets/images/combo-2-2.png",
-    "alt": "Meat Pie Pack",
-    "tags": [
-      "small chops",
-      "meat"
-    ],
-    "createdAt": "2026-05-07T08:34:52.259Z",
-    "updatedAt": "2026-05-07T08:34:52.259Z"
+    "alt": "Asun & Jollof Combo"
   },
   {
-    "id": "prod-0bb4kfed-mov8d8ml",
-    "name": "Spring Roll Mix",
-    "category": "Small Chops",
-    "price": 5.55,
-    "comparePrice": 6.25,
-    "stock": 12,
-    "sku": "SMAL-SPRING",
+    "name": "Peppered Beef & Ofada Combo",
+    "category": "Combo Meal",
+    "price": 18.95,
+    "comparePrice": 21.5,
+    "stock": 8,
+    "description": "Peppered beef paired with ofada rice and rich ayamase on one hearty plate.",
+    "image": "assets/images/ofada rice.png",
+    "tags": [
+      "combo meal",
+      "peppered beef",
+      "ofada"
+    ],
+    "featured": false,
+    "id": "prod-014",
+    "createdAt": "2026-05-26T12:00:00.000Z",
+    "updatedAt": "2026-05-26T12:00:00.000Z",
+    "servingMode": "plate",
+    "servingOptions": [
+      "Plate"
+    ],
+    "servingOptionPrices": {
+      "Plate": 0
+    },
+    "sku": "COMB-PEPP-014",
     "status": "active",
-    "featured": false,
-    "description": "Crisp finger foods perfect for sharing and snacking.",
-    "image": "assets/images/combo-2-3.png",
-    "alt": "Spring Roll Mix",
-    "tags": [
-      "small chops",
-      "spring"
-    ],
-    "createdAt": "2026-05-07T08:34:52.259Z",
-    "updatedAt": "2026-05-07T08:34:52.259Z"
+    "alt": "Peppered Beef & Ofada Combo"
   },
   {
-    "id": "prod-83w7z9fa-mov8d8ml",
+    "name": "Fried Fish & Plantain Combo",
+    "category": "Combo Meal",
+    "price": 19.25,
+    "comparePrice": 21.9,
+    "stock": 7,
+    "description": "Crisp fried fish served with sweet plantain and deeply seasoned rice.",
+    "image": "assets/images/Village_Rice.jpg",
+    "tags": [
+      "combo meal",
+      "fried fish",
+      "plantain"
+    ],
+    "featured": false,
+    "id": "prod-015",
+    "createdAt": "2026-05-26T12:00:00.000Z",
+    "updatedAt": "2026-05-26T12:00:00.000Z",
+    "servingMode": "plate",
+    "servingOptions": [
+      "Plate"
+    ],
+    "servingOptionPrices": {
+      "Plate": 0
+    },
+    "sku": "COMB-FRIE-015",
+    "status": "active",
+    "alt": "Fried Fish & Plantain Combo"
+  },
+  {
+    "name": "Turkey Wings & Coconut Rice",
+    "category": "Combo Meal",
+    "price": 19.5,
+    "comparePrice": 22.3,
+    "stock": 7,
+    "description": "Roasted turkey wings matched with coconut rice for a festive full meal.",
+    "image": "assets/images/Village_Rice.jpg",
+    "tags": [
+      "combo meal",
+      "turkey wings",
+      "coconut rice"
+    ],
+    "featured": false,
+    "id": "prod-016",
+    "createdAt": "2026-05-26T12:00:00.000Z",
+    "updatedAt": "2026-05-26T12:00:00.000Z",
+    "servingMode": "plate",
+    "servingOptions": [
+      "Plate"
+    ],
+    "servingOptionPrices": {
+      "Plate": 0
+    },
+    "sku": "COMB-TURK-016",
+    "status": "active",
+    "alt": "Turkey Wings & Coconut Rice"
+  },
+  {
     "name": "Grilled Chicken",
     "category": "Proteins",
-    "price": 8.1,
-    "comparePrice": 9.3,
-    "stock": 12,
-    "sku": "PROT-GRILLE",
-    "status": "active",
-    "featured": true,
-    "description": "Well-seasoned chicken grilled for smoky, juicy flavor.",
-    "image": "assets/images/burger-receipe-1.png",
-    "alt": "Grilled Chicken",
+    "price": 9.95,
+    "comparePrice": 11.6,
+    "stock": 14,
+    "description": "Well-seasoned chicken grilled till smoky and juicy with a clean pepper finish.",
+    "image": "assets/images/header-2-carousel-2.png",
     "tags": [
       "proteins",
-      "grilled"
+      "grilled chicken"
     ],
-    "createdAt": "2026-05-07T08:34:52.259Z",
-    "updatedAt": "2026-05-07T08:34:52.259Z"
+    "featured": true,
+    "id": "prod-017",
+    "createdAt": "2026-05-26T12:00:00.000Z",
+    "updatedAt": "2026-05-26T12:00:00.000Z",
+    "servingMode": "piece",
+    "servingOptions": [
+      "1 Piece"
+    ],
+    "servingOptionPrices": {
+      "1 Piece": 0
+    },
+    "sku": "PROT-GRIL-017",
+    "status": "active",
+    "alt": "Grilled Chicken"
   },
   {
-    "id": "prod-2pan1up1-mov8d8ml",
     "name": "Peppered Beef",
     "category": "Proteins",
-    "price": 8.45,
-    "comparePrice": 9.55,
+    "price": 10.5,
+    "comparePrice": 12.25,
     "stock": 12,
-    "sku": "PROT-PEPPER",
-    "status": "active",
-    "featured": false,
-    "description": "Tender beef tossed in a spicy pepper glaze.",
-    "image": "assets/images/burger-receipe-2.png",
-    "alt": "Peppered Beef",
+    "description": "Tender beef tossed in rich Nigerian pepper sauce with deep savory flavor.",
+    "image": "assets/images/header-2-carousel-1.png",
     "tags": [
       "proteins",
-      "peppered"
+      "peppered beef"
     ],
-    "createdAt": "2026-05-07T08:34:52.259Z",
-    "updatedAt": "2026-05-07T08:34:52.259Z"
+    "featured": false,
+    "id": "prod-018",
+    "createdAt": "2026-05-26T12:00:00.000Z",
+    "updatedAt": "2026-05-26T12:00:00.000Z",
+    "servingMode": "piece",
+    "servingOptions": [
+      "1 Piece"
+    ],
+    "servingOptionPrices": {
+      "1 Piece": 0
+    },
+    "sku": "PROT-PEPP-018",
+    "status": "active",
+    "alt": "Peppered Beef"
   },
   {
-    "id": "prod-mqapfqqs-mov8d8ml",
     "name": "Fried Fish",
     "category": "Proteins",
-    "price": 8.75,
-    "comparePrice": 9.8,
-    "stock": 12,
-    "sku": "PROT-FRIED-",
-    "status": "active",
-    "featured": false,
-    "description": "Crisp fish portion served with a savory, seasoned finish.",
-    "image": "assets/images/burger-receipe-3.png",
-    "alt": "Fried Fish",
+    "price": 11.25,
+    "comparePrice": 12.95,
+    "stock": 10,
+    "description": "Crisp fried fish served with a fragrant, seasoned finish.",
+    "image": "assets/images/Village_Rice.jpg",
     "tags": [
       "proteins",
-      "fried"
+      "fried fish"
     ],
-    "createdAt": "2026-05-07T08:34:52.259Z",
-    "updatedAt": "2026-05-07T08:34:52.259Z"
+    "featured": false,
+    "id": "prod-019",
+    "createdAt": "2026-05-26T12:00:00.000Z",
+    "updatedAt": "2026-05-26T12:00:00.000Z",
+    "servingMode": "piece",
+    "servingOptions": [
+      "1 Piece"
+    ],
+    "servingOptionPrices": {
+      "1 Piece": 0
+    },
+    "sku": "PROT-FRIE-019",
+    "status": "active",
+    "alt": "Fried Fish"
   },
   {
-    "id": "prod-9sebi3n5-mov8d8ml",
+    "name": "Turkey Wings",
+    "category": "Proteins",
+    "price": 11.75,
+    "comparePrice": 13.4,
+    "stock": 10,
+    "description": "Juicy turkey wings roasted and glazed with spicy Nigerian seasoning.",
+    "image": "assets/images/service-1.jpg",
+    "tags": [
+      "proteins",
+      "turkey wings"
+    ],
+    "featured": false,
+    "id": "prod-020",
+    "createdAt": "2026-05-26T12:00:00.000Z",
+    "updatedAt": "2026-05-26T12:00:00.000Z",
+    "servingMode": "piece",
+    "servingOptions": [
+      "1 Piece"
+    ],
+    "servingOptionPrices": {
+      "1 Piece": 0
+    },
+    "sku": "PROT-TURK-020",
+    "status": "active",
+    "alt": "Turkey Wings"
+  },
+  {
     "name": "Catfish Pepper Soup",
     "category": "Pepper Soups",
-    "price": 8.25,
-    "comparePrice": 9.35,
-    "stock": 12,
-    "sku": "PEPP-CATFIS",
-    "status": "active",
-    "featured": true,
-    "description": "Hot, aromatic broth with catfish and signature pepper spice.",
-    "image": "assets/images/blog-nav-4.jpg",
-    "alt": "Catfish Pepper Soup",
+    "price": 12.95,
+    "comparePrice": 14.8,
+    "stock": 10,
+    "description": "Aromatic catfish pepper soup with warming native spice and fresh herbs.",
+    "image": "assets/images/SOUP EFO RIRO.jpg",
     "tags": [
       "pepper soups",
       "catfish"
     ],
-    "createdAt": "2026-05-07T08:34:52.259Z",
-    "updatedAt": "2026-05-07T08:34:52.259Z"
+    "featured": false,
+    "id": "prod-021",
+    "createdAt": "2026-05-26T12:00:00.000Z",
+    "updatedAt": "2026-05-26T12:00:00.000Z",
+    "servingMode": "bowl",
+    "servingOptions": [
+      "Bowl"
+    ],
+    "servingOptionPrices": {
+      "Bowl": 0
+    },
+    "sku": "PEPP-CATF-021",
+    "status": "active",
+    "alt": "Catfish Pepper Soup"
   },
   {
-    "id": "prod-39m5wtzh-mov8d8ml",
     "name": "Goat Meat Pepper Soup",
     "category": "Pepper Soups",
-    "price": 8.6,
-    "comparePrice": 9.7,
-    "stock": 12,
-    "sku": "PEPP-GOAT-M",
-    "status": "active",
-    "featured": false,
-    "description": "Bold broth with tender goat meat and warming native spices.",
-    "image": "assets/images/product-7.png",
-    "alt": "Goat Meat Pepper Soup",
+    "price": 13.5,
+    "comparePrice": 15.25,
+    "stock": 9,
+    "description": "Goat meat pepper soup simmered till bold, fragrant, and deeply warming.",
+    "image": "assets/images/SOUP EFO RIRO.jpg",
     "tags": [
       "pepper soups",
-      "goat"
+      "goat meat"
     ],
-    "createdAt": "2026-05-07T08:34:52.259Z",
-    "updatedAt": "2026-05-07T08:34:52.259Z"
+    "featured": false,
+    "id": "prod-022",
+    "createdAt": "2026-05-26T12:00:00.000Z",
+    "updatedAt": "2026-05-26T12:00:00.000Z",
+    "servingMode": "bowl",
+    "servingOptions": [
+      "Bowl"
+    ],
+    "servingOptionPrices": {
+      "Bowl": 0
+    },
+    "sku": "PEPP-GOAT-022",
+    "status": "active",
+    "alt": "Goat Meat Pepper Soup"
   },
   {
-    "id": "prod-fnd4qg4b-mov8d8ml",
     "name": "Chicken Pepper Soup",
     "category": "Pepper Soups",
-    "price": 8.15,
-    "comparePrice": 9.1,
-    "stock": 12,
-    "sku": "PEPP-CHICKE",
-    "status": "active",
-    "featured": false,
-    "description": "Comforting pepper soup with juicy chicken and fresh herbs.",
-    "image": "assets/images/blog-nav-1.jpg",
-    "alt": "Chicken Pepper Soup",
+    "price": 12.75,
+    "comparePrice": 14.45,
+    "stock": 9,
+    "description": "Classic chicken pepper soup with ginger, scent leaves, and lively heat.",
+    "image": "assets/images/SOUP EFO RIRO.jpg",
     "tags": [
       "pepper soups",
       "chicken"
     ],
-    "createdAt": "2026-05-07T08:34:52.259Z",
-    "updatedAt": "2026-05-07T08:34:52.259Z"
+    "featured": false,
+    "id": "prod-023",
+    "createdAt": "2026-05-26T12:00:00.000Z",
+    "updatedAt": "2026-05-26T12:00:00.000Z",
+    "servingMode": "bowl",
+    "servingOptions": [
+      "Bowl"
+    ],
+    "servingOptionPrices": {
+      "Bowl": 0
+    },
+    "sku": "PEPP-CHIC-023",
+    "status": "active",
+    "alt": "Chicken Pepper Soup"
   },
   {
-    "id": "prod-ib3lf4ys-mov8d8ml",
+    "name": "Assorted Meat Pepper Soup",
+    "category": "Pepper Soups",
+    "price": 13.9,
+    "comparePrice": 15.6,
+    "stock": 8,
+    "description": "Assorted meat pepper soup cooked with robust stock and native spices.",
+    "image": "assets/images/SOUP EFO RIRO.jpg",
+    "tags": [
+      "pepper soups",
+      "assorted meat"
+    ],
+    "featured": false,
+    "id": "prod-024",
+    "createdAt": "2026-05-26T12:00:00.000Z",
+    "updatedAt": "2026-05-26T12:00:00.000Z",
+    "servingMode": "bowl",
+    "servingOptions": [
+      "Bowl"
+    ],
+    "servingOptionPrices": {
+      "Bowl": 0
+    },
+    "sku": "PEPP-ASSO-024",
+    "status": "active",
+    "alt": "Assorted Meat Pepper Soup"
+  },
+  {
     "name": "Moi Moi",
     "category": "Beans",
-    "price": 4.95,
-    "comparePrice": 5.6,
-    "stock": 12,
-    "sku": "BEAN-MOI-MO",
-    "status": "active",
-    "featured": true,
-    "description": "Steamed bean pudding with a soft texture and savory taste.",
-    "image": "assets/images/product-1.png",
-    "alt": "Moi Moi",
+    "price": 5.95,
+    "comparePrice": 6.95,
+    "stock": 18,
+    "description": "Steamed bean pudding with a soft texture, gentle spice, and savory depth.",
+    "image": "assets/images/menu-1.png",
     "tags": [
       "beans",
-      "moi"
+      "moi moi"
     ],
-    "createdAt": "2026-05-07T08:34:52.259Z",
-    "updatedAt": "2026-05-07T08:34:52.259Z"
+    "featured": true,
+    "id": "prod-025",
+    "createdAt": "2026-05-26T12:00:00.000Z",
+    "updatedAt": "2026-05-26T12:00:00.000Z",
+    "servingMode": "portion",
+    "servingOptions": [
+      "Portion"
+    ],
+    "servingOptionPrices": {
+      "Portion": 0
+    },
+    "sku": "BEAN-MOIM-025",
+    "status": "active",
+    "alt": "Moi Moi"
   },
   {
-    "id": "prod-0zwknzhd-mov8d8ml",
     "name": "Beans Porridge",
     "category": "Beans",
-    "price": 5.75,
-    "comparePrice": 6.4,
-    "stock": 12,
-    "sku": "BEAN-BEANS-",
-    "status": "active",
-    "featured": false,
-    "description": "Creamy beans cooked till rich, smooth and deeply satisfying.",
-    "image": "assets/images/product-5.png",
-    "alt": "Beans Porridge",
+    "price": 9.5,
+    "comparePrice": 11.25,
+    "stock": 13,
+    "description": "Creamy beans cooked till rich, smooth, and deeply satisfying.",
+    "image": "assets/images/menu-2.png",
     "tags": [
       "beans",
-      "beans"
+      "beans porridge"
     ],
-    "createdAt": "2026-05-07T08:34:52.259Z",
-    "updatedAt": "2026-05-07T08:34:52.259Z"
+    "featured": false,
+    "id": "prod-026",
+    "createdAt": "2026-05-26T12:00:00.000Z",
+    "updatedAt": "2026-05-26T12:00:00.000Z",
+    "servingMode": "portion",
+    "servingOptions": [
+      "Portion"
+    ],
+    "servingOptionPrices": {
+      "Portion": 0
+    },
+    "sku": "BEAN-BEAN-026",
+    "status": "active",
+    "alt": "Beans Porridge"
   },
   {
-    "id": "prod-v99ppkhy-mov8d8ml",
     "name": "Gbegiri Bowl",
     "category": "Beans",
-    "price": 5.45,
-    "comparePrice": 6.05,
-    "stock": 12,
-    "sku": "BEAN-GBEGIR",
-    "status": "active",
-    "featured": false,
-    "description": "Smooth bean soup with a delicate, comforting flavor profile.",
-    "image": "assets/images/blog-nav-2.jpg",
-    "alt": "Gbegiri Bowl",
+    "price": 8.95,
+    "comparePrice": 10.7,
+    "stock": 11,
+    "description": "Smooth Yoruba bean soup with a delicate, comforting finish.",
+    "image": "assets/images/menu-3.png",
     "tags": [
       "beans",
       "gbegiri"
     ],
-    "createdAt": "2026-05-07T08:34:52.259Z",
-    "updatedAt": "2026-05-07T08:34:52.259Z"
+    "featured": false,
+    "id": "prod-027",
+    "createdAt": "2026-05-26T12:00:00.000Z",
+    "updatedAt": "2026-05-26T12:00:00.000Z",
+    "servingMode": "portion",
+    "servingOptions": [
+      "Portion"
+    ],
+    "servingOptionPrices": {
+      "Portion": 0
+    },
+    "sku": "BEAN-GBEG-027",
+    "status": "active",
+    "alt": "Gbegiri Bowl"
   },
   {
-    "id": "prod-epolsiyf-mov8d8ml",
+    "name": "Ewa Agoyin Plate",
+    "category": "Beans",
+    "price": 10.25,
+    "comparePrice": 11.95,
+    "stock": 10,
+    "description": "Soft beans served with smoky agoyin sauce and layered pepper flavor.",
+    "image": "assets/images/menu-4.png",
+    "tags": [
+      "beans",
+      "ewa agoyin"
+    ],
+    "featured": false,
+    "id": "prod-028",
+    "createdAt": "2026-05-26T12:00:00.000Z",
+    "updatedAt": "2026-05-26T12:00:00.000Z",
+    "servingMode": "portion",
+    "servingOptions": [
+      "Portion"
+    ],
+    "servingOptionPrices": {
+      "Portion": 0
+    },
+    "sku": "BEAN-EWAA-028",
+    "status": "active",
+    "alt": "Ewa Agoyin Plate"
+  },
+  {
     "name": "Yam Porridge",
     "category": "Porridges",
-    "price": 6.3,
-    "comparePrice": 7.1,
+    "price": 10.95,
+    "comparePrice": 12.6,
     "stock": 12,
-    "sku": "PORR-YAM-PO",
-    "status": "active",
-    "featured": true,
     "description": "Soft yam cubes folded into a rich pepper and palm-oil sauce.",
-    "image": "assets/images/product-2.png",
-    "alt": "Yam Porridge",
+    "image": "assets/images/Village_Rice.jpg",
     "tags": [
       "porridges",
-      "yam"
+      "yam porridge"
     ],
-    "createdAt": "2026-05-07T08:34:52.259Z",
-    "updatedAt": "2026-05-07T08:34:52.259Z"
+    "featured": true,
+    "id": "prod-029",
+    "createdAt": "2026-05-26T12:00:00.000Z",
+    "updatedAt": "2026-05-26T12:00:00.000Z",
+    "servingMode": "bowl",
+    "servingOptions": [
+      "Bowl"
+    ],
+    "servingOptionPrices": {
+      "Bowl": 0
+    },
+    "sku": "PORR-YAMP-029",
+    "status": "active",
+    "alt": "Yam Porridge"
   },
   {
-    "id": "prod-kauxqxlm-mov8d8ml",
+    "name": "Millet Pap Bowl",
+    "category": "Porridges",
+    "price": 6.25,
+    "comparePrice": 7.4,
+    "stock": 15,
+    "description": "Warm millet pap bowl with a smooth texture and comforting finish.",
+    "image": "assets/images/menu-2.png",
+    "tags": [
+      "porridges",
+      "millet pap"
+    ],
+    "featured": false,
+    "id": "prod-030",
+    "createdAt": "2026-05-26T12:00:00.000Z",
+    "updatedAt": "2026-05-26T12:00:00.000Z",
+    "servingMode": "bowl",
+    "servingOptions": [
+      "Bowl"
+    ],
+    "servingOptionPrices": {
+      "Bowl": 0
+    },
+    "sku": "PORR-MILL-030",
+    "status": "active",
+    "alt": "Millet Pap Bowl"
+  },
+  {
     "name": "Corn Porridge",
     "category": "Porridges",
-    "price": 5.1,
-    "comparePrice": 5.85,
-    "stock": 12,
-    "sku": "PORR-CORN-P",
-    "status": "active",
-    "featured": false,
-    "description": "Warm, creamy pap-style bowl finished with gentle sweetness.",
-    "image": "assets/images/product-4.png",
-    "alt": "Corn Porridge",
+    "price": 6.1,
+    "comparePrice": 7.2,
+    "stock": 14,
+    "description": "Creamy corn porridge prepared light, smooth, and easy to enjoy.",
+    "image": "assets/images/menu-3.png",
     "tags": [
       "porridges",
-      "corn"
+      "corn porridge"
     ],
-    "createdAt": "2026-05-07T08:34:52.259Z",
-    "updatedAt": "2026-05-07T08:34:52.259Z"
+    "featured": false,
+    "id": "prod-031",
+    "createdAt": "2026-05-26T12:00:00.000Z",
+    "updatedAt": "2026-05-26T12:00:00.000Z",
+    "servingMode": "bowl",
+    "servingOptions": [
+      "Bowl"
+    ],
+    "servingOptionPrices": {
+      "Bowl": 0
+    },
+    "sku": "PORR-CORN-031",
+    "status": "active",
+    "alt": "Corn Porridge"
   },
   {
-    "id": "prod-nulqpjbv-mov8d8ml",
     "name": "Plantain Porridge",
     "category": "Porridges",
-    "price": 6.05,
-    "comparePrice": 6.8,
-    "stock": 12,
-    "sku": "PORR-PLANTA",
-    "status": "active",
-    "featured": false,
-    "description": "Ripe plantain simmered in a savory sauce for a hearty bowl.",
-    "image": "assets/images/combo-2-4.png",
-    "alt": "Plantain Porridge",
+    "price": 10.5,
+    "comparePrice": 12.2,
+    "stock": 11,
+    "description": "Ripe plantain simmered in a savory sauce for a hearty Nigerian bowl.",
+    "image": "assets/images/menu-4.png",
     "tags": [
       "porridges",
-      "plantain"
+      "plantain porridge"
     ],
-    "createdAt": "2026-05-07T08:34:52.259Z",
-    "updatedAt": "2026-05-07T08:34:52.259Z"
+    "featured": false,
+    "id": "prod-032",
+    "createdAt": "2026-05-26T12:00:00.000Z",
+    "updatedAt": "2026-05-26T12:00:00.000Z",
+    "servingMode": "bowl",
+    "servingOptions": [
+      "Bowl"
+    ],
+    "servingOptionPrices": {
+      "Bowl": 0
+    },
+    "sku": "PORR-PLAN-032",
+    "status": "active",
+    "alt": "Plantain Porridge"
   },
   {
-    "id": "prod-pjvxxnwb-mov8d8ml",
-    "name": "Sausage Roll",
-    "category": "Snacks and Pastries",
-    "price": 4.85,
-    "comparePrice": 5.45,
-    "stock": 12,
-    "sku": "SNAC-SAUSAG",
-    "status": "active",
+    "name": "Puff Puff Basket",
+    "category": "Small Chops",
+    "price": 6.5,
+    "comparePrice": 7.8,
+    "stock": 20,
+    "description": "Golden puff puff packed soft inside with a lightly sweet finish.",
+    "image": "assets/images/menu-1.png",
+    "tags": [
+      "small chops",
+      "puff puff"
+    ],
     "featured": true,
-    "description": "Flaky pastry wrapped around a juicy, seasoned sausage filling.",
-    "image": "assets/images/dessert-receipe-4.png",
-    "alt": "Sausage Roll",
-    "tags": [
-      "snacks and pastries",
-      "sausage"
+    "id": "prod-033",
+    "createdAt": "2026-05-26T12:00:00.000Z",
+    "updatedAt": "2026-05-26T12:00:00.000Z",
+    "servingMode": "pack",
+    "servingOptions": [
+      "Pack"
     ],
-    "createdAt": "2026-05-07T08:34:52.259Z",
-    "updatedAt": "2026-05-07T08:34:52.259Z"
-  },
-  {
-    "id": "prod-r734xkc4-mov8d8ml",
-    "name": "Doughnut Bites",
-    "category": "Snacks and Pastries",
-    "price": 4.55,
-    "comparePrice": 5.15,
-    "stock": 12,
-    "sku": "SNAC-DOUGHN",
+    "servingOptionPrices": {
+      "Pack": 0
+    },
+    "sku": "SMAL-PUFF-033",
     "status": "active",
-    "featured": false,
-    "description": "Soft, sweet mini doughnuts finished for quick snacking.",
-    "image": "assets/images/dessert-receipe-5.png",
-    "alt": "Doughnut Bites",
-    "tags": [
-      "snacks and pastries",
-      "doughnut"
-    ],
-    "createdAt": "2026-05-07T08:34:52.259Z",
-    "updatedAt": "2026-05-07T08:34:52.259Z"
+    "alt": "Puff Puff Basket"
   },
   {
-    "id": "prod-zjrxzp32-mov8d8mm",
-    "name": "Chicken Pie",
-    "category": "Snacks and Pastries",
-    "price": 5.35,
-    "comparePrice": 6,
-    "stock": 12,
-    "sku": "SNAC-CHICKE",
+    "name": "Asun Bites",
+    "category": "Small Chops",
+    "price": 11.95,
+    "comparePrice": 13.6,
+    "stock": 10,
+    "description": "Spicy chopped goat meat served hot in a lively asun-style pepper mix.",
+    "image": "assets/images/menu-2.png",
+    "tags": [
+      "small chops",
+      "asun"
+    ],
+    "featured": false,
+    "id": "prod-034",
+    "createdAt": "2026-05-26T12:00:00.000Z",
+    "updatedAt": "2026-05-26T12:00:00.000Z",
+    "servingMode": "pack",
+    "servingOptions": [
+      "Pack"
+    ],
+    "servingOptionPrices": {
+      "Pack": 0
+    },
+    "sku": "SMAL-ASUN-034",
     "status": "active",
-    "featured": false,
-    "description": "Golden crust pastry filled with creamy chicken goodness.",
-    "image": "assets/images/dessert-receipe-6.png",
-    "alt": "Chicken Pie",
-    "tags": [
-      "snacks and pastries",
-      "chicken"
-    ],
-    "createdAt": "2026-05-07T08:34:52.259Z",
-    "updatedAt": "2026-05-07T08:34:52.259Z"
+    "alt": "Asun Bites"
   },
   {
-    "id": "prod-1dbyy925-mov8d8mm",
+    "name": "Gizdodo Bowl",
+    "category": "Small Chops",
+    "price": 12.5,
+    "comparePrice": 14.2,
+    "stock": 9,
+    "description": "Chicken gizzard and plantain tossed in pepper sauce for a popular party favorite.",
+    "image": "assets/images/menu-3.png",
+    "tags": [
+      "small chops",
+      "gizdodo"
+    ],
+    "featured": false,
+    "id": "prod-035",
+    "createdAt": "2026-05-26T12:00:00.000Z",
+    "updatedAt": "2026-05-26T12:00:00.000Z",
+    "servingMode": "pack",
+    "servingOptions": [
+      "Pack"
+    ],
+    "servingOptionPrices": {
+      "Pack": 0
+    },
+    "sku": "SMAL-GIZD-035",
+    "status": "active",
+    "alt": "Gizdodo Bowl"
+  },
+  {
+    "name": "Suya Bites",
+    "category": "Small Chops",
+    "price": 10.95,
+    "comparePrice": 12.55,
+    "stock": 10,
+    "description": "Tender suya bites dusted with yaji spice and finished for easy sharing.",
+    "image": "assets/images/menu-4.png",
+    "tags": [
+      "small chops",
+      "suya"
+    ],
+    "featured": false,
+    "id": "prod-036",
+    "createdAt": "2026-05-26T12:00:00.000Z",
+    "updatedAt": "2026-05-26T12:00:00.000Z",
+    "servingMode": "pack",
+    "servingOptions": [
+      "Pack"
+    ],
+    "servingOptionPrices": {
+      "Pack": 0
+    },
+    "sku": "SMAL-SUYA-036",
+    "status": "active",
+    "alt": "Suya Bites"
+  },
+  {
+    "name": "Akara Basket",
+    "category": "Traditional Snacks",
+    "price": 5.95,
+    "comparePrice": 6.95,
+    "stock": 18,
+    "description": "Fresh akara fried till golden and served as a warm Nigerian street snack.",
+    "image": "assets/images/menu-2.png",
+    "tags": [
+      "traditional snacks",
+      "akara"
+    ],
+    "featured": true,
+    "id": "prod-037",
+    "createdAt": "2026-05-26T12:00:00.000Z",
+    "updatedAt": "2026-05-26T12:00:00.000Z",
+    "servingMode": "pack",
+    "servingOptions": [
+      "Pack"
+    ],
+    "servingOptionPrices": {
+      "Pack": 0
+    },
+    "sku": "TRAD-AKAR-037",
+    "status": "active",
+    "alt": "Akara Basket"
+  },
+  {
+    "name": "Boli & Groundnut",
+    "category": "Traditional Snacks",
+    "price": 7.95,
+    "comparePrice": 9.2,
+    "stock": 14,
+    "description": "Fire-roasted plantain paired with crunchy groundnut for a classic roadside favorite.",
+    "image": "assets/images/menu-5.png",
+    "tags": [
+      "traditional snacks",
+      "boli",
+      "groundnut"
+    ],
+    "featured": false,
+    "id": "prod-038",
+    "createdAt": "2026-05-26T12:00:00.000Z",
+    "updatedAt": "2026-05-26T12:00:00.000Z",
+    "servingMode": "pack",
+    "servingOptions": [
+      "Pack"
+    ],
+    "servingOptionPrices": {
+      "Pack": 0
+    },
+    "sku": "TRAD-BOLI-038",
+    "status": "active",
+    "alt": "Boli & Groundnut"
+  },
+  {
+    "name": "Kokoro Sticks",
+    "category": "Traditional Snacks",
+    "price": 5.5,
+    "comparePrice": 6.6,
+    "stock": 16,
+    "description": "Crunchy corn sticks with a simple, nostalgic Nigerian snack finish.",
+    "image": "assets/images/menu-6.png",
+    "tags": [
+      "traditional snacks",
+      "kokoro"
+    ],
+    "featured": false,
+    "id": "prod-039",
+    "createdAt": "2026-05-26T12:00:00.000Z",
+    "updatedAt": "2026-05-26T12:00:00.000Z",
+    "servingMode": "pack",
+    "servingOptions": [
+      "Pack"
+    ],
+    "servingOptionPrices": {
+      "Pack": 0
+    },
+    "sku": "TRAD-KOKO-039",
+    "status": "active",
+    "alt": "Kokoro Sticks"
+  },
+  {
+    "name": "Plantain Chips Pack",
+    "category": "Traditional Snacks",
+    "price": 4.95,
+    "comparePrice": 5.9,
+    "stock": 20,
+    "description": "Thin plantain chips fried crisp for easy sharing and quick snacking.",
+    "image": "assets/images/menu-3.png",
+    "tags": [
+      "traditional snacks",
+      "plantain chips"
+    ],
+    "featured": false,
+    "id": "prod-040",
+    "createdAt": "2026-05-26T12:00:00.000Z",
+    "updatedAt": "2026-05-26T12:00:00.000Z",
+    "servingMode": "pack",
+    "servingOptions": [
+      "Pack"
+    ],
+    "servingOptionPrices": {
+      "Pack": 0
+    },
+    "sku": "TRAD-PLAN-040",
+    "status": "active",
+    "alt": "Plantain Chips Pack"
+  },
+  {
+    "name": "Chin Chin Crunch",
+    "category": "Traditional Treats",
+    "price": 5.5,
+    "comparePrice": 6.4,
+    "stock": 18,
+    "description": "Crunchy chin chin bites with a lightly sweet finish and a clean snap.",
+    "image": "assets/images/menu-6.png",
+    "tags": [
+      "traditional treats",
+      "chin chin"
+    ],
+    "featured": true,
+    "id": "prod-041",
+    "createdAt": "2026-05-26T12:00:00.000Z",
+    "updatedAt": "2026-05-26T12:00:00.000Z",
+    "servingMode": "pack",
+    "servingOptions": [
+      "Pack"
+    ],
+    "servingOptionPrices": {
+      "Pack": 0
+    },
+    "sku": "TRAD-CHIN-041",
+    "status": "active",
+    "alt": "Chin Chin Crunch"
+  },
+  {
+    "name": "Coconut Candy Pack",
+    "category": "Traditional Treats",
+    "price": 5.95,
+    "comparePrice": 6.85,
+    "stock": 15,
+    "description": "Sweet coconut candy packed with deep roasted flavor and a chewy finish.",
+    "image": "assets/images/menu-5.png",
+    "tags": [
+      "traditional treats",
+      "coconut candy"
+    ],
+    "featured": false,
+    "id": "prod-042",
+    "createdAt": "2026-05-26T12:00:00.000Z",
+    "updatedAt": "2026-05-26T12:00:00.000Z",
+    "servingMode": "pack",
+    "servingOptions": [
+      "Pack"
+    ],
+    "servingOptionPrices": {
+      "Pack": 0
+    },
+    "sku": "TRAD-COCO-042",
+    "status": "active",
+    "alt": "Coconut Candy Pack"
+  },
+  {
+    "name": "Kulikuli Crunch",
+    "category": "Traditional Treats",
+    "price": 5.25,
+    "comparePrice": 6.2,
+    "stock": 16,
+    "description": "Kuli kuli bites with a bold nutty flavor and satisfying crunch.",
+    "image": "assets/images/menu-4.png",
+    "tags": [
+      "traditional treats",
+      "kulikuli"
+    ],
+    "featured": false,
+    "id": "prod-043",
+    "createdAt": "2026-05-26T12:00:00.000Z",
+    "updatedAt": "2026-05-26T12:00:00.000Z",
+    "servingMode": "pack",
+    "servingOptions": [
+      "Pack"
+    ],
+    "servingOptionPrices": {
+      "Pack": 0
+    },
+    "sku": "TRAD-KULI-043",
+    "status": "active",
+    "alt": "Kulikuli Crunch"
+  },
+  {
+    "name": "Groundnut Brittle",
+    "category": "Traditional Treats",
+    "price": 5.75,
+    "comparePrice": 6.7,
+    "stock": 15,
+    "description": "Caramelized groundnut brittle finished crisp for sweet snacking.",
+    "image": "assets/images/menu-3.png",
+    "tags": [
+      "traditional treats",
+      "groundnut brittle"
+    ],
+    "featured": false,
+    "id": "prod-044",
+    "createdAt": "2026-05-26T12:00:00.000Z",
+    "updatedAt": "2026-05-26T12:00:00.000Z",
+    "servingMode": "pack",
+    "servingOptions": [
+      "Pack"
+    ],
+    "servingOptionPrices": {
+      "Pack": 0
+    },
+    "sku": "TRAD-GROU-044",
+    "status": "active",
+    "alt": "Groundnut Brittle"
+  },
+  {
     "name": "Zobo Drink",
     "category": "Local Beverages",
     "price": 3.95,
     "comparePrice": 4.6,
-    "stock": 12,
-    "sku": "LOCA-ZOBO-D",
-    "status": "active",
-    "featured": true,
-    "description": "Chilled hibiscus drink with spice notes and a refreshing finish.",
-    "image": "assets/images/shake-receipe-4.png",
-    "alt": "Zobo Drink",
+    "stock": 24,
+    "description": "Chilled hibiscus drink with spice notes and a refreshing Nigerian finish.",
+    "image": "assets/images/menu-4.png",
     "tags": [
       "local beverages",
       "zobo"
     ],
-    "createdAt": "2026-05-07T08:34:52.259Z",
-    "updatedAt": "2026-05-07T08:34:52.259Z"
+    "featured": true,
+    "id": "prod-045",
+    "createdAt": "2026-05-26T12:00:00.000Z",
+    "updatedAt": "2026-05-26T12:00:00.000Z",
+    "servingMode": "bottle",
+    "servingOptions": [
+      "Bottle"
+    ],
+    "servingOptionPrices": {
+      "Bottle": 0
+    },
+    "sku": "LOCA-ZOBO-045",
+    "status": "active",
+    "alt": "Zobo Drink"
   },
   {
-    "id": "prod-np7gmpfi-mov8d8mm",
     "name": "Kunu Aya",
     "category": "Local Beverages",
     "price": 4.25,
-    "comparePrice": 4.9,
-    "stock": 12,
-    "sku": "LOCA-KUNU-A",
-    "status": "active",
-    "featured": false,
-    "description": "Cool tiger nut drink blended into a creamy, smooth refreshment.",
-    "image": "assets/images/shake-receipe-5.png",
-    "alt": "Kunu Aya",
+    "comparePrice": 4.95,
+    "stock": 20,
+    "description": "Cool tiger nut drink blended smooth for a creamy local refreshment.",
+    "image": "assets/images/menu-5.png",
     "tags": [
       "local beverages",
-      "kunu"
+      "kunu aya"
     ],
-    "createdAt": "2026-05-07T08:34:52.259Z",
-    "updatedAt": "2026-05-07T08:34:52.259Z"
+    "featured": false,
+    "id": "prod-046",
+    "createdAt": "2026-05-26T12:00:00.000Z",
+    "updatedAt": "2026-05-26T12:00:00.000Z",
+    "servingMode": "bottle",
+    "servingOptions": [
+      "Bottle"
+    ],
+    "servingOptionPrices": {
+      "Bottle": 0
+    },
+    "sku": "LOCA-KUNU-046",
+    "status": "active",
+    "alt": "Kunu Aya"
   },
   {
-    "id": "prod-1ucmbk0t-mov8d8mm",
-    "name": "Palm Fruit Cooler",
+    "name": "Kunu Zaki",
     "category": "Local Beverages",
     "price": 4.1,
-    "comparePrice": 4.75,
-    "stock": 12,
-    "sku": "LOCA-PALM-F",
-    "status": "active",
-    "featured": false,
-    "description": "Refreshing local-style cooler with a vibrant fruity taste.",
-    "image": "assets/images/shake-receipe-6.png",
-    "alt": "Palm Fruit Cooler",
+    "comparePrice": 4.8,
+    "stock": 18,
+    "description": "Millet-based kunu with ginger warmth and a rounded, refreshing taste.",
+    "image": "assets/images/menu-6.png",
     "tags": [
       "local beverages",
-      "palm"
+      "kunu zaki"
     ],
-    "createdAt": "2026-05-07T08:34:52.259Z",
-    "updatedAt": "2026-05-07T08:34:52.259Z"
-  },
-  {
-    "id": "prod-dlc2tvas-mov8d8mm",
-    "name": "Fried Plantain",
-    "category": "Sides and Extra",
-    "price": 3.85,
-    "comparePrice": 4.4,
-    "stock": 12,
-    "sku": "SIDE-FRIED-",
-    "status": "active",
-    "featured": true,
-    "description": "Sweet golden plantain slices, crisp-edged and tender inside.",
-    "image": "assets/images/product-6.png",
-    "alt": "Fried Plantain",
-    "tags": [
-      "sides and extra",
-      "fried"
-    ],
-    "createdAt": "2026-05-07T08:34:52.259Z",
-    "updatedAt": "2026-05-07T08:34:52.259Z"
-  },
-  {
-    "id": "prod-exz1z74v-mov8d8mm",
-    "name": "Coleslaw Cup",
-    "category": "Sides and Extra",
-    "price": 3.4,
-    "comparePrice": 4.05,
-    "stock": 12,
-    "sku": "SIDE-COLESL",
-    "status": "active",
     "featured": false,
-    "description": "Creamy slaw side for adding crunch and freshness to any meal.",
-    "image": "assets/images/special-food.png",
-    "alt": "Coleslaw Cup",
-    "tags": [
-      "sides and extra",
-      "coleslaw"
+    "id": "prod-047",
+    "createdAt": "2026-05-26T12:00:00.000Z",
+    "updatedAt": "2026-05-26T12:00:00.000Z",
+    "servingMode": "bottle",
+    "servingOptions": [
+      "Bottle"
     ],
-    "createdAt": "2026-05-07T08:34:52.259Z",
-    "updatedAt": "2026-05-07T08:34:52.259Z"
-  },
-  {
-    "id": "prod-act87a5q-mov8d8mm",
-    "name": "Extra Sauce",
-    "category": "Sides and Extra",
-    "price": 2.95,
-    "comparePrice": 3.5,
-    "stock": 12,
-    "sku": "SIDE-EXTRA-",
+    "servingOptionPrices": {
+      "Bottle": 0
+    },
+    "sku": "LOCA-KUNU-047",
     "status": "active",
-    "featured": false,
-    "description": "Flavor-packed extra sauce to complete rice, proteins or snacks.",
-    "image": "assets/images/product-7.png",
-    "alt": "Extra Sauce",
-    "tags": [
-      "sides and extra",
-      "extra"
-    ],
-    "createdAt": "2026-05-07T08:34:52.259Z",
-    "updatedAt": "2026-05-07T08:34:52.259Z"
+    "alt": "Kunu Zaki"
   },
   {
-    "id": "prod-r8mango1-mov9new1",
-    "name": "Tropical Rum Cocktail",
+    "name": "Chapman",
+    "category": "Local Beverages",
+    "price": 4.5,
+    "comparePrice": 5.25,
+    "stock": 18,
+    "description": "Classic Nigerian chapman mixed bright, chilled, and easy to pair with meals.",
+    "image": "assets/images/menu-1.png",
+    "tags": [
+      "local beverages",
+      "chapman"
+    ],
+    "featured": false,
+    "id": "prod-048",
+    "createdAt": "2026-05-26T12:00:00.000Z",
+    "updatedAt": "2026-05-26T12:00:00.000Z",
+    "servingMode": "bottle",
+    "servingOptions": [
+      "Bottle"
+    ],
+    "servingOptionPrices": {
+      "Bottle": 0
+    },
+    "sku": "LOCA-CHAP-048",
+    "status": "active",
+    "alt": "Chapman"
+  },
+  {
+    "name": "Palm Wine Bottle",
     "category": "Alcohol",
     "price": 7.95,
-    "comparePrice": 8.65,
+    "comparePrice": 9.1,
     "stock": 12,
-    "sku": "ALCH-TROPIC",
-    "status": "active",
-    "featured": false,
-    "description": "A tropical rum cocktail bottle with bright citrus and pineapple notes.",
-    "image": "assets/images/shake-receipe-4.png",
-    "alt": "Tropical Rum Cocktail",
+    "description": "Fresh palm wine served chilled with its lightly sweet, fermented character.",
+    "image": "assets/images/menu-4.png",
     "tags": [
       "alcohol",
-      "rum",
-      "tropical"
+      "palm wine"
     ],
-    "createdAt": "2026-05-20T10:15:00.000Z",
-    "updatedAt": "2026-05-20T10:15:00.000Z"
-  },
-  {
-    "id": "prod-v4cream2-mov9new2",
-    "name": "Turkey Wings Combo",
-    "category": "Combo Meal",
-    "price": 13.2,
-    "comparePrice": 14.15,
-    "stock": 12,
-    "sku": "COMB-TURKEY",
-    "status": "active",
-    "featured": false,
-    "description": "Roasted turkey wings served with fries, slaw, and a smoky sauce.",
-    "image": "assets/images/combo-2-4.png",
-    "alt": "Turkey Wings Combo",
-    "tags": [
-      "combo meal",
-      "turkey",
-      "fries"
-    ],
-    "createdAt": "2026-05-20T10:15:00.000Z",
-    "updatedAt": "2026-05-20T10:15:00.000Z"
-  },
-  {
-    "id": "prod-c7berry3-mov9new3",
-    "name": "Caramel Berry Dessert",
-    "category": "Dessert",
-    "price": 5.4,
-    "comparePrice": 6.1,
-    "stock": 12,
-    "sku": "DESS-CARAM-B",
-    "status": "active",
     "featured": true,
-    "description": "Layered dessert with caramel notes and bright berry finish.",
-    "image": "assets/images/dessert-receipe-5.png",
-    "alt": "Caramel Berry Dessert",
-    "tags": [
-      "dessert",
-      "caramel",
-      "berry"
+    "id": "prod-049",
+    "createdAt": "2026-05-26T12:00:00.000Z",
+    "updatedAt": "2026-05-26T12:00:00.000Z",
+    "servingMode": "bottle",
+    "servingOptions": [
+      "Bottle"
     ],
-    "createdAt": "2026-05-20T10:15:00.000Z",
-    "updatedAt": "2026-05-20T10:15:00.000Z"
+    "servingOptionPrices": {
+      "Bottle": 0
+    },
+    "sku": "ALCO-PALM-049",
+    "status": "active",
+    "alt": "Palm Wine Bottle"
   },
   {
-    "id": "prod-s2samos4-mov9new4",
-    "name": "Samosa Party Mix",
-    "category": "Small Chops",
-    "price": 5.15,
-    "comparePrice": 5.85,
-    "stock": 12,
-    "sku": "SMAL-SAMOS-M",
-    "status": "active",
+    "name": "Burukutu Brew",
+    "category": "Alcohol",
+    "price": 8.5,
+    "comparePrice": 9.75,
+    "stock": 10,
+    "description": "Traditional grain brew with deep local character and a rustic finish.",
+    "image": "assets/images/menu-5.png",
+    "tags": [
+      "alcohol",
+      "burukutu"
+    ],
     "featured": false,
-    "description": "Crisp mini samosas packed with savory filling for sharing.",
-    "image": "assets/images/combo-2-4.png",
-    "alt": "Samosa Party Mix",
-    "tags": [
-      "small chops",
-      "samosa",
-      "party"
+    "id": "prod-050",
+    "createdAt": "2026-05-26T12:00:00.000Z",
+    "updatedAt": "2026-05-26T12:00:00.000Z",
+    "servingMode": "bottle",
+    "servingOptions": [
+      "Bottle"
     ],
-    "createdAt": "2026-05-20T10:15:00.000Z",
-    "updatedAt": "2026-05-20T10:15:00.000Z"
+    "servingOptionPrices": {
+      "Bottle": 0
+    },
+    "sku": "ALCO-BURU-050",
+    "status": "active",
+    "alt": "Burukutu Brew"
   },
   {
-    "id": "prod-p9turke5-mov9new5",
-    "name": "Turkey Wings",
-    "category": "Proteins",
-    "price": 8.75,
-    "comparePrice": 9.6,
-    "stock": 12,
-    "sku": "PROT-TURKE-W",
-    "status": "active",
+    "name": "Pito Calabash",
+    "category": "Alcohol",
+    "price": 8.25,
+    "comparePrice": 9.5,
+    "stock": 10,
+    "description": "Northern-style pito served cool with a smooth fermented note.",
+    "image": "assets/images/menu-6.png",
+    "tags": [
+      "alcohol",
+      "pito"
+    ],
     "featured": false,
-    "description": "Tender turkey wings seasoned deeply and finished to a smoky glaze.",
-    "image": "assets/images/burger-receipe-4.png",
-    "alt": "Turkey Wings",
-    "tags": [
-      "proteins",
-      "turkey",
-      "wings"
+    "id": "prod-051",
+    "createdAt": "2026-05-26T12:00:00.000Z",
+    "updatedAt": "2026-05-26T12:00:00.000Z",
+    "servingMode": "bottle",
+    "servingOptions": [
+      "Bottle"
     ],
-    "createdAt": "2026-05-20T10:15:00.000Z",
-    "updatedAt": "2026-05-20T10:15:00.000Z"
+    "servingOptionPrices": {
+      "Bottle": 0
+    },
+    "sku": "ALCO-PITO-051",
+    "status": "active",
+    "alt": "Pito Calabash"
   },
   {
-    "id": "prod-h6peppr6-mov9new6",
-    "name": "Assorted Meat Pepper Soup",
-    "category": "Pepper Soups",
-    "price": 8.55,
-    "comparePrice": 9.45,
-    "stock": 12,
-    "sku": "PEPP-ASSOR-M",
-    "status": "active",
-    "featured": true,
-    "description": "Spicy pepper soup loaded with assorted meat and fragrant herbs.",
-    "image": "assets/images/blog-nav-3.jpg",
-    "alt": "Assorted Meat Pepper Soup",
+    "name": "Ogogoro Shot",
+    "category": "Alcohol",
+    "price": 6.95,
+    "comparePrice": 8.1,
+    "stock": 9,
+    "description": "Strong local spirit poured neat for guests who enjoy bold heritage drinks.",
+    "image": "assets/images/menu-3.png",
     "tags": [
-      "pepper soups",
-      "assorted meat",
-      "spicy"
+      "alcohol",
+      "ogogoro"
     ],
-    "createdAt": "2026-05-20T10:15:00.000Z",
-    "updatedAt": "2026-05-20T10:15:00.000Z"
-  },
-  {
-    "id": "prod-b3ewaag7-mov9new7",
-    "name": "Ewa Agoyin Plate",
-    "category": "Beans",
-    "price": 5.35,
-    "comparePrice": 6.05,
-    "stock": 12,
-    "sku": "BEAN-EWAAG-P",
-    "status": "active",
     "featured": false,
-    "description": "Soft beans served with rich agoyin sauce and bold pepper flavor.",
-    "image": "assets/images/product-3.png",
-    "alt": "Ewa Agoyin Plate",
-    "tags": [
-      "beans",
-      "ewa agoyin",
-      "sauce"
+    "id": "prod-052",
+    "createdAt": "2026-05-26T12:00:00.000Z",
+    "updatedAt": "2026-05-26T12:00:00.000Z",
+    "servingMode": "bottle",
+    "servingOptions": [
+      "Bottle"
     ],
-    "createdAt": "2026-05-20T10:15:00.000Z",
-    "updatedAt": "2026-05-20T10:15:00.000Z"
-  },
-  {
-    "id": "prod-y1papbwl-mov9new8",
-    "name": "Millet Pap Bowl",
-    "category": "Porridges",
-    "price": 4.9,
-    "comparePrice": 5.55,
-    "stock": 12,
-    "sku": "PORR-MILLE-B",
+    "servingOptionPrices": {
+      "Bottle": 0
+    },
+    "sku": "ALCO-OGOG-052",
     "status": "active",
-    "featured": false,
-    "description": "Warm millet pap bowl with a smooth texture and comforting taste.",
-    "image": "assets/images/product-4.png",
-    "alt": "Millet Pap Bowl",
-    "tags": [
-      "porridges",
-      "millet",
-      "pap"
-    ],
-    "createdAt": "2026-05-20T10:15:00.000Z",
-    "updatedAt": "2026-05-20T10:15:00.000Z"
+    "alt": "Ogogoro Shot"
   },
   {
-    "id": "prod-f5fishr9-mov9new9",
-    "name": "Fish Roll",
-    "category": "Snacks and Pastries",
-    "price": 4.95,
-    "comparePrice": 5.5,
-    "stock": 12,
-    "sku": "SNAC-FISHR-L",
-    "status": "active",
-    "featured": false,
-    "description": "Flaky pastry filled with savory fish mix and baked golden.",
-    "image": "assets/images/dessert-receipe-6.png",
-    "alt": "Fish Roll",
-    "tags": [
-      "snacks and pastries",
-      "fish",
-      "roll"
-    ],
-    "createdAt": "2026-05-20T10:15:00.000Z",
-    "updatedAt": "2026-05-20T10:15:00.000Z"
-  },
-  {
-    "id": "prod-g8ginge-mov9newa",
-    "name": "Ginger Chapman",
-    "category": "Local Beverages",
-    "price": 4.2,
-    "comparePrice": 4.9,
-    "stock": 12,
-    "sku": "LOCA-GINGE-C",
-    "status": "active",
-    "featured": true,
-    "description": "Sparkling local-style chapman with citrus and a ginger kick.",
-    "image": "assets/images/shake-receipe-5.png",
-    "alt": "Ginger Chapman",
-    "tags": [
-      "local beverages",
-      "chapman",
-      "ginger"
-    ],
-    "createdAt": "2026-05-20T10:15:00.000Z",
-    "updatedAt": "2026-05-20T10:15:00.000Z"
-  },
-  {
-    "id": "prod-j4jollo-mov9newb",
-    "name": "Jollof Sauce",
-    "category": "Sides and Extra",
+    "name": "Maltina",
+    "category": "Nigerian Refreshments",
     "price": 3.25,
-    "comparePrice": 3.85,
-    "stock": 12,
-    "sku": "SIDE-JOLLO-S",
+    "comparePrice": 3.95,
+    "stock": 30,
+    "description": "Chilled malt drink that pairs beautifully with richly spiced Nigerian meals.",
+    "image": "assets/images/menu-6.png",
+    "tags": [
+      "nigerian refreshments",
+      "maltina"
+    ],
+    "featured": true,
+    "id": "prod-053",
+    "createdAt": "2026-05-26T12:00:00.000Z",
+    "updatedAt": "2026-05-26T12:00:00.000Z",
+    "servingMode": "bottle",
+    "servingOptions": [
+      "Bottle"
+    ],
+    "servingOptionPrices": {
+      "Bottle": 0
+    },
+    "sku": "NIGE-MALT-053",
     "status": "active",
+    "alt": "Maltina"
+  },
+  {
+    "name": "Malta Guinness",
+    "category": "Nigerian Refreshments",
+    "price": 3.45,
+    "comparePrice": 4.15,
+    "stock": 28,
+    "description": "Rich malty refreshment served cold for a smooth and familiar finish.",
+    "image": "assets/images/menu-1.png",
+    "tags": [
+      "nigerian refreshments",
+      "malta guinness"
+    ],
     "featured": false,
-    "description": "Rich smoky jollof sauce portion for topping rice and proteins.",
-    "image": "assets/images/product-5.png",
-    "alt": "Jollof Sauce",
+    "id": "prod-054",
+    "createdAt": "2026-05-26T12:00:00.000Z",
+    "updatedAt": "2026-05-26T12:00:00.000Z",
+    "servingMode": "bottle",
+    "servingOptions": [
+      "Bottle"
+    ],
+    "servingOptionPrices": {
+      "Bottle": 0
+    },
+    "sku": "NIGE-MALT-054",
+    "status": "active",
+    "alt": "Malta Guinness"
+  },
+  {
+    "name": "LaCasera Apple Drink",
+    "category": "Nigerian Refreshments",
+    "price": 3.35,
+    "comparePrice": 4,
+    "stock": 26,
+    "description": "Sparkling apple drink served chilled for a crisp Nigerian refreshment.",
+    "image": "assets/images/menu-2.png",
+    "tags": [
+      "nigerian refreshments",
+      "lacasera"
+    ],
+    "featured": false,
+    "id": "prod-055",
+    "createdAt": "2026-05-26T12:00:00.000Z",
+    "updatedAt": "2026-05-26T12:00:00.000Z",
+    "servingMode": "bottle",
+    "servingOptions": [
+      "Bottle"
+    ],
+    "servingOptionPrices": {
+      "Bottle": 0
+    },
+    "sku": "NIGE-LACA-055",
+    "status": "active",
+    "alt": "LaCasera Apple Drink"
+  },
+  {
+    "name": "Table Water",
+    "category": "Nigerian Refreshments",
+    "price": 2.2,
+    "comparePrice": 2.8,
+    "stock": 40,
+    "description": "Clean bottled water ready to round out any meal on the table.",
+    "image": "assets/images/menu-3.png",
+    "tags": [
+      "nigerian refreshments",
+      "water"
+    ],
+    "featured": false,
+    "id": "prod-056",
+    "createdAt": "2026-05-26T12:00:00.000Z",
+    "updatedAt": "2026-05-26T12:00:00.000Z",
+    "servingMode": "bottle",
+    "servingOptions": [
+      "Bottle"
+    ],
+    "servingOptionPrices": {
+      "Bottle": 0
+    },
+    "sku": "NIGE-TABL-056",
+    "status": "active",
+    "alt": "Table Water"
+  },
+  {
+    "name": "Fried Plantain",
+    "category": "Sides and Extra",
+    "price": 4.5,
+    "comparePrice": 5.3,
+    "stock": 24,
+    "description": "Sweet fried plantain prepared golden for a reliable side on any order.",
+    "image": "assets/images/menu-2.png",
     "tags": [
       "sides and extra",
-      "jollof",
-      "sauce"
+      "plantain"
     ],
-    "createdAt": "2026-05-20T10:15:00.000Z",
-    "updatedAt": "2026-05-20T10:15:00.000Z"
-  },
-  {
-    "id": "prod-sd1cola-soft1",
-    "name": "Coca Cola",
-    "category": "Soft Drinks",
-    "price": 2.50,
-    "comparePrice": 3.50,
-    "stock": 12,
-    "sku": "SOFT-COCA-C",
-    "status": "active",
     "featured": true,
-    "description": "Refreshing ice-cold Coca Cola to complement your meal.",
-    "image": "assets/images/shake-receipe-1.png",
-    "alt": "Coca Cola",
-    "tags": [
-      "soft drinks",
-      "cola",
-      "coca"
+    "id": "prod-057",
+    "createdAt": "2026-05-26T12:00:00.000Z",
+    "updatedAt": "2026-05-26T12:00:00.000Z",
+    "servingMode": "portion",
+    "servingOptions": [
+      "Portion"
     ],
-    "createdAt": "2026-05-25T12:00:00.000Z",
-    "updatedAt": "2026-05-25T12:00:00.000Z"
+    "servingOptionPrices": {
+      "Portion": 0
+    },
+    "sku": "SIDE-FRIE-057",
+    "status": "active",
+    "alt": "Fried Plantain"
   },
   {
-    "id": "prod-sd2fanta-soft2",
-    "name": "Fanta Orange",
-    "category": "Soft Drinks",
-    "price": 2.50,
-    "comparePrice": 3.50,
-    "stock": 12,
-    "sku": "SOFT-FANTA-O",
-    "status": "active",
-    "featured": false,
-    "description": "Vibrant orange Fanta with a fruity, bubbly taste.",
-    "image": "assets/images/shake-receipe-2.png",
-    "alt": "Fanta Orange",
+    "name": "Moi Moi Side",
+    "category": "Sides and Extra",
+    "price": 4.75,
+    "comparePrice": 5.55,
+    "stock": 18,
+    "description": "A soft side portion of moi moi for extra richness at the table.",
+    "image": "assets/images/menu-3.png",
     "tags": [
-      "soft drinks",
-      "fanta",
-      "orange"
+      "sides and extra",
+      "moi moi"
     ],
-    "createdAt": "2026-05-25T12:00:00.000Z",
-    "updatedAt": "2026-05-25T12:00:00.000Z"
+    "featured": false,
+    "id": "prod-058",
+    "createdAt": "2026-05-26T12:00:00.000Z",
+    "updatedAt": "2026-05-26T12:00:00.000Z",
+    "servingMode": "portion",
+    "servingOptions": [
+      "Portion"
+    ],
+    "servingOptionPrices": {
+      "Portion": 0
+    },
+    "sku": "SIDE-MOIM-058",
+    "status": "active",
+    "alt": "Moi Moi Side"
   },
   {
-    "id": "prod-sd3sprite-soft3",
-    "name": "Sprite Lemon",
-    "category": "Soft Drinks",
-    "price": 2.50,
-    "comparePrice": 3.50,
-    "stock": 12,
-    "sku": "SOFT-SPRIT-L",
-    "status": "active",
-    "featured": false,
-    "description": "Crisp and refreshing lemon-lime Sprite with a citrusy punch.",
-    "image": "assets/images/shake-receipe-3.png",
-    "alt": "Sprite Lemon",
+    "name": "Ata Din Din",
+    "category": "Sides and Extra",
+    "price": 3.95,
+    "comparePrice": 4.7,
+    "stock": 20,
+    "description": "Deep red Nigerian pepper sauce with smoky heat and layered spice.",
+    "image": "assets/images/menu-4.png",
     "tags": [
-      "soft drinks",
-      "sprite",
-      "lemon"
+      "sides and extra",
+      "ata din din"
     ],
-    "createdAt": "2026-05-25T12:00:00.000Z",
-    "updatedAt": "2026-05-25T12:00:00.000Z"
+    "featured": false,
+    "id": "prod-059",
+    "createdAt": "2026-05-26T12:00:00.000Z",
+    "updatedAt": "2026-05-26T12:00:00.000Z",
+    "servingMode": "portion",
+    "servingOptions": [
+      "Portion"
+    ],
+    "servingOptionPrices": {
+      "Portion": 0
+    },
+    "sku": "SIDE-ATAD-059",
+    "status": "active",
+    "alt": "Ata Din Din"
+  },
+  {
+    "name": "Extra Stew",
+    "category": "Sides and Extra",
+    "price": 4.25,
+    "comparePrice": 5,
+    "stock": 20,
+    "description": "Extra ladle of rich stew for guests who want more sauce with their meal.",
+    "image": "assets/images/menu-5.png",
+    "tags": [
+      "sides and extra",
+      "stew"
+    ],
+    "featured": false,
+    "id": "prod-060",
+    "createdAt": "2026-05-26T12:00:00.000Z",
+    "updatedAt": "2026-05-26T12:00:00.000Z",
+    "servingMode": "portion",
+    "servingOptions": [
+      "Portion"
+    ],
+    "servingOptionPrices": {
+      "Portion": 0
+    },
+    "sku": "SIDE-EXTR-060",
+    "status": "active",
+    "alt": "Extra Stew"
   }
 ]

@@ -5,41 +5,37 @@ jQuery(function ($) {
     var FALLBACK_PRODUCTS_URL = "data/products.json";
     var BROWSER_CATALOG_KEY = "foodweb_catalog_products_v1";
     var CATEGORY_ORDER = [
-        "Pizza",
-        "Sandwich",
-        "Alcohol",
-        "Combo Meal",
-        "Dessert",
         "Swallows",
         "Soups",
         "Rice Dishes",
-        "Small Chops",
+        "Combo Meal",
         "Proteins",
         "Pepper Soups",
         "Beans",
         "Porridges",
-        "Snacks and Pastries",
+        "Small Chops",
+        "Traditional Snacks",
+        "Traditional Treats",
         "Local Beverages",
-        "Soft Drinks",
+        "Alcohol",
+        "Nigerian Refreshments",
         "Sides and Extra"
     ];
     var CATEGORY_META = {
-        pizza: { image: "assets/images/menu-2.png", label: "PIZZA" },
-        sandwich: { image: "assets/images/menu-3.png", label: "SANDWICH" },
-        alcohol: { image: "assets/images/menu-4.png", label: "ALCOHOL" },
-        "combo-meal": { image: "assets/images/menu-5.png", label: "COMBO<br>MEAL" },
-        dessert: { image: "assets/images/menu-6.png", label: "DESSERT" },
         swallows: { image: "assets/images/menu-1.png", label: "SWALLOWS" },
         soups: { image: "assets/images/menu-2.png", label: "SOUPS" },
         "rice-dishes": { image: "assets/images/menu-3.png", label: "RICE<br>DISHES" },
-        "small-chops": { image: "assets/images/menu-4.png", label: "SMALL<br>CHOPS" },
+        "combo-meal": { image: "assets/images/menu-5.png", label: "COMBO<br>MEAL" },
         proteins: { image: "assets/images/menu-5.png", label: "PROTEINS" },
         "pepper-soups": { image: "assets/images/menu-6.png", label: "PEPPER<br>SOUPS" },
         beans: { image: "assets/images/menu-1.png", label: "BEANS" },
         porridges: { image: "assets/images/menu-2.png", label: "PORRIDGES" },
-        "snacks-and-pastries": { image: "assets/images/menu-3.png", label: "SNACKS &amp;<br>PASTRIES" },
+        "small-chops": { image: "assets/images/menu-4.png", label: "SMALL<br>CHOPS" },
+        "traditional-snacks": { image: "assets/images/menu-5.png", label: "TRADITIONAL<br>SNACKS" },
+        "traditional-treats": { image: "assets/images/menu-6.png", label: "TRADITIONAL<br>TREATS" },
         "local-beverages": { image: "assets/images/menu-4.png", label: "LOCAL<br>BEVERAGES" },
-        "soft-drinks": { image: "assets/images/menu-6.png", label: "SOFT<br>DRINKS" },
+        alcohol: { image: "assets/images/menu-3.png", label: "ALCOHOL" },
+        "nigerian-refreshments": { image: "assets/images/menu-2.png", label: "NIGERIAN<br>REFRESHMENTS" },
         "sides-and-extra": { image: "assets/images/menu-5.png", label: "SIDES &amp;<br>EXTRA" }
     };
     var FALLBACK_THUMB_IMAGES = [
@@ -194,7 +190,7 @@ jQuery(function ($) {
             status: normalizeStatus(safeProduct.status),
             featured: Boolean(safeProduct.featured),
             description: String(safeProduct.description || "").trim(),
-            image: String(safeProduct.image || "").trim() || "assets/images/product-1.png",
+            image: String(safeProduct.image || "").trim() || "assets/images/menu-1.png",
             alt: String(safeProduct.alt || name).trim() || name,
             updatedAt: safeProduct.updatedAt || safeProduct.createdAt || "",
             servingMode: servingMode,
@@ -300,22 +296,20 @@ jQuery(function ($) {
     function inferServingMode(category) {
         var safeCategory = String(category || "").trim().toLowerCase();
         var categoryMap = {
-            pizza: "small-medium-large",
-            burger: "single",
-            sandwich: "single",
-            alcohol: "bottle",
-            "combo meal": "plate",
-            dessert: "portion",
             swallows: "portion",
             soups: "portion",
             "rice dishes": "portion",
-            "small chops": "pack",
+            "combo meal": "plate",
             proteins: "piece",
             "pepper soups": "bowl",
             beans: "portion",
             porridges: "bowl",
-            "snacks and pastries": "piece",
+            "small chops": "pack",
+            "traditional snacks": "pack",
+            "traditional treats": "pack",
             "local beverages": "bottle",
+            alcohol: "bottle",
+            "nigerian refreshments": "bottle",
             "sides and extra": "portion"
         };
 
@@ -357,15 +351,14 @@ jQuery(function ($) {
         var safeCategory = String(category || "Menu").replace(/\s+/g, " ").trim();
         var key = safeCategory.toLowerCase();
         var aliases = {
-            burger: "Proteins",
-            shake: "Alcohol",
-            sandwitch: "Sandwich",
-            sandwich: "Sandwich",
-            "ice-creame": "Combo Meal",
-            "ice cream": "Combo Meal",
+            rice: "Rice Dishes",
             combo: "Combo Meal",
             "combo meal": "Combo Meal",
-            "snacks & pastries": "Snacks and Pastries",
+            "combo meals": "Combo Meal",
+            "small chop": "Small Chops",
+            "pepper soup": "Pepper Soups",
+            "traditional snack": "Traditional Snacks",
+            "traditional treat": "Traditional Treats",
             "sides & extra": "Sides and Extra"
         };
         if (aliases[key]) {

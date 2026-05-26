@@ -311,6 +311,29 @@ jQuery(function ($) {
             }
         }
     })
+
+    $('.service-spotlight-carousel').owlCarousel({
+        loop: true,
+        margin: 25,
+        nav: false,
+        dots: true,
+        items: 3,
+        autoplay: true,
+        autoplayHoverPause: true,
+        autoplayTimeout: 4500,
+        smartSpeed: 1500,
+        responsive: {
+            0: {
+                items: 1
+            },
+            768: {
+                items: 2
+            },
+            1200: {
+                items: 3
+            }
+        }
+    })
     
     // Magnific-popup
     $("#video-popup").magnificPopup({
@@ -671,9 +694,9 @@ jQuery(function ($) {
         }, 4000)
     }
     function formErrorSub() {
-        $(".newsletter-form").addClass("animate__animated animate__shakeX");
+        $(".newsletter-form").addClass("animate__animated animate__pulse");
         setTimeout(function() {
-            $(".newsletter-form").removeClass("animate__animated animate__shakeX");
+            $(".newsletter-form").removeClass("animate__animated animate__pulse");
         }, 1000)
     }
     function submitMSGSub(valid, msg) {

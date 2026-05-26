@@ -72,7 +72,7 @@ jQuery(function ($) {
             name: String(safeItem.name || "Untitled Product").trim() || "Untitled Product",
             sku: String(safeItem.sku || productId).trim() || productId,
             price: safeNumber(safeItem.price),
-            image: String(safeItem.image || "assets/images/product-1.png").trim() || "assets/images/product-1.png",
+            image: String(safeItem.image || "assets/images/amalaa.png").trim() || "assets/images/amalaa.png",
             alt: String(safeItem.alt || safeItem.name || "Product image").trim() || "Product image",
             detailsUrl: String(safeItem.detailsUrl || ("shop-details.html?product=" + encodeURIComponent(productId))).trim(),
             stock: Math.max(0, Math.round(safeNumber(safeItem.stock))),

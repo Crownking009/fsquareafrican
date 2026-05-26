@@ -31,16 +31,10 @@ const MIME_TYPES = {
 };
 
 const CATEGORY_NAME_MAP = {
-  PIZZA: "Pizza",
-  BURGER: "Proteins",
-  SANDWITCH: "Sandwich",
-  SANDWICH: "Sandwich",
-  SHAKE: "Alcohol",
+  RICE: "Rice Dishes",
   ALCOHOL: "Alcohol",
-  "ICE-CREAME": "Combo Meal",
-  "ICE CREAM": "Combo Meal",
   "COMBO MEAL": "Combo Meal",
-  DESSERT: "Dessert",
+  "COMBO MEALS": "Combo Meal",
   SWALLOWS: "Swallows",
   SOUPS: "Soups",
   "RICE DISHES": "Rice Dishes",
@@ -49,9 +43,16 @@ const CATEGORY_NAME_MAP = {
   "PEPPER SOUPS": "Pepper Soups",
   BEANS: "Beans",
   PORRIDGES: "Porridges",
-  "SNACKS & PASTRIES": "Snacks and Pastries",
-  "SNACKS AND PASTRIES": "Snacks and Pastries",
+  "TRADITIONAL SNACK": "Traditional Snacks",
+  "TRADITIONAL SNACKS": "Traditional Snacks",
+  "TRADITIONAL TREAT": "Traditional Treats",
+  "TRADITIONAL TREATS": "Traditional Treats",
+  "LOCAL BEVERAGE": "Local Beverages",
   "LOCAL BEVERAGES": "Local Beverages",
+  "NIGERIAN REFRESHMENT": "Nigerian Refreshments",
+  "NIGERIAN REFRESHMENTS": "Nigerian Refreshments",
+  "SIDE & EXTRA": "Sides and Extra",
+  "SIDE AND EXTRA": "Sides and Extra",
   "SIDES & EXTRA": "Sides and Extra",
   "SIDES AND EXTRA": "Sides and Extra"
 };
@@ -314,18 +315,18 @@ function buildFallbackProducts() {
   return [
     normalizeProduct({
       id: createId(),
-      name: "Pepperoni Pizza",
-      category: "Pizza",
-      price: 4.59,
-      comparePrice: 7.59,
+      name: "Amala, Gbegiri & Ewedu",
+      category: "Swallows",
+      price: 14.5,
+      comparePrice: 16.95,
       stock: 18,
-      sku: "PIZZ-PEPPER",
+      sku: "SWAL-AMAL",
       status: "active",
       featured: true,
-      description: "Classic pizza with pepperoni, mozzarella and tomato sauce.",
-      image: "assets/images/pizza-receipe-1.png",
-      alt: "Pepperoni Pizza",
-      tags: ["pizza", "classic"],
+      description: "Soft amala served with silky ewedu and rich gbegiri for a deeply comforting Yoruba classic.",
+      image: "assets/images/amalaa.png",
+      alt: "Amala, Gbegiri & Ewedu",
+      tags: ["swallows", "amala", "gbegiri", "ewedu"],
       createdAt: now,
       updatedAt: now
     })
@@ -546,12 +547,8 @@ function getSuggestedProductInfo(category, name, tags) {
   const safeName = String(name || "").trim().toLowerCase();
   const safeTags = normalizeTags(tags).map((tag) => String(tag || "").trim().toLowerCase());
   const presets = {
-    pizza: { toppings: ["Extra Cheese", "Pepperoni", "Jalapeno"], allergens: ["Milk", "Gluten"], spiceLevel: "Medium", prepTimeMinutes: 18 },
-    burger: { toppings: ["Cheese Slice", "Caramelized Onion", "Special Sauce"], allergens: ["Gluten", "Milk"], spiceLevel: "Medium", prepTimeMinutes: 14 },
-    sandwich: { toppings: ["Cheese", "Fresh Lettuce", "Chili Mayo"], allergens: ["Gluten", "Milk"], spiceLevel: "Mild", prepTimeMinutes: 10 },
-    alcohol: { toppings: ["Ice Cubes", "Lime Wedge", "Mint"], allergens: ["None"], spiceLevel: "Mild", prepTimeMinutes: 4 },
-    "combo meal": { toppings: ["Fries", "Coleslaw", "Extra Sauce"], allergens: ["Gluten", "Eggs"], spiceLevel: "Medium", prepTimeMinutes: 15 },
-    dessert: { toppings: ["Fresh Fruit", "Caramel Sauce", "Ice Cream Scoop"], allergens: ["Milk", "Eggs", "Gluten"], spiceLevel: "Mild", prepTimeMinutes: 7 },
+    alcohol: { toppings: ["Extra Chill", "Calabash Serve", "Citrus Slice"], allergens: ["None"], spiceLevel: "Mild", prepTimeMinutes: 4 },
+    "combo meal": { toppings: ["Fried Plantain", "Moi Moi", "Ata Din Din"], allergens: ["Eggs"], spiceLevel: "Medium", prepTimeMinutes: 15 },
     swallows: { toppings: ["Extra Ewedu", "Assorted Meat", "Ponmo"], allergens: ["Fish", "Crayfish"], spiceLevel: "Medium", prepTimeMinutes: 18 },
     soups: { toppings: ["Beef", "Stock Fish", "Scent Leaves"], allergens: ["Fish", "Crayfish"], spiceLevel: "Medium", prepTimeMinutes: 20 },
     "rice dishes": { toppings: ["Fried Plantain", "Boiled Egg", "Peppered Chicken"], allergens: ["Soy"], spiceLevel: "Medium", prepTimeMinutes: 16 },
@@ -560,8 +557,10 @@ function getSuggestedProductInfo(category, name, tags) {
     "pepper soups": { toppings: ["Extra Pepper", "Scent Leaves", "Fresh Ginger"], allergens: ["Fish", "Crayfish"], spiceLevel: "Hot", prepTimeMinutes: 17 },
     beans: { toppings: ["Fried Plantain", "Pepper Sauce", "Smoked Fish"], allergens: ["Fish"], spiceLevel: "Mild", prepTimeMinutes: 15 },
     porridges: { toppings: ["Smoked Fish", "Crayfish", "Ugwu"], allergens: ["Fish", "Crayfish"], spiceLevel: "Medium", prepTimeMinutes: 18 },
-    "snacks and pastries": { toppings: ["Chili Dip", "Ketchup", "Extra Filling"], allergens: ["Gluten", "Eggs"], spiceLevel: "Mild", prepTimeMinutes: 8 },
+    "traditional snacks": { toppings: ["Pepper Dip", "Groundnut", "Extra Pack"], allergens: ["Groundnut"], spiceLevel: "Mild", prepTimeMinutes: 8 },
+    "traditional treats": { toppings: ["Roasted Groundnut", "Coconut Flakes", "Sesame Sprinkle"], allergens: ["Groundnut", "Sesame"], spiceLevel: "Mild", prepTimeMinutes: 5 },
     "local beverages": { toppings: ["Citrus Slice", "Ice Cubes", "Mint"], allergens: ["None"], spiceLevel: "Mild", prepTimeMinutes: 4 },
+    "nigerian refreshments": { toppings: ["Extra Chill", "Ice Cubes", "Citrus Slice"], allergens: ["None"], spiceLevel: "Mild", prepTimeMinutes: 3 },
     "sides and extra": { toppings: ["Pepper Drizzle", "Sesame Finish", "Extra Herbs"], allergens: ["Sesame"], spiceLevel: "Mild", prepTimeMinutes: 6 }
   };
   const defaults = presets[safeCategory] || { toppings: ["Chef Recommendation"], allergens: ["Ask Restaurant"], spiceLevel: "Medium", prepTimeMinutes: 12 };
@@ -575,13 +574,26 @@ function getSuggestedProductInfo(category, name, tags) {
   if ((safeName.includes("pepper") || safeCategory === "pepper soups") && suggested.spiceLevel !== "Hot") {
     suggested.spiceLevel = "Hot";
   }
-  if (safeCategory === "alcohol" || safeName.includes("wine") || safeName.includes("whiskey") || safeName.includes("cocktail") || safeCategory === "dessert") {
+  if (
+    safeCategory === "alcohol" ||
+    safeCategory === "traditional treats" ||
+    safeCategory === "local beverages" ||
+    safeCategory === "nigerian refreshments" ||
+    safeName.includes("palm wine") ||
+    safeName.includes("burukutu") ||
+    safeName.includes("pito") ||
+    safeName.includes("ogogoro") ||
+    safeName.includes("zobo") ||
+    safeName.includes("kunu") ||
+    safeName.includes("chapman") ||
+    safeName.includes("malt")
+  ) {
     suggested.spiceLevel = "Mild";
   }
   if ((safeName.includes("fish") || safeName.includes("catfish") || safeName.includes("seafood")) && !suggested.allergens.includes("Fish")) {
     suggested.allergens.push("Fish");
   }
-  if ((safeName.includes("chicken") || safeTags.includes("chicken")) && !suggested.toppings.includes("Extra Chicken") && ["rice dishes", "burger", "sandwich", "proteins"].includes(safeCategory)) {
+  if ((safeName.includes("chicken") || safeTags.includes("chicken")) && !suggested.toppings.includes("Extra Chicken") && ["rice dishes", "combo meal", "proteins"].includes(safeCategory)) {
     suggested.toppings.unshift("Extra Chicken");
   }
 
@@ -595,92 +607,81 @@ function getSuggestedCustomizationGroups(category, name, tags, toppings) {
   const info = getSuggestedProductInfo(category, name, tags);
   const summaryToppings = normalizeMetadataList(toppings);
   const categoryGroups = {
-    pizza: [
-      { title: "Extra Proteins", options: ["Chicken", "Pepperoni", "Beef", "Turkey"] },
-      { title: "Drinks", options: ["Coke", "Fanta", "Sprite", "Water", "Malt"] },
-      { title: "Toppings & Sides", options: ["Extra Cheese", "Jalapeno", "Mushroom", "Onion", "Olives", "Fried Plantain"] }
-    ],
-    burger: [
-      { title: "Extra Proteins", options: ["Chicken", "Beef Patty", "Turkey", "Bacon Style Beef"] },
-      { title: "Drinks", options: ["Coke", "Fanta", "Sprite", "Water", "Milkshake"] },
-      { title: "Toppings & Sides", options: ["Cheese Slice", "Caramelized Onion", "Lettuce", "Tomato", "Special Sauce", "Fries"] }
-    ],
-    sandwich: [
-      { title: "Extra Proteins", options: ["Chicken", "Beef", "Turkey", "Fish"] },
-      { title: "Drinks", options: ["Coke", "Fanta", "Sprite", "Water", "Chapman"] },
-      { title: "Toppings & Sides", options: ["Cheese", "Chili Mayo", "Fresh Lettuce", "Tomato", "Cucumber", "Fries"] }
-    ],
     alcohol: [
-      { title: "Mixers", options: ["Tonic Water", "Soda Water", "Orange Juice", "Cranberry Juice", "Ginger Ale", "Ice Cubes"] },
-      { title: "Pair With", options: ["Peppered Beef", "Grilled Chicken", "Small Chops", "Fried Fish"] }
+      { title: "Serving Style", options: ["Chilled Bottle", "Calabash Serve", "Shared Pot", "Citrus Slice"] },
+      { title: "Pair With", options: ["Asun Bites", "Suya Bites", "Peppered Beef", "Fried Fish"] }
     ],
     "combo meal": [
       { title: "Extra Proteins", options: ["Chicken", "Peppered Beef", "Turkey", "Fried Fish"] },
-      { title: "Drinks", options: ["Water", "Coke", "Fanta", "Sprite", "Malt", "Chapman"] },
-      { title: "Toppings & Sides", options: ["Fries", "Plantain", "Coleslaw", "Extra Sauce", "Salad", "Moi Moi"] }
-    ],
-    dessert: [
-      { title: "Toppings", options: ["Ice Cream Scoop", "Fresh Fruit", "Caramel Sauce", "Chocolate Drizzle", "Cookie Crumbs", "Whipped Cream"] },
-      { title: "Pair With", options: ["Water", "Chapman", "Cabernet Red Wine", "Tropical Rum Cocktail"] }
+      { title: "Drinks", options: ["Water", "Zobo Drink", "Chapman", "Maltina", "Kunu Aya"] },
+      { title: "Toppings & Sides", options: ["Fried Plantain", "Moi Moi", "Ata Din Din", "Extra Stew"] }
     ],
     swallows: [
       { title: "Extra Proteins", options: ["Assorted Meat", "Beef", "Goat Meat", "Chicken", "Fish", "Turkey", "Ponmo", "Cow Leg"] },
-      { title: "Drinks", options: ["Water", "Coke", "Fanta", "Sprite", "Malt", "Zobo Drink", "Chapman"] },
-      { title: "Toppings & Sides", options: ["Extra Ewedu", "Extra Gbegiri", "Extra Soup", "Boiled Egg", "Fried Plantain", "Extra Sauce"] }
+      { title: "Drinks", options: ["Water", "Zobo Drink", "Chapman", "Kunu Aya", "Maltina"] },
+      { title: "Toppings & Sides", options: ["Extra Ewedu", "Extra Gbegiri", "Extra Soup", "Boiled Egg", "Fried Plantain", "Extra Stew"] }
     ],
     soups: [
       { title: "Extra Proteins", options: ["Assorted Meat", "Beef", "Goat Meat", "Chicken", "Fish", "Turkey", "Stock Fish"] },
-      { title: "Drinks", options: ["Water", "Coke", "Fanta", "Malt", "Zobo Drink", "Chapman"] },
+      { title: "Drinks", options: ["Water", "Zobo Drink", "Kunu Aya", "Chapman", "Maltina"] },
       { title: "Toppings & Sides", options: ["Extra Soup", "Scent Leaves", "Crayfish", "Boiled Egg", "Fried Plantain"] }
     ],
     "rice dishes": [
       { title: "Extra Proteins", options: ["Chicken", "Turkey", "Beef", "Fish", "Goat Meat", "Assorted Meat"] },
-      { title: "Drinks", options: ["Water", "Coke", "Fanta", "Sprite", "Malt", "Chapman", "Zobo Drink"] },
-      { title: "Toppings & Sides", options: ["Fried Plantain", "Boiled Egg", "Extra Sauce", "Salad", "Moi Moi", "Coleslaw"] }
+      { title: "Drinks", options: ["Water", "Zobo Drink", "Chapman", "Kunu Aya", "Maltina"] },
+      { title: "Toppings & Sides", options: ["Fried Plantain", "Boiled Egg", "Ata Din Din", "Moi Moi", "Extra Stew"] }
     ],
     "small chops": [
-      { title: "Extra Pieces", options: ["Samosa", "Spring Roll", "Puff Puff", "Meat Pie", "Chicken Pie"] },
-      { title: "Drinks", options: ["Water", "Coke", "Fanta", "Sprite", "Chapman", "Zobo Drink"] },
-      { title: "Dips & Extras", options: ["Pepper Sauce", "Ketchup", "Chili Dip", "Extra Pack"] }
+      { title: "Extra Pieces", options: ["Puff Puff", "Suya", "Asun", "Gizdodo", "Akara"] },
+      { title: "Drinks", options: ["Water", "Zobo Drink", "Chapman", "Maltina", "Kunu Aya"] },
+      { title: "Dips & Extras", options: ["Pepper Sauce", "Ata Din Din", "Chili Dip", "Extra Pack"] }
     ],
     proteins: [
       { title: "Extra Proteins", options: ["Chicken", "Turkey", "Beef", "Fish", "Goat Meat"] },
-      { title: "Drinks", options: ["Water", "Coke", "Fanta", "Malt", "Chapman"] },
-      { title: "Toppings & Sides", options: ["Pepper Sauce", "Fried Plantain", "Extra Sauce", "Onion Garnish", "Coleslaw"] }
+      { title: "Drinks", options: ["Water", "Zobo Drink", "Chapman", "Maltina"] },
+      { title: "Toppings & Sides", options: ["Pepper Sauce", "Fried Plantain", "Extra Stew", "Onion Garnish", "Moi Moi"] }
     ],
     "pepper soups": [
       { title: "Extra Proteins", options: ["Goat Meat", "Chicken", "Fish", "Assorted Meat", "Turkey"] },
-      { title: "Drinks", options: ["Water", "Malt", "Chapman", "Zobo Drink"] },
+      { title: "Drinks", options: ["Water", "Maltina", "Chapman", "Zobo Drink"] },
       { title: "Soup Add-Ons", options: ["Extra Pepper", "Scent Leaves", "Fresh Ginger", "Stock Fish"] }
     ],
     beans: [
       { title: "Extra Proteins", options: ["Fish", "Beef", "Chicken", "Assorted Meat"] },
-      { title: "Drinks", options: ["Water", "Coke", "Malt", "Zobo Drink"] },
+      { title: "Drinks", options: ["Water", "Maltina", "Zobo Drink", "Kunu Aya"] },
       { title: "Toppings & Sides", options: ["Fried Plantain", "Boiled Egg", "Pepper Sauce", "Extra Stew"] }
     ],
     porridges: [
       { title: "Extra Proteins", options: ["Fish", "Chicken", "Beef", "Turkey"] },
-      { title: "Drinks", options: ["Water", "Coke", "Malt", "Zobo Drink"] },
+      { title: "Drinks", options: ["Water", "Maltina", "Zobo Drink", "Kunu Aya"] },
       { title: "Toppings & Sides", options: ["Crayfish", "Ugwu", "Pepper Sauce", "Boiled Egg"] }
     ],
-    "snacks and pastries": [
-      { title: "Extra Pieces", options: ["Sausage Roll", "Chicken Pie", "Fish Roll", "Doughnut Bites"] },
-      { title: "Drinks", options: ["Water", "Coke", "Fanta", "Sprite", "Chapman"] },
-      { title: "Dips & Extras", options: ["Chili Dip", "Ketchup", "Extra Filling"] }
+    "traditional snacks": [
+      { title: "Extra Pieces", options: ["Akara", "Boli", "Kokoro", "Plantain Chips"] },
+      { title: "Drinks", options: ["Water", "Zobo Drink", "Chapman", "Maltina"] },
+      { title: "Dips & Extras", options: ["Pepper Dip", "Groundnut", "Extra Pack"] }
+    ],
+    "traditional treats": [
+      { title: "Add-Ons", options: ["Roasted Groundnut", "Coconut Flakes", "Sesame Sprinkle", "Extra Pack"] },
+      { title: "Pair With", options: ["Zobo Drink", "Kunu Aya", "Chapman", "Maltina"] }
     ],
     "local beverages": [
       { title: "Add-Ins", options: ["Ice Cubes", "Mint", "Citrus Slice", "Extra Chill"] },
-      { title: "Pair With", options: ["Doughnut Bites", "Sausage Roll", "Fish Roll", "Chicken Pie"] }
+      { title: "Pair With", options: ["Akara Basket", "Chin Chin Crunch", "Puff Puff Basket", "Boli & Groundnut"] }
+    ],
+    "nigerian refreshments": [
+      { title: "Add-Ins", options: ["Extra Chill", "Ice Cubes", "Citrus Slice"] },
+      { title: "Pair With", options: ["Suya Bites", "Akara Basket", "Fried Plantain", "Puff Puff Basket"] }
     ],
     "sides and extra": [
       { title: "Extra Proteins", options: ["Chicken", "Beef", "Fish", "Turkey"] },
-      { title: "Drinks", options: ["Water", "Coke", "Fanta", "Malt"] },
-      { title: "Toppings & Sides", options: ["Pepper Drizzle", "Extra Sauce", "Sesame Finish", "Fried Plantain"] }
+      { title: "Drinks", options: ["Water", "Maltina", "Zobo Drink"] },
+      { title: "Toppings & Sides", options: ["Pepper Drizzle", "Extra Stew", "Ata Din Din", "Fried Plantain"] }
     ]
   };
   return (categoryGroups[safeCategory] || [
-    { title: "Extras", options: ["Chef Recommendation", "Extra Sauce", "Boiled Egg"] },
-    { title: "Drinks", options: ["Water", "Coke", "Fanta"] }
+    { title: "Extras", options: ["Chef Recommendation", "Extra Stew", "Boiled Egg"] },
+    { title: "Drinks", options: ["Water", "Zobo Drink", "Maltina"] }
   ])
     .map((group, index) => ({
       id: slugify(group.title) || `addon-group-${index}`,
@@ -758,22 +759,20 @@ function getServingModeConfig(mode) {
 function inferServingMode(category) {
   const safeCategory = String(category || "").trim().toLowerCase();
   const categoryMap = {
-    pizza: "small-medium-large",
-    burger: "single",
-    sandwich: "single",
-    alcohol: "bottle",
-    "combo meal": "plate",
-    dessert: "portion",
     swallows: "portion",
     soups: "portion",
     "rice dishes": "portion",
-    "small chops": "pack",
+    "combo meal": "plate",
     proteins: "piece",
     "pepper soups": "bowl",
     beans: "portion",
     porridges: "bowl",
-    "snacks and pastries": "piece",
+    "small chops": "pack",
+    "traditional snacks": "pack",
+    "traditional treats": "pack",
     "local beverages": "bottle",
+    alcohol: "bottle",
+    "nigerian refreshments": "bottle",
     "sides and extra": "portion"
   };
 
