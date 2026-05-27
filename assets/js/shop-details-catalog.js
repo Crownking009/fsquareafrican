@@ -10,18 +10,23 @@ jQuery(function ($) {
     var RELATED_GRID = $("#related-products-grid");
     var SERVING_MODE_OPTIONS = [
         { value: "single", label: "Single Item", options: ["Standard Order"] },
+        { value: "unit", label: "Unit", options: ["1 Unit"] },
         { value: "portion", label: "Portion", options: ["Portion"] },
         { value: "half-full-portion", label: "Half / Full Portion", options: ["Half Portion", "Full Portion"] },
         { value: "plate", label: "Plate", options: ["Plate"] },
         { value: "bowl", label: "Bowl", options: ["Bowl"] },
         { value: "piece", label: "Piece", options: ["1 Piece"] },
+        { value: "piece-count", label: "Piece Count", options: ["1 Piece", "2 Pieces", "4 Pieces"] },
         { value: "pack", label: "Pack", options: ["Pack"] },
         { value: "cup", label: "Cup", options: ["Cup"] },
         { value: "bottle", label: "Bottle", options: ["Bottle"] },
         { value: "tray", label: "Tray", options: ["Tray"] },
+        { value: "half-full-tray", label: "Half / Full Tray", options: ["Half Tray", "Full Tray"] },
         { value: "small-medium-large", label: "Small / Medium / Large", options: ["Small", "Medium", "Large"] },
         { value: "small-large", label: "Small / Large", options: ["Small", "Large"] },
         { value: "regular-large", label: "Regular / Large", options: ["Regular", "Large"] },
+        { value: "family-size", label: "Regular / Family Size", options: ["Regular", "Family Size"] },
+        { value: "weight", label: "Weight", options: ["500g", "1kg"] },
         { value: "custom", label: "Custom Options", options: [] }
     ];
     var REVIEWER_NAMES = [
@@ -41,7 +46,7 @@ jQuery(function ($) {
         try {
             var catalog = await fetchProductsCatalog();
             var products = catalog.products.filter(function (product) {
-                return product.status === "active" || product.status === "sold-out";
+                return (product.status === "active" || product.status === "sold-out") && product.image;
             });
 
             if (!products.length) {
@@ -144,7 +149,7 @@ jQuery(function ($) {
             status: normalizeStatus(safeProduct.status),
             featured: Boolean(safeProduct.featured),
             description: String(safeProduct.description || "").trim(),
-            image: String(safeProduct.image || "").trim() || "assets/images/menu-1.png",
+            image: String(safeProduct.image || "").trim(),
             alt: String(safeProduct.alt || name).trim() || name,
             updatedAt: safeProduct.updatedAt || safeProduct.createdAt || "",
             sku: String(safeProduct.sku || "").trim(),
@@ -580,7 +585,8 @@ jQuery(function ($) {
             "traditional treats": "pack",
             "local beverages": "bottle",
             "nigerian refreshments": "bottle",
-            "sides and extra": "portion"
+            "sides and extra": "portion",
+            catering: "half-full-tray"
         };
 
         return categoryMap[safeCategory] || "single";
@@ -770,7 +776,7 @@ jQuery(function ($) {
     }
 
     function getServingSectionTitle(product) {
-        var sizeModes = ["small-medium-large", "small-large", "regular-large"];
+        var sizeModes = ["small-medium-large", "small-large", "regular-large", "family-size", "weight"];
         return sizeModes.indexOf(product.servingMode) !== -1 ? "Sizes:" : "Sold As:";
     }
 
@@ -1056,9 +1062,9 @@ jQuery(function ($) {
             "</h4>",
             "</div>",
             '<div class="receipe-cart receipe-cart-main">',
-            '<a href="wishlist.html?product=', escapeAttribute(product.id), '">',
-            '<i class="flaticon-supermarket-basket"></i>',
-            '<i class="flaticon-supermarket-basket"></i>',
+            '<a href="wishlist.html?product=', escapeAttribute(product.id), '" title="Add to wishlist" aria-label="Add to wishlist">',
+            '<i class="flaticon-supermarket-basket" aria-hidden="true"></i>',
+            '<i class="flaticon-supermarket-basket" aria-hidden="true"></i>',
             "</a>",
             "</div>",
             "</div>",

@@ -190,7 +190,7 @@ jQuery(function ($) {
             status: normalizeStatus(safeProduct.status),
             featured: Boolean(safeProduct.featured),
             description: String(safeProduct.description || "").trim(),
-            image: String(safeProduct.image || "").trim() || "assets/images/menu-1.png",
+            image: String(safeProduct.image || "").trim(),
             alt: String(safeProduct.alt || name).trim() || name,
             updatedAt: safeProduct.updatedAt || safeProduct.createdAt || "",
             servingMode: servingMode,
@@ -275,18 +275,23 @@ jQuery(function ($) {
         var inferredMode = inferServingMode(category);
         var allowedModes = [
             "single",
+            "unit",
             "portion",
             "half-full-portion",
             "plate",
             "bowl",
             "piece",
+            "piece-count",
             "pack",
             "cup",
             "bottle",
             "tray",
+            "half-full-tray",
             "small-medium-large",
             "small-large",
             "regular-large",
+            "family-size",
+            "weight",
             "custom"
         ];
 
@@ -310,7 +315,8 @@ jQuery(function ($) {
             "local beverages": "bottle",
             alcohol: "bottle",
             "nigerian refreshments": "bottle",
-            "sides and extra": "portion"
+            "sides and extra": "portion",
+            catering: "half-full-tray"
         };
 
         return categoryMap[safeCategory] || "single";
@@ -329,18 +335,23 @@ jQuery(function ($) {
 
         var defaults = {
             single: ["Standard Order"],
+            unit: ["1 Unit"],
             portion: ["Portion"],
             "half-full-portion": ["Half Portion", "Full Portion"],
             plate: ["Plate"],
             bowl: ["Bowl"],
             piece: ["1 Piece"],
+            "piece-count": ["1 Piece", "2 Pieces", "4 Pieces"],
             pack: ["Pack"],
             cup: ["Cup"],
             bottle: ["Bottle"],
             tray: ["Tray"],
+            "half-full-tray": ["Half Tray", "Full Tray"],
             "small-medium-large": ["Small", "Medium", "Large"],
             "small-large": ["Small", "Large"],
             "regular-large": ["Regular", "Large"],
+            "family-size": ["Regular", "Family Size"],
+            weight: ["500g", "1kg"],
             custom: ["Custom Order"]
         };
 
@@ -373,7 +384,7 @@ jQuery(function ($) {
     function renderSharedMenu(products, options) {
         var settings = options || {};
         var visibleProducts = products.filter(function (product) {
-            return product.status === "active" || product.status === "sold-out";
+            return (product.status === "active" || product.status === "sold-out") && product.image;
         });
         var groupedProducts = groupProductsByCategory(visibleProducts);
 
@@ -402,6 +413,10 @@ jQuery(function ($) {
     function groupProductsByCategory(products) {
         var groupedMap = {};
         var groupedList = [];
+
+        CATEGORY_ORDER.forEach(function (category) {
+            groupedMap[category] = [];
+        });
 
         products.forEach(function (product) {
             var category = product.category;
@@ -449,10 +464,25 @@ jQuery(function ($) {
     }
 
     function buildCategorySlideMarkup(category, products) {
+        var productMarkup = products.length ? products.map(buildProductCardMarkup).join("") : buildEmptyCategoryMarkup(category);
+
         return [
             '<div class="menu-main-details-item" data-category-name="', escapeAttribute(category), '">',
             '<div class="row g-4">',
-            products.map(buildProductCardMarkup).join(""),
+            productMarkup,
+            "</div>",
+            "</div>"
+        ].join("");
+    }
+
+    function buildEmptyCategoryMarkup(category) {
+        return [
+            '<div class="col-12">',
+            '<div class="product-card product-card-dark h-100">',
+            '<div class="product-card-content text-center p-5">',
+            "<h3>", escapeHtml(category), "</h3>",
+            "<p>No products are live in this category yet.</p>",
+            "</div>",
             "</div>",
             "</div>"
         ].join("");
@@ -496,12 +526,21 @@ jQuery(function ($) {
         var detailsUrl = buildProductDetailsUrl(product);
         var defaultOption = product.servingOptions[0] || "Standard Order";
         var defaultUnitPrice = product.price + getServingOptionPriceAdjustment(product, defaultOption);
+        var searchText = [
+            product.name,
+            product.category,
+            product.description,
+            product.alt,
+            product.sku,
+            product.tags.join(" "),
+            product.servingOptions.join(" ")
+        ].join(" ");
         var primaryAction = isSoldOut
             ? '<a href="javascript:void(0)" class="btn" aria-disabled="true" tabindex="-1">Sold Out</a>'
             : '<a href="cart.html" class="btn btn-yellow add-to-cart-trigger" data-cart-product-id="' + escapeAttribute(product.id) + '" data-cart-name="' + escapeAttribute(product.name) + '" data-cart-sku="' + escapeAttribute(product.sku || product.id) + '" data-cart-price="' + escapeAttribute(String(defaultUnitPrice)) + '" data-cart-image="' + escapeAttribute(product.image) + '" data-cart-alt="' + escapeAttribute(product.alt || product.name) + '" data-cart-stock="' + escapeAttribute(String(product.stock)) + '" data-cart-option="' + escapeAttribute(defaultOption) + '" data-cart-serving-mode="' + escapeAttribute(product.servingMode || "single") + '" data-cart-details-url="' + escapeAttribute(detailsUrl) + '">Add To Cart</a>';
 
         return [
-            '<div class="col-6 col-md-6 col-lg-4" data-menu-category="', escapeAttribute(slugify(product.category)), '">',
+            '<div class="col-6 col-md-6 col-lg-4" data-menu-category="', escapeAttribute(slugify(product.category)), '" data-menu-search="', escapeAttribute(searchText.toLowerCase()), '" data-filter-match="true">',
             '<div class="product-card product-card-dark h-100">',
             '<a class="product-card-surface" href="', escapeAttribute(detailsUrl), '" data-product-id="', escapeAttribute(product.id), '">',
             '<div class="product-card-thumb">',
@@ -711,15 +750,21 @@ jQuery(function ($) {
     }
 
     function getMenuCardSearchText(card) {
+        var searchText = card.attr("data-menu-search");
+        if (searchText) {
+            return searchText.toLowerCase();
+        }
+
         var name = card.find(".product-card-content h3").first().text().trim();
         var description = card.find(".product-card-content p").first().text().trim();
         var altText = card.find(".product-card-thumb img").first().attr("alt") || "";
-        return [name, description, altText].join(" ").toLowerCase();
+        var category = card.closest(".menu-main-details-item").attr("data-category-name") || "";
+        return [name, description, altText, category].join(" ").toLowerCase();
     }
 
     function focusFirstMatchingMenuGroup() {
         var firstVisibleGroup = dom.detailsFor.find(".menu-main-details-item").filter(function () {
-            return $(this).find(".col-6:visible").length > 0;
+            return $(this).find('.col-6[data-filter-match="true"]').length > 0;
         }).first();
 
         if (!firstVisibleGroup.length) {
@@ -760,7 +805,7 @@ jQuery(function ($) {
             return;
         }
 
-        if (dom.detailsFor.find(".col-6:visible").length && !targetSlide.find(".col-6:visible").length) {
+        if (dom.detailsFor.find('.col-6[data-filter-match="true"]').length && !targetSlide.find('.col-6[data-filter-match="true"]').length) {
             return;
         }
 
@@ -781,7 +826,9 @@ jQuery(function ($) {
             var price = getMenuCardPrice(card);
             var matchesText = !term || content.indexOf(term) !== -1;
             var matchesPrice = price >= min && price <= max;
-            card.toggle(matchesText && matchesPrice);
+            var isMatch = matchesText && matchesPrice;
+            card.toggle(isMatch);
+            card.attr("data-filter-match", isMatch ? "true" : "false");
         });
 
         focusFirstMatchingMenuGroup();

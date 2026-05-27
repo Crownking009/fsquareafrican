@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <title>Admin Login | F-Square African Food</title>
+        <meta name="description" content="F-Square African Food admin login.">
+        <meta name="keywords" content="F-Square African Food">
+        <meta name="author" content="F-Square African Food">
+        <meta name="robots" content="noindex, nofollow">
+        <meta name="theme-color" content="#111111">
+        <link rel="canonical" href="https://fsquareafricanfood.com/admin-login.html">
+        <meta property="og:locale" content="en_GB">
+        <meta property="og:type" content="website">
+        <meta property="og:site_name" content="F-Square African Food">
+        <meta property="og:title" content="Admin Login | F-Square African Food">
+        <meta property="og:description" content="F-Square African Food admin login.">
+        <meta property="og:url" content="https://fsquareafricanfood.com/admin-login.html">
+        <meta property="og:image" content="https://fsquareafricanfood.com/assets/images/Poster.png">
+        <meta property="og:image:alt" content="F-Square African Food Nigerian restaurant food">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="Admin Login | F-Square African Food">
+        <meta name="twitter:description" content="F-Square African Food admin login.">
+        <meta name="twitter:image" content="https://fsquareafricanfood.com/assets/images/Poster.png">
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Restaurant",
+              "@id": "https://fsquareafricanfood.com/#restaurant",
+              "name": "F-Square African Food",
+              "url": "https://fsquareafricanfood.com",
+              "image": "https://fsquareafricanfood.com/assets/images/Poster.png",
+              "logo": "https://fsquareafricanfood.com/assets/images/logo.png",
+              "telephone": "+447534529854",
+              "priceRange": "££",
+              "servesCuisine": [
+                "Nigerian",
+                "African"
+              ],
+              "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "86 Bandywood Road",
+                "addressLocality": "Birmingham",
+                "postalCode": "B44 9LT",
+                "addressCountry": "GB"
+              },
+              "openingHoursSpecification": [
+                {
+                  "@type": "OpeningHoursSpecification",
+                  "dayOfWeek": [
+                    "Monday",
+                    "Tuesday",
+                    "Wednesday",
+                    "Thursday",
+                    "Friday",
+                    "Saturday",
+                    "Sunday"
+                  ],
+                  "opens": "14:00",
+                  "closes": "23:00"
+                }
+              ],
+              "sameAs": [
+                "https://www.facebook.com/@fsquareafricanfood",
+                "https://tiktok.com/@fsquareafricanfood",
+                "https://www.youtube.com/@fsquareafricanfood",
+                "https://www.instagram.com/@fsquareafricanfood"
+              ]
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://fsquareafricanfood.com/#website",
+              "url": "https://fsquareafricanfood.com",
+              "name": "F-Square African Food",
+              "publisher": {
+                "@id": "https://fsquareafricanfood.com/#restaurant"
+              },
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://fsquareafricanfood.com/menu.html?search={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            },
+            {
+              "@type": "WebPage",
+              "@id": "https://fsquareafricanfood.com/admin-login.html#webpage",
+              "url": "https://fsquareafricanfood.com/admin-login.html",
+              "name": "Admin Login | F-Square African Food",
+              "description": "F-Square African Food admin login.",
+              "isPartOf": {
+                "@id": "https://fsquareafricanfood.com/#website"
+              },
+              "about": {
+                "@id": "https://fsquareafricanfood.com/#restaurant"
+              }
+            }
+          ]
+        }
+        </script>
+    <link rel="icon" href="assets/images/tab.png" type="image/png" sizes="16x16">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" type="text/css" media="all">
+    <link rel="stylesheet" href="assets/css/icofont.min.css" type="text/css" media="all">
+    <style>
+        :root {
+            --admin-bg: #0f1218;
+            --admin-surface: #141a25;
+            --admin-border: rgba(255, 255, 255, 0.1);
+            --admin-text: #edf2f7;
+            --admin-muted: #96a0b5;
+            --admin-primary: #ff4700;
+            --admin-accent: #ffb703;
+        }
+
+        body {
+            min-height: 100vh;
+            margin: 0;
+            display: grid;
+            place-items: center;
+            background: #0f1218 url("assets/images/bg-overlay-2.jpg") center / cover no-repeat;
+            color: var(--admin-text);
+            font-family: Arial, sans-serif;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 18, 24, 0.88);
+        }
+
+        .login-shell {
+            position: relative;
+            width: min(440px, calc(100% - 32px));
+            background: var(--admin-surface);
+            border: 1px solid var(--admin-border);
+            border-radius: 8px;
+            padding: 32px;
+            box-shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+        }
+
+        .login-brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 28px;
+        }
+
+        .login-brand img {
+            width: 56px;
+            height: 56px;
+            object-fit: contain;
+            background: #fff;
+            border-radius: 8px;
+            padding: 8px;
+        }
+
+        .login-brand p,
+        .login-status {
+            color: var(--admin-muted);
+            margin: 0;
+        }
+
+        h1 {
+            font-size: 28px;
+            margin: 0;
+        }
+
+        label {
+            color: var(--admin-muted);
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .form-control {
+            min-height: 48px;
+            color: #fff;
+            background: #0f1218;
+            border-color: var(--admin-border);
+        }
+
+        .form-control:focus {
+            color: #fff;
+            background: #0f1218;
+            border-color: var(--admin-accent);
+            box-shadow: 0 0 0 0.2rem rgba(255, 183, 3, 0.15);
+        }
+
+        .btn-login {
+            min-height: 48px;
+            border: 0;
+            background: var(--admin-primary);
+            color: #fff;
+            font-weight: 800;
+        }
+
+        .login-status {
+            min-height: 22px;
+            font-size: 14px;
+        }
+
+        .login-status.error {
+            color: #ffb4a2;
+        }
+
+        .login-status.success {
+            color: #86efac;
+        }
+    </style>
+</head>
+<body>
+    <main class="login-shell">
+        <div class="login-brand">
+            <img src="assets/images/logo.png" alt="F Square African Food">
+            <div>
+                <p>F Square African Food</p>
+                <h1>Admin Login</h1>
+            </div>
+        </div>
+
+        <form id="admin-login-form" novalidate>
+            <div class="mb-3">
+                <label for="admin-username" class="form-label">Username</label>
+                <input class="form-control" id="admin-username" name="username" type="text" autocomplete="username" required autofocus>
+            </div>
+            <div class="mb-3">
+                <label for="admin-password" class="form-label">Password</label>
+                <input class="form-control" id="admin-password" name="password" type="password" autocomplete="current-password" required>
+            </div>
+            <p class="login-status mb-3" id="admin-login-status" aria-live="polite"></p>
+            <button class="btn btn-login w-100" id="admin-login-submit" type="submit">Log In</button>
+        </form>
+    </main>
+
+    <script src="assets/js/admin-login.js"></script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+Allow: /assets/
+Disallow: /admin.html
+Disallow: /admin-login.html
+Disallow: /cart.html
+Disallow: /checkout.html
+Disallow: /my-account.html
+Disallow: /wishlist.html
+Disallow: /forget-password.html
+
+Sitemap: https://fsquareafricanfood.com/sitemap.xml

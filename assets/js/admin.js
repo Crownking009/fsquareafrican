@@ -7,6 +7,7 @@
         draft: "foodweb_admin_draft_v1"
     };
     var PRODUCTS_API_URL = "/api/products";
+    var AUTH_API_URL = "/api/auth";
     var FALLBACK_PRODUCTS_URL = "data/products.json";
 
     var APPROX_LOCAL_STORAGE_LIMIT = 5 * 1024 * 1024;
@@ -41,18 +42,23 @@
     ];
     var SERVING_MODE_OPTIONS = [
         { value: "single", label: "Single Item", helper: "One standard order with no size selection.", options: ["Standard Order"] },
+        { value: "unit", label: "Unit", helper: "Use for items sold one unit at a time.", options: ["1 Unit"] },
         { value: "portion", label: "Portion", helper: "Use for meals sold as one regular portion.", options: ["Portion"] },
         { value: "half-full-portion", label: "Half / Full Portion", helper: "Use when customers can choose a half or full serving.", options: ["Half Portion", "Full Portion"] },
         { value: "plate", label: "Plate", helper: "Use for dishes sold as plated meals.", options: ["Plate"] },
         { value: "bowl", label: "Bowl", helper: "Use for soups, porridges, and similar bowl servings.", options: ["Bowl"] },
         { value: "piece", label: "Piece", helper: "Use for proteins or items sold one at a time.", options: ["1 Piece"] },
+        { value: "piece-count", label: "Piece Count", helper: "Use when customers can choose how many pieces are in an order.", options: ["1 Piece", "2 Pieces", "4 Pieces"] },
         { value: "pack", label: "Pack", helper: "Use when the product is sold as a bundle or snack pack.", options: ["Pack"] },
         { value: "cup", label: "Cup", helper: "Use for chilled drinks or tasting portions sold per cup.", options: ["Cup"] },
         { value: "bottle", label: "Bottle", helper: "Use for bottled beverages.", options: ["Bottle"] },
         { value: "tray", label: "Tray", helper: "Use for catering or family tray servings.", options: ["Tray"] },
+        { value: "half-full-tray", label: "Half / Full Tray", helper: "Use for catering trays with half and full tray choices.", options: ["Half Tray", "Full Tray"] },
         { value: "small-medium-large", label: "Small / Medium / Large", helper: "Use when the product has three size choices.", options: ["Small", "Medium", "Large"] },
         { value: "small-large", label: "Small / Large", helper: "Use when the product has only small and large sizes.", options: ["Small", "Large"] },
         { value: "regular-large", label: "Regular / Large", helper: "Use for two-size products with regular and large options.", options: ["Regular", "Large"] },
+        { value: "family-size", label: "Regular / Family Size", helper: "Use when a product can be ordered for one person or family sharing.", options: ["Regular", "Family Size"] },
+        { value: "weight", label: "Weight", helper: "Use for products sold by weight.", options: ["500g", "1kg"] },
         { value: "custom", label: "Custom Options", helper: "Type your own options separated by commas.", options: [] }
     ];
 
@@ -63,7 +69,8 @@
         catalogNoticeShown: false,
         selectedIds: new Set(),
         editingId: null,
-        draftLoaded: false
+        draftLoaded: false,
+        currentUser: ""
     };
 
     var dom = {};
@@ -80,6 +87,7 @@
 
     async function init() {
         cacheDom();
+        await ensureAuthenticated();
         renderSidebarCategories();
         bindEvents();
         await loadState();
@@ -170,10 +178,22 @@
         dom.statLowStock = document.getElementById("stat-low-stock");
         dom.statCategories = document.getElementById("stat-categories");
         dom.statStock = document.getElementById("stat-stock");
+        dom.logoutBtn = document.getElementById("admin-logout-btn");
+        dom.passwordForm = document.getElementById("admin-password-form");
+        dom.currentPassword = document.getElementById("admin-current-password");
+        dom.newPassword = document.getElementById("admin-new-password");
+        dom.confirmPassword = document.getElementById("admin-confirm-password");
+        dom.passwordClear = document.getElementById("admin-password-clear");
+        dom.sessionLabel = document.getElementById("admin-session-label");
     }
 
     function bindEvents() {
         dom.form.addEventListener("submit", handleFormSubmit);
+        dom.logoutBtn.addEventListener("click", handleLogout);
+        dom.passwordForm.addEventListener("submit", handlePasswordChange);
+        dom.passwordClear.addEventListener("click", function () {
+            dom.passwordForm.reset();
+        });
         dom.resetFormBtn.addEventListener("click", function () {
             resetForm();
             showToast("Form cleared. You can start a fresh product.", "success");
@@ -336,16 +356,7 @@
     }
 
     function getStarterProducts() {
-        return [
-            makeStarterProduct("Amala, Gbegiri & Ewedu", "Swallows", 14.50, 16.95, 18, "Soft amala served with silky ewedu and rich gbegiri for a deeply comforting Yoruba classic.", "assets/images/amalaa.png", ["swallows", "amala", "gbegiri"], true, "active"),
-            makeStarterProduct("Ofada Rice & Ayamase", "Rice Dishes", 14.50, 16.80, 12, "Local ofada rice matched with green ayamase sauce and tender beef.", "assets/images/ofada rice.png", ["rice", "ofada", "ayamase"], true, "active"),
-            makeStarterProduct("Jollof Rice with Chicken", "Rice Dishes", 13.95, 16.10, 15, "Smoky jollof rice served with juicy chicken and full party-style flavor.", "assets/images/jollof-rice.png", ["rice", "jollof", "chicken"], false, "active"),
-            makeStarterProduct("Catfish Pepper Soup", "Pepper Soups", 12.95, 14.80, 10, "Aromatic catfish pepper soup with warming native spice.", "assets/images/SOUP EFO RIRO.jpg", ["soup", "catfish"], false, "active"),
-            makeStarterProduct("Pounded Yam & Egusi", "Swallows", 15.95, 18.25, 12, "Smooth pounded yam paired with hearty egusi soup and tender assorted meat.", "assets/images/egusi-pounded yam.png", ["swallow", "egusi"], false, "active"),
-            makeStarterProduct("Zobo Drink", "Local Beverages", 3.95, 4.60, 21, "Refreshing hibiscus drink with spice notes and a chilled finish.", "assets/images/menu-4.png", ["drink", "zobo"], true, "active"),
-            makeStarterProduct("Palm Wine Bottle", "Alcohol", 7.95, 9.10, 12, "Fresh palm wine served chilled with its lightly sweet, fermented character.", "assets/images/menu-4.png", ["drink", "palm wine"], false, "active"),
-            makeStarterProduct("Chin Chin Crunch", "Traditional Treats", 5.50, 6.40, 16, "Crunchy chin chin bites with a lightly sweet finish and a clean snap.", "assets/images/menu-6.png", ["snack", "chin chin"], false, "draft")
-        ];
+        return [];
     }
 
     function makeStarterProduct(name, category, price, comparePrice, stock, description, image, tags, featured, status) {
@@ -393,7 +404,8 @@
             "traditional treats": "pack",
             "local beverages": "bottle",
             "nigerian refreshments": "bottle",
-            "sides and extra": "portion"
+            "sides and extra": "portion",
+            catering: "half-full-tray"
         };
 
         return categoryMap[safeCategory] || "single";
@@ -569,6 +581,11 @@
         var servingOptions = normalizeServingOptions(safeProduct.servingOptions, servingMode, category);
         var tags = normalizeTags(safeProduct.tags);
         var customizationGroups = normalizeCustomizationGroups(safeProduct.customizationGroups, category, name, tags, safeProduct.toppings);
+        var image = String(safeProduct.image || "").trim();
+        var status = normalizeStatus(safeProduct.status);
+        if (!image && (status === "active" || status === "sold-out")) {
+            status = "draft";
+        }
         return {
             id: String(safeProduct.id || createId()),
             name: name,
@@ -577,10 +594,10 @@
             comparePrice: safeNumber(safeProduct.comparePrice),
             stock: Math.max(0, Math.round(safeNumber(safeProduct.stock))),
             sku: String(safeProduct.sku || buildSuggestedSku(name, category)).trim(),
-            status: normalizeStatus(safeProduct.status),
+            status: status,
             featured: Boolean(safeProduct.featured),
             description: String(safeProduct.description || "").trim(),
-            image: String(safeProduct.image || "").trim(),
+            image: image,
             alt: String(safeProduct.alt || name).trim(),
             servingMode: servingMode,
             servingOptions: servingOptions,
@@ -957,6 +974,7 @@
     async function fetchProductsFromApi() {
         var response = await fetch(PRODUCTS_API_URL, {
             cache: "no-store",
+            credentials: "same-origin",
             headers: {
                 "Accept": "application/json"
             }
@@ -999,6 +1017,7 @@
 
         var response = await fetch(PRODUCTS_API_URL, {
             method: "PUT",
+            credentials: "same-origin",
             headers: {
                 "Content-Type": "application/json",
                 "Accept": "application/json"
@@ -1009,6 +1028,10 @@
         });
 
         if (!response.ok) {
+            if (response.status === 401) {
+                redirectToLogin();
+                throw new Error("Admin login required.");
+            }
             throw new Error("Unable to save shared catalog.");
         }
 
@@ -1051,6 +1074,9 @@
                 await persistProducts();
             } catch (error) {
                 if (state.catalogMode === "server") {
+                    if (String(error && error.message || "").indexOf("Admin login required") !== -1) {
+                        throw error;
+                    }
                     console.warn("Shared catalog save failed. Switching to browser storage.", error);
                     state.catalogMode = "browser";
                     writeProductsToBrowserStorage(state.products);
@@ -1265,6 +1291,8 @@
 
     async function handleFormSubmit(event) {
         event.preventDefault();
+        var submitter = event.submitter || document.activeElement;
+        var shouldAddAnother = submitter && submitter.getAttribute("data-save-mode") === "add-another";
 
         var formData = collectFormData();
         if (!formData) {
@@ -1301,6 +1329,9 @@
             populateCategoryInputs();
             renderAll();
             resetForm();
+            if (shouldAddAnother) {
+                dom.productName.focus();
+            }
         } catch (error) {
             console.error(error);
             showToast("Product changes could not be saved to the shared catalog.", "error");
@@ -1350,8 +1381,8 @@
             return null;
         }
 
-        if (!image) {
-            showToast("Please provide an image path or upload an image.", "warning");
+        if (!image && (status === "active" || status === "sold-out")) {
+            showToast("Add a product image before publishing it to the website. Save as Draft if the image is not ready.", "warning");
             dom.productImageUrl.focus();
             return null;
         }
@@ -1931,7 +1962,7 @@
     }
 
     async function handleResetStarterCatalog() {
-        if (!window.confirm("Replace the current catalog with the starter catalog?")) {
+        if (!window.confirm("Reset the shared catalog to an empty production catalog?")) {
             return;
         }
 
@@ -1941,14 +1972,14 @@
                 state.selectedIds.clear();
                 state.editingId = null;
             });
-            addActivity("Reset catalog to starter products.");
+            addActivity("Reset catalog to empty production state.");
             populateCategoryInputs();
             renderAll();
             resetForm();
-            showToast("Starter catalog restored.", "success");
+            showToast("Catalog reset. Categories remain on the menu page.", "success");
         } catch (error) {
             console.error(error);
-            showToast("Starter catalog could not be restored.", "error");
+            showToast("Catalog could not be reset.", "error");
         }
     }
 
@@ -2247,6 +2278,104 @@
         dom.storageUsageText.textContent = formatBytes(totalBytes) + " used of about " + formatBytes(APPROX_LOCAL_STORAGE_LIMIT) + " / " + modeCopy;
         dom.storageUsageBar.style.width = String(percent) + "%";
         dom.storageUsageBar.setAttribute("aria-valuenow", String(percent));
+    }
+
+    async function ensureAuthenticated() {
+        try {
+            var response = await fetch(AUTH_API_URL, {
+                cache: "no-store",
+                credentials: "same-origin",
+                headers: {
+                    "Accept": "application/json"
+                }
+            });
+            var payload = await response.json();
+            if (!response.ok || !payload.authenticated) {
+                redirectToLogin();
+                throw new Error("Admin login required.");
+            }
+            state.currentUser = payload.username || "admin";
+            if (dom.sessionLabel) {
+                dom.sessionLabel.textContent = "Signed in as " + state.currentUser;
+            }
+        } catch (error) {
+            redirectToLogin();
+            throw error;
+        }
+    }
+
+    async function handleLogout() {
+        try {
+            await fetch(AUTH_API_URL, {
+                method: "POST",
+                credentials: "same-origin",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                },
+                body: JSON.stringify({ action: "logout" })
+            });
+        } catch (error) {
+            // Redirect even if the network response is unavailable.
+        }
+        window.location.href = "admin-login.html";
+    }
+
+    async function handlePasswordChange(event) {
+        event.preventDefault();
+        var currentPassword = dom.currentPassword.value;
+        var newPassword = dom.newPassword.value;
+        var confirmPassword = dom.confirmPassword.value;
+
+        if (newPassword.length < 6) {
+            showToast("New password must be at least 6 characters.", "warning");
+            dom.newPassword.focus();
+            return;
+        }
+
+        if (newPassword !== confirmPassword) {
+            showToast("New password and confirmation do not match.", "warning");
+            dom.confirmPassword.focus();
+            return;
+        }
+
+        try {
+            var response = await fetch(AUTH_API_URL, {
+                method: "POST",
+                credentials: "same-origin",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                },
+                body: JSON.stringify({
+                    action: "change-password",
+                    currentPassword: currentPassword,
+                    newPassword: newPassword
+                })
+            });
+            var payload = await response.json().catch(function () {
+                return {};
+            });
+
+            if (!response.ok) {
+                if (response.status === 401) {
+                    redirectToLogin();
+                    return;
+                }
+                throw new Error(payload.error || "Password could not be changed.");
+            }
+
+            dom.passwordForm.reset();
+            showToast("Admin password changed successfully.", "success");
+        } catch (error) {
+            showToast(error.message || "Password could not be changed.", "error");
+        }
+    }
+
+    function redirectToLogin() {
+        if (!/admin-login\.html$/i.test(window.location.pathname)) {
+            window.location.href = "admin-login.html";
+        }
     }
 
     function estimateJsonBytes(value) {

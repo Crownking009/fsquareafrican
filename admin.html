@@ -1,13 +1,104 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
 <head>
-    <meta charset="utf-8">
-    <meta name="description" content="Foodweb Admin Dashboard">
-    <meta name="keywords" content="Foodweb, Admin, Products, Shared Catalog">
-    <meta name="author" content="Foodweb">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="utf-8">    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-    <title>Foodweb Admin Dashboard</title>
+    <title>Admin Dashboard | F-Square African Food</title>
+        <meta name="description" content="F-Square African Food admin dashboard.">
+        <meta name="keywords" content="F-Square African Food">
+        <meta name="author" content="F-Square African Food">
+        <meta name="robots" content="noindex, nofollow">
+        <meta name="theme-color" content="#111111">
+        <link rel="canonical" href="https://fsquareafricanfood.com/admin.html">
+        <meta property="og:locale" content="en_GB">
+        <meta property="og:type" content="website">
+        <meta property="og:site_name" content="F-Square African Food">
+        <meta property="og:title" content="Admin Dashboard | F-Square African Food">
+        <meta property="og:description" content="F-Square African Food admin dashboard.">
+        <meta property="og:url" content="https://fsquareafricanfood.com/admin.html">
+        <meta property="og:image" content="https://fsquareafricanfood.com/assets/images/Poster.png">
+        <meta property="og:image:alt" content="F-Square African Food Nigerian restaurant food">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="Admin Dashboard | F-Square African Food">
+        <meta name="twitter:description" content="F-Square African Food admin dashboard.">
+        <meta name="twitter:image" content="https://fsquareafricanfood.com/assets/images/Poster.png">
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Restaurant",
+              "@id": "https://fsquareafricanfood.com/#restaurant",
+              "name": "F-Square African Food",
+              "url": "https://fsquareafricanfood.com",
+              "image": "https://fsquareafricanfood.com/assets/images/Poster.png",
+              "logo": "https://fsquareafricanfood.com/assets/images/logo.png",
+              "telephone": "+447534529854",
+              "priceRange": "££",
+              "servesCuisine": [
+                "Nigerian",
+                "African"
+              ],
+              "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "86 Bandywood Road",
+                "addressLocality": "Birmingham",
+                "postalCode": "B44 9LT",
+                "addressCountry": "GB"
+              },
+              "openingHoursSpecification": [
+                {
+                  "@type": "OpeningHoursSpecification",
+                  "dayOfWeek": [
+                    "Monday",
+                    "Tuesday",
+                    "Wednesday",
+                    "Thursday",
+                    "Friday",
+                    "Saturday",
+                    "Sunday"
+                  ],
+                  "opens": "14:00",
+                  "closes": "23:00"
+                }
+              ],
+              "sameAs": [
+                "https://www.facebook.com/@fsquareafricanfood",
+                "https://tiktok.com/@fsquareafricanfood",
+                "https://www.youtube.com/@fsquareafricanfood",
+                "https://www.instagram.com/@fsquareafricanfood"
+              ]
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://fsquareafricanfood.com/#website",
+              "url": "https://fsquareafricanfood.com",
+              "name": "F-Square African Food",
+              "publisher": {
+                "@id": "https://fsquareafricanfood.com/#restaurant"
+              },
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://fsquareafricanfood.com/menu.html?search={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            },
+            {
+              "@type": "WebPage",
+              "@id": "https://fsquareafricanfood.com/admin.html#webpage",
+              "url": "https://fsquareafricanfood.com/admin.html",
+              "name": "Admin Dashboard | F-Square African Food",
+              "description": "F-Square African Food admin dashboard.",
+              "isPartOf": {
+                "@id": "https://fsquareafricanfood.com/#website"
+              },
+              "about": {
+                "@id": "https://fsquareafricanfood.com/#restaurant"
+              }
+            }
+          ]
+        }
+        </script>
     <link rel="icon" href="assets/images/tab.png" type="image/png" sizes="16x16">
     <link rel="stylesheet" href="assets/css/bootstrap.min.css" type="text/css" media="all">
     <link rel="stylesheet" href="assets/css/icofont.min.css" type="text/css" media="all">
@@ -836,7 +927,7 @@
                     <i class="flaticon-shopping-cart-black-shape"></i>
                 </div>
                 <div class="admin-brand-copy">
-                    <p>Foodweb</p>
+                    <p>F Square African Food</p>
                     <h1>Admin Control</h1>
                     <p>Local product operations and catalog tools.</p>
                 </div>
@@ -846,6 +937,7 @@
                 <div class="admin-sidebar-nav">
                     <a class="admin-sidebar-link" href="#catalog-form"><i class="icofont-ui-edit"></i> Product Editor</a>
                     <a class="admin-sidebar-link" href="#catalog-table"><i class="icofont-list"></i> Catalog Table</a>
+                    <a class="admin-sidebar-link" href="#admin-settings"><i class="icofont-ui-settings"></i> Settings</a>
                     <a class="admin-sidebar-link" href="#admin-breakdown"><i class="icofont-chart-bar-graph"></i> Insights</a>
                     <a class="admin-sidebar-link" href="#admin-activity"><i class="icofont-history"></i> Activity</a>
                     <a class="admin-sidebar-link" href="menu.html"><i class="icofont-cutlery"></i> Public Menu</a>
@@ -874,14 +966,15 @@
         <main class="admin-main">
             <header class="admin-topbar">
                 <div class="admin-top-copy">
-                    <p class="admin-eyebrow">Foodweb Control Center</p>
+                    <p class="admin-eyebrow">F Square Control Center</p>
                     <h2>Admin Product Dashboard</h2>
                     <p>Manage products, stock, featured items, promotions, images, and backups through a shared project catalog.</p>
                 </div>
                 <div class="admin-action-row">
                     <a class="btn btn-outline-light" href="index.html">View Site</a>
                     <a class="btn btn-outline-light" href="menu.html">Open Menu</a>
-                    <button class="btn btn-warning" id="load-starter-data" type="button">Reset Starter Catalog</button>
+                    <button class="btn btn-warning" id="load-starter-data" type="button">Reset Empty Catalog</button>
+                    <button class="btn btn-outline-danger" id="admin-logout-btn" type="button">Log Out</button>
                 </div>
             </header>
 
@@ -939,7 +1032,7 @@
                                     <label for="product-category">Category</label>
                                     <select class="form-select" id="product-category" required></select>
                                     <input class="form-control mt-2" id="product-category-custom" type="text" placeholder="Type a new category name" hidden>
-                                    <p class="admin-microcopy mt-2 mb-0">Pick an existing category or choose "Add New Category".</p>
+                                    <p class="admin-microcopy mt-2 mb-0">Pick an existing category or choose "Add New Category". New categories publish automatically after you save a product.</p>
                                 </div>
                             </div>
 
@@ -978,7 +1071,7 @@
                                 <div class="admin-field">
                                     <label for="product-serving-options">Serving Options</label>
                                     <input class="form-control" id="product-serving-options" type="text" placeholder="Ex: Half Portion, Full Portion">
-                                    <p class="admin-microcopy mt-2 mb-0" id="product-serving-helper">Choose how this product is sold. You can keep the preset options or type custom ones separated by commas.</p>
+                                    <p class="admin-microcopy mt-2 mb-0" id="product-serving-helper">Choose how this product is sold. Presets cover portions, units, pieces, trays, bottles, sizes, weight, and custom options.</p>
                                 </div>
                             </div>
 
@@ -1051,7 +1144,7 @@
                             <div class="admin-image-grid">
                                 <div class="admin-field">
                                     <label for="product-image-url">Image Path or Data URL</label>
-                                    <input class="form-control" id="product-image-url" type="text" placeholder="assets/images/menu-1.png">
+                                    <input class="form-control" id="product-image-url" type="text" placeholder="Required before product can go live.">
                                 </div>
                                 <div class="admin-field">
                                     <label for="product-image-alt">Image Alt Text</label>
@@ -1080,14 +1173,15 @@
                                 <div class="admin-image-preview-empty" id="product-image-placeholder">
                                     <div>
                                         <p class="admin-kicker">Image Preview</p>
-                                        <p>Choose an image file or paste an existing asset path to preview it here.</p>
+                                        <p>Choose an image file or paste an existing asset path. Products without images can be saved as drafts only.</p>
                                     </div>
                                 </div>
-                                <img id="product-image-preview-tag" alt="Product preview" hidden>
+                                <img id="product-image-preview-tag" src="assets/images/menu-1.png" alt="Product preview" hidden>
                             </div>
 
                             <div class="admin-form-actions">
                                 <button class="btn btn-danger" id="save-product-btn" type="submit">Save Product</button>
+                                <button class="btn btn-outline-light" id="save-add-another-btn" type="submit" data-save-mode="add-another">Save &amp; Add Another</button>
                                 <button class="btn btn-outline-light" id="reset-form-btn" type="button">Clear Form</button>
                                 <button class="btn btn-outline-warning" id="clear-image-btn" type="button">Remove Image</button>
                                 <button class="btn btn-outline-secondary" id="clear-draft-btn" type="button">Clear Draft</button>
@@ -1124,7 +1218,7 @@
                                 <p class="mb-3" id="preview-description">Your product description will appear here as you type.</p>
                                 <p class="admin-row-meta mb-3" id="preview-toppings">Toppings: No toppings added yet.</p>
                                 <p class="admin-row-meta mb-3" id="preview-customizations">Checkbox groups: No add-on groups added yet.</p>
-                                <div class="admin-preview-price" id="preview-price">Â£0.00</div>
+                                <div class="admin-preview-price" id="preview-price">&pound;0.00</div>
                             </div>
                         </div>
                     </section>
@@ -1232,8 +1326,46 @@
                         <div class="admin-empty mt-3" id="products-empty-state" hidden>
                             <p class="admin-kicker">No Matching Products</p>
                             <h4>Nothing fits the current filters.</h4>
-                            <p>Try widening your search, changing the selected status, or resetting the starter catalog.</p>
+                            <p>Try widening your search, changing the selected status, or adding a product.</p>
                         </div>
+                    </section>
+
+                    <section class="admin-panel mt-4" id="admin-settings">
+                        <div class="admin-panel-head">
+                            <div>
+                                <h3 class="admin-panel-title">Admin Settings</h3>
+                                <p class="admin-panel-subtitle">Update the dashboard password used for this admin area.</p>
+                            </div>
+                        </div>
+
+                        <form id="admin-password-form" novalidate>
+                            <div class="admin-form-grid">
+                                <div class="admin-field">
+                                    <label for="admin-current-password">Current Password</label>
+                                    <input class="form-control" id="admin-current-password" type="password" autocomplete="current-password" required>
+                                </div>
+                                <div class="admin-field">
+                                    <label for="admin-new-password">New Password</label>
+                                    <input class="form-control" id="admin-new-password" type="password" autocomplete="new-password" minlength="6" required>
+                                </div>
+                            </div>
+                            <div class="admin-form-grid">
+                                <div class="admin-field">
+                                    <label for="admin-confirm-password">Confirm New Password</label>
+                                    <input class="form-control" id="admin-confirm-password" type="password" autocomplete="new-password" minlength="6" required>
+                                </div>
+                                <div class="admin-field">
+                                    <label>Session</label>
+                                    <div class="admin-inline-toggle">
+                                        <span class="admin-label-muted" id="admin-session-label">Signed in</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="admin-form-actions">
+                                <button class="btn btn-danger" id="admin-password-submit" type="submit">Change Password</button>
+                                <button class="btn btn-outline-light" id="admin-password-clear" type="button">Clear</button>
+                            </div>
+                        </form>
                     </section>
 
                     <div class="row g-4 mt-1">

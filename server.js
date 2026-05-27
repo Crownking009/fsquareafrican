@@ -1,17 +1,21 @@
 const http = require("http");
 const fs = require("fs");
 const path = require("path");
+const crypto = require("crypto");
 const { URL } = require("url");
 
 const ROOT_DIR = __dirname;
 const DATA_DIR = path.join(ROOT_DIR, "data");
 const DATA_FILE = path.join(DATA_DIR, "products.json");
+const ADMIN_SETTINGS_FILE = path.join(DATA_DIR, "admin-settings.node.json");
 const MENU_HTML_FILE = path.join(ROOT_DIR, "menu.html");
 const PORT = Number(process.env.PORT) || 3000;
 const LEGACY_ENTITY_PRICE = 8358;
 const LEGACY_COMPARE_PRICE_THRESHOLD = 100;
 const LEGACY_REPAIR_RATIO = 0.5;
 const MAX_REQUEST_BYTES = 25 * 1024 * 1024;
+const ADMIN_SESSION_COOKIE = "fsquare_admin_session";
+const ADMIN_SESSIONS = new Map();
 
 const MIME_TYPES = {
   ".css": "text/css; charset=utf-8",
@@ -58,18 +62,23 @@ const CATEGORY_NAME_MAP = {
 };
 const SERVING_MODE_OPTIONS = [
   { value: "single", options: ["Standard Order"] },
+  { value: "unit", options: ["1 Unit"] },
   { value: "portion", options: ["Portion"] },
   { value: "half-full-portion", options: ["Half Portion", "Full Portion"] },
   { value: "plate", options: ["Plate"] },
   { value: "bowl", options: ["Bowl"] },
   { value: "piece", options: ["1 Piece"] },
+  { value: "piece-count", options: ["1 Piece", "2 Pieces", "4 Pieces"] },
   { value: "pack", options: ["Pack"] },
   { value: "cup", options: ["Cup"] },
   { value: "bottle", options: ["Bottle"] },
   { value: "tray", options: ["Tray"] },
+  { value: "half-full-tray", options: ["Half Tray", "Full Tray"] },
   { value: "small-medium-large", options: ["Small", "Medium", "Large"] },
   { value: "small-large", options: ["Small", "Large"] },
   { value: "regular-large", options: ["Regular", "Large"] },
+  { value: "family-size", options: ["Regular", "Family Size"] },
+  { value: "weight", options: ["500g", "1kg"] },
   { value: "custom", options: [] }
 ];
 
@@ -80,6 +89,11 @@ const server = http.createServer(async (request, response) => {
 
     if (pathname === "/api/products") {
       await handleProductsApi(request, response);
+      return;
+    }
+
+    if (pathname === "/api/auth") {
+      await handleAuthApi(request, response);
       return;
     }
 
@@ -102,6 +116,11 @@ async function handleProductsApi(request, response) {
   }
 
   if (request.method === "PUT") {
+    if (!isAdminRequest(request)) {
+      sendJson(response, 401, { error: "Admin login required." });
+      return;
+    }
+
     const payload = await readJsonBody(request);
     const products = Array.isArray(payload) ? payload : payload && payload.products;
 
@@ -118,6 +137,84 @@ async function handleProductsApi(request, response) {
 
   response.setHeader("Allow", "GET, PUT");
   sendJson(response, 405, { error: "Method not allowed" });
+}
+
+async function handleAuthApi(request, response) {
+  const settings = ensureAdminSettings();
+
+  if (request.method === "GET") {
+    sendJson(response, 200, {
+      authenticated: isAdminRequest(request),
+      username: isAdminRequest(request) ? settings.username : ""
+    });
+    return;
+  }
+
+  if (request.method !== "POST") {
+    response.setHeader("Allow", "GET, POST");
+    sendJson(response, 405, { error: "Method not allowed." });
+    return;
+  }
+
+  const payload = await readJsonBody(request);
+  const action = String(payload.action || "").trim();
+
+  if (action === "login") {
+    const username = String(payload.username || "").trim();
+    const password = String(payload.password || "");
+
+    if (username === settings.username && verifyPassword(password, settings.password)) {
+      const sessionId = crypto.randomBytes(24).toString("hex");
+      ADMIN_SESSIONS.set(sessionId, {
+        username,
+        createdAt: Date.now()
+      });
+      response.setHeader("Set-Cookie", `${ADMIN_SESSION_COOKIE}=${sessionId}; Path=/; HttpOnly; SameSite=Lax`);
+      sendJson(response, 200, { authenticated: true, username });
+      return;
+    }
+
+    sendJson(response, 401, { error: "Invalid username or password." });
+    return;
+  }
+
+  if (action === "logout") {
+    const sessionId = getCookie(request, ADMIN_SESSION_COOKIE);
+    if (sessionId) {
+      ADMIN_SESSIONS.delete(sessionId);
+    }
+    response.setHeader("Set-Cookie", `${ADMIN_SESSION_COOKIE}=; Path=/; Max-Age=0; HttpOnly; SameSite=Lax`);
+    sendJson(response, 200, { authenticated: false });
+    return;
+  }
+
+  if (action === "change-password") {
+    if (!isAdminRequest(request)) {
+      sendJson(response, 401, { error: "Admin login required." });
+      return;
+    }
+
+    const currentPassword = String(payload.currentPassword || "");
+    const newPassword = String(payload.newPassword || "");
+
+    if (!verifyPassword(currentPassword, settings.password)) {
+      sendJson(response, 400, { error: "Current password is incorrect." });
+      return;
+    }
+
+    if (newPassword.length < 6) {
+      sendJson(response, 400, { error: "New password must be at least 6 characters." });
+      return;
+    }
+
+    settings.password = hashPassword(newPassword);
+    settings.updatedAt = new Date().toISOString();
+    writeJsonFile(ADMIN_SETTINGS_FILE, settings);
+    sendJson(response, 200, { success: true });
+    return;
+  }
+
+  sendJson(response, 400, { error: "Unknown auth action." });
 }
 
 async function serveStaticFile(pathname, response) {
@@ -176,6 +273,66 @@ function ensureCatalogFile() {
     writeProductsToFile(seededProducts);
     return seededProducts;
   }
+}
+
+function ensureAdminSettings() {
+  fs.mkdirSync(DATA_DIR, { recursive: true });
+
+  if (fs.existsSync(ADMIN_SETTINGS_FILE)) {
+    try {
+      const settings = JSON.parse(fs.readFileSync(ADMIN_SETTINGS_FILE, "utf8"));
+      if (settings && settings.username && settings.password) {
+        return settings;
+      }
+    } catch (error) {
+      console.warn("Admin settings were invalid. Recreating local settings.", error.message);
+    }
+  }
+
+  const now = new Date().toISOString();
+  const settings = {
+    username: "admin",
+    password: hashPassword(process.env.FSQUARE_ADMIN_PASSWORD || crypto.randomBytes(18).toString("hex")),
+    createdAt: now,
+    updatedAt: now
+  };
+  writeJsonFile(ADMIN_SETTINGS_FILE, settings);
+  return settings;
+}
+
+function hashPassword(password) {
+  const salt = crypto.randomBytes(16).toString("hex");
+  const hash = crypto.pbkdf2Sync(password, salt, 100000, 32, "sha256").toString("hex");
+  return `pbkdf2_sha256$100000$${salt}$${hash}`;
+}
+
+function verifyPassword(password, storedPassword) {
+  const parts = String(storedPassword || "").split("$");
+  if (parts.length !== 4 || parts[0] !== "pbkdf2_sha256") {
+    return false;
+  }
+
+  const iterations = Number(parts[1]);
+  const salt = parts[2];
+  const expectedHash = parts[3];
+  const actualHash = crypto.pbkdf2Sync(password, salt, iterations, 32, "sha256").toString("hex");
+  return crypto.timingSafeEqual(Buffer.from(actualHash, "hex"), Buffer.from(expectedHash, "hex"));
+}
+
+function isAdminRequest(request) {
+  const sessionId = getCookie(request, ADMIN_SESSION_COOKIE);
+  return Boolean(sessionId && ADMIN_SESSIONS.has(sessionId));
+}
+
+function getCookie(request, name) {
+  const cookies = String(request.headers.cookie || "").split(";").map((cookie) => cookie.trim());
+  const prefix = `${name}=`;
+  const match = cookies.find((cookie) => cookie.startsWith(prefix));
+  return match ? decodeURIComponent(match.slice(prefix.length)) : "";
+}
+
+function writeJsonFile(filePath, payload) {
+  fs.writeFileSync(filePath, `${JSON.stringify(payload, null, 2)}\n`);
 }
 
 function seedProductsFromMenuHtml() {
@@ -379,6 +536,11 @@ function normalizeProduct(product) {
   const servingOptions = normalizeServingOptions(safeProduct.servingOptions, servingMode, category);
   const tags = normalizeTags(safeProduct.tags);
   const customizationGroups = normalizeCustomizationGroups(safeProduct.customizationGroups, category, name, tags, safeProduct.toppings);
+  const image = String(safeProduct.image || "").trim();
+  let status = normalizeStatus(safeProduct.status);
+  if (!image && (status === "active" || status === "sold-out")) {
+    status = "draft";
+  }
 
   return {
     id: String(safeProduct.id || createId()),
@@ -388,10 +550,10 @@ function normalizeProduct(product) {
     comparePrice: safeNumber(safeProduct.comparePrice),
     stock: Math.max(0, Math.round(safeNumber(safeProduct.stock))),
     sku: String(safeProduct.sku || buildSuggestedSku(name, category)).trim(),
-    status: normalizeStatus(safeProduct.status),
+    status: status,
     featured: Boolean(safeProduct.featured),
     description: String(safeProduct.description || "").trim(),
-    image: String(safeProduct.image || "").trim(),
+    image: image,
     alt: String(safeProduct.alt || name).trim(),
     servingMode: servingMode,
     servingOptions,
@@ -773,7 +935,8 @@ function inferServingMode(category) {
     "local beverages": "bottle",
     alcohol: "bottle",
     "nigerian refreshments": "bottle",
-    "sides and extra": "portion"
+    "sides and extra": "portion",
+    catering: "half-full-tray"
   };
 
   return categoryMap[safeCategory] || "single";
